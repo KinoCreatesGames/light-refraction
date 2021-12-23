@@ -1,3 +1,5 @@
+import en.Player;
+
 class Level extends dn.Process {
   var game(get, never):Game;
 
@@ -35,9 +37,21 @@ class Level extends dn.Process {
 
   var invalidated = true;
 
+  // Game varibales
+  public var player:Player;
+
   public function new() {
     super(Game.ME);
     createRootInLayers(Game.ME.scroller, Const.DP_BG);
+    setup();
+  }
+
+  public function setup() {
+    setupEntities();
+  }
+
+  public function setupEntities() {
+    player = new Player(8, 8);
   }
 
   /** TRUE if given coords are in level bounds **/
