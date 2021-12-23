@@ -3,15 +3,20 @@
   It doesn't do much, except creating Main and taking care of app speed ()
 **/
 
+import h3d.Vector;
+import h3d.pass.ScreenFx;
+import shaders.SpotLightShader2D;
 import h3d.Engine;
 import renderer.CustomRenderer;
 import dn.heaps.Controller;
 import dn.heaps.Controller.ControllerAccess;
+import h3d.mat.Texture;
 
 class Boot extends hxd.App {
   public static var ME:Boot;
 
   public var renderer:CustomRenderer;
+  public var spotlight:SpotLightShader2D;
 
   #if debug
   var tmodSpeedMul = 1.0;
@@ -36,6 +41,9 @@ class Boot extends hxd.App {
     renderer = new CustomRenderer();
     s3d.renderer = renderer;
     new Main(s2d);
+    spotlight = new SpotLightShader2D();
+    spotlight.tex = new Texture(engine.width, engine.height, [Target]);
+    spotlight.widthHeight = new Vector(engine.width, engine.height);
     onResize();
   }
 
@@ -72,6 +80,22 @@ class Boot extends hxd.App {
 
   @:access(h3d.scene.Scene, h3d.scene.Renderer, CustomRenderer)
   override function render(e:Engine) {
-    super.render(e);
+    // If we're on the level we're going to take the
+    // render texture and use it for the vignette effect
+    // For the spotlight for the player character
+    if (Game.ME != null && Game.ME.level != null && !Game.ME.level.destroyed) {
+      var level = Game.ME.level;
+      engine.pushTarget(spotlight.tex, 1);
+      engine.clear(0, 1);
+
+      // Populate the render texture for use in the shader
+      s2d.render(e);
+      engine.popTarget();
+
+      new ScreenFx(spotlight).render();
+    } else {
+      // Render the standard scene in the game
+      super.render(e);
+    }
   }
 }
