@@ -1,5 +1,6 @@
 package en;
 
+import objects.FlashLight;
 import dn.heaps.Controller.ControllerAccess;
 
 /**
@@ -15,9 +16,10 @@ class Player extends Entity {
   public var ct:ControllerAccess;
 
   /**
-   * The battery life of the player's flashlight
+   * Standard flashlight within the game
+   * that just gives the player vision within a cone around them.
    */
-  public var rBatteryLife:Float;
+  public var flashLight:FlashLight;
 
   public function new(x:Int, y:Int) {
     super(x, y);
@@ -27,6 +29,10 @@ class Player extends Entity {
   public function setup() {
     ct = Main.ME.controller.createAccess('player');
     setupGraphics();
+  }
+
+  public function setupFlashLights() {
+    flashLight = new FlashLight();
   }
 
   public function setupGraphics() {
