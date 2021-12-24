@@ -45,9 +45,17 @@ class SpotLightShader2D extends ScreenShader {
      */
     @param var tex:Sampler2D;
 
+    /**
+     * The player position on the screen to use as the center of the circle
+     */
+    @param var playerPos:Vec2;
+
     function fragment() {
       var texColor = tex.get(input.uv);
       // Center  of the radial circle
+      var movingCenter = vec2(playerPos.x / widthHeight.x,
+        playerPos.y / widthHeight.y);
+      // Screen center
       var center = vec2(.5, .5);
       // Correct for the resolution aspect ratio
       // We scale all elements on the x axis to have them stretch
@@ -55,14 +63,14 @@ class SpotLightShader2D extends ScreenShader {
       var resolutionCorrect = vec2(widthHeight.x / widthHeight.y, 1.);
       // Percent away from the center
       var pct = distance(input.uv * resolutionCorrect,
-        center * resolutionCorrect);
+        movingCenter * resolutionCorrect);
       // Smoothing
       var str = 1 - (smoothstep(0.1, radius + smoothEdges, pct));
 
       var tmp = texColor;
       texColor *= ((str));
 
-      // Smooth Edges
+      // // Smooth Edges
       pixelColor = texColor + (tmp * strength);
     }
   }

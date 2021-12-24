@@ -44,6 +44,7 @@ class Boot extends hxd.App {
     spotlight = new SpotLightShader2D();
     spotlight.tex = new Texture(engine.width, engine.height, [Target]);
     spotlight.widthHeight = new Vector(engine.width, engine.height);
+    spotlight.playerPos = new Vector(0, 0);
     onResize();
   }
 
@@ -92,6 +93,10 @@ class Boot extends hxd.App {
       s2d.render(e);
       engine.popTarget();
 
+      // Update spotlight playerPos Information
+      var absPos = level.player.spr.getAbsPos();
+      spotlight.playerPos.x = (absPos.x);
+      spotlight.playerPos.y = (absPos.y);
       new ScreenFx(spotlight).render();
     } else {
       // Render the standard scene in the game

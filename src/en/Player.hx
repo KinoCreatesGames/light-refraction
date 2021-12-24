@@ -14,6 +14,11 @@ class Player extends Entity {
 
   public var ct:ControllerAccess;
 
+  /**
+   * The battery life of the player's flashlight
+   */
+  public var rBatteryLife:Float;
+
   public function new(x:Int, y:Int) {
     super(x, y);
     setup();
