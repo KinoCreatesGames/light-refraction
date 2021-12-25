@@ -1,3 +1,5 @@
+import en.Enemy;
+import en.collectibles.Collectible;
 import en.Player;
 
 class Level extends dn.Process {
@@ -40,6 +42,9 @@ class Level extends dn.Process {
   // Game varibales
   public var player:Player;
 
+  public var collectibles:Group<Collectible>;
+  public var enemies:Group<Enemy>;
+
   public function new() {
     super(Game.ME);
     createRootInLayers(Game.ME.scroller, Const.DP_BG);
@@ -47,7 +52,13 @@ class Level extends dn.Process {
   }
 
   public function setup() {
+    setupGroups();
     setupEntities();
+  }
+
+  public function setupGroups() {
+    collectibles = new Group<Collectible>();
+    enemies = new Group<Enemy>();
   }
 
   public function setupEntities() {
