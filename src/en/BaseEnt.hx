@@ -11,7 +11,19 @@ class BaseEnt extends Entity {
     return health <= 0;
   }
 
+  /**
+   * Adds health to the character within the game.
+   * @param value 
+   */
   public function addHealth(value:Int) {
     health += value;
+  }
+
+  /**
+   * Takes damage with a specified value, by default, it's set to 1.
+   * @param value 
+   */
+  public function takeDamage(value:Int = 1) {
+    health -= value;
   }
 }
