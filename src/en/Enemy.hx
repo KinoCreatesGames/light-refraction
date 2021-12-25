@@ -1,6 +1,6 @@
 package en;
 
-class Enemy extends Entity {
+class Enemy extends BaseEnt {
   /**
    * An enemy within them.
    * X, Y coordinates are the coordinates within the grid of the game.

@@ -19,6 +19,10 @@ class Hud extends dn.Process {
   var flow:h2d.Flow;
   var invalidated = true;
 
+  var health:h2d.Graphics;
+  var stdFlashLight:TextureGauge;
+  var spiritFlashLight:TextureGauge;
+
   public function new() {
     super(Game.ME);
 
@@ -26,7 +30,25 @@ class Hud extends dn.Process {
     root.filter = new h2d.filter.ColorMatrix(); // force pixel perfect rendering
 
     flow = new h2d.Flow(root);
+    setup();
   }
+
+  public function setup() {
+    setupHealth();
+    setupFlashLights();
+  }
+
+  public function setupHealth() {
+    health = new h2d.Graphics(flow);
+    health.beginFill(0xff0000, 1);
+    health.drawCircle(0, 0, 3);
+    health.endFill();
+  }
+
+  /**
+   * Sets up the flash lights for rendering
+   */
+  public function setupFlashLights() {}
 
   override function onResize() {
     super.onResize();
@@ -36,7 +58,19 @@ class Hud extends dn.Process {
   public inline function invalidate()
     invalidated = true;
 
-  function render() {}
+  function render() {
+    renderHealth();
+    renderFlashlights();
+  }
+
+  public function renderHealth() {
+    health.clear();
+    health.beginFill(0xff0000, 1);
+    health.drawCircle(0, 0, 3);
+    health.endFill();
+  }
+
+  public function renderFlashlights() {}
 
   override function postUpdate() {
     super.postUpdate();

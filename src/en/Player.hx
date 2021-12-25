@@ -10,7 +10,7 @@ import dn.heaps.Controller.ControllerAccess;
  * We can move around and also 
  * activate our flashlight.
  */
-class Player extends Entity {
+class Player extends BaseEnt {
   public static inline var MOVE_SPD:Float = .2;
 
   public var ct:ControllerAccess;
