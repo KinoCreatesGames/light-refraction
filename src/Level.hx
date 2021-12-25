@@ -78,6 +78,19 @@ class Level extends dn.Process {
     invalidated = true;
   }
 
+  // Collision detection
+
+  public function collidedEnemy(x:Int, y:Int) {
+    return enemies.members.filter((enemy) -> enemy.cx == x && enemy.cy == y)
+      .first();
+  }
+
+  public function collidedCollectible(x:Int, y:Int) {
+    return collectibles.members.filter((collectible) -> collectible.cx == x
+      && collectible.cy == y)
+      .first();
+  }
+
   function render() {
     // Placeholder level render
     root.removeChildren();

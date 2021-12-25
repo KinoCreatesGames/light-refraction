@@ -44,7 +44,37 @@ class Player extends Entity {
 
   override function update() {
     super.update();
+    updateCollisions();
     updateControls();
+  }
+
+  public function updateCollisions() {
+    if (level != null) {
+      collideWithEnemy();
+      collideWithCollectible();
+    }
+  }
+
+  public function collideWithEnemy() {
+    var enemy = level.collidedEnemy(cx, cy);
+    if (enemy != null) {
+      var enemyT = Type.getClass(enemy);
+      switch (enemyT) {
+        case _:
+          // Do nothing
+      }
+    }
+  }
+
+  public function collideWithCollectible() {
+    var collectible = level.collidedCollectible(cx, cy);
+    if (collectible != null) {
+      var collectibleT = Type.getClass(collectible);
+      switch (collectibleT) {
+        case _:
+          // Do nothing
+      }
+    }
   }
 
   public function updateControls() {
