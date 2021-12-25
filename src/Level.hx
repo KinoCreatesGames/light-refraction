@@ -81,13 +81,14 @@ class Level extends dn.Process {
   // Collision detection
 
   public function collidedEnemy(x:Int, y:Int) {
-    return enemies.members.filter((enemy) -> enemy.cx == x && enemy.cy == y)
+    return enemies.members.filter((enemy) -> enemy.cx == x && enemy.cy == y
+      && enemy.isAlive())
       .first();
   }
 
   public function collidedCollectible(x:Int, y:Int) {
     return collectibles.members.filter((collectible) -> collectible.cx == x
-      && collectible.cy == y)
+      && collectible.cy == y && collectible.isAlive())
       .first();
   }
 
@@ -113,5 +114,25 @@ class Level extends dn.Process {
       invalidated = false;
       render();
     }
+  }
+
+  /**
+   * Disposes of all elements within the level
+   * including the player, bgm, collectibles, enemies, and more.
+   */
+  override function onDispose() {
+    // Destruction of the level elements in the game
+    for (collectible in collectibles) {
+      collectible.destroy();
+    }
+
+    for (enemy in enemies) {
+      enemy.destroy();
+    }
+
+    player.destroy();
+    collectibles = null;
+    enemies = null;
+    super.onDispose();
   }
 }
