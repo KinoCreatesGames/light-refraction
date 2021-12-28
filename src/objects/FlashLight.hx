@@ -28,14 +28,39 @@ class FlashLight extends Entity {
   public var color:Int;
 
   /**
+   * Flashlight graphic using PI Shape.
+   */
+  public var lightG:h2d.Graphics;
+
+  /**
+   * The range of the light 
+   * that defines how far the cone sticks out from.
+   */
+  public var lightRange:Float;
+
+  /**
    * Creates a new flash light within the game.
    */
-  public function new(color:Int = 0xffffff) {
+  public function new(color:Int = 0xffffff, lightRange:Float = 5) {
     super(0, 0);
     on = false;
     batteryLife = 1.;
     this.color = color;
     this.drainPerc = 0.02;
+    this.lightRange = lightRange * Const.GRID;
+    setup();
+  }
+
+  public function setup() {
+    // Setup graphics
+    lightG = new h2d.Graphics(spr);
+    lightG.blendMode = Alpha;
+    // lightG.alpha = 0.0;
+    lightG.beginFill(this.color);
+    var start = 0.toRad();
+    var end = 60.toRad();
+    lightG.drawPie(cx, cy, lightRange, start, end);
+    lightG.endFill();
   }
 
   public inline function isOn() {
@@ -48,10 +73,12 @@ class FlashLight extends Entity {
 
   public function turnOn() {
     on = true;
+    lightG.visible = on;
   }
 
   public function turnOff() {
     on = false;
+    lightG.visible = on;
   }
 
   public override function update() {

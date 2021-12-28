@@ -43,7 +43,7 @@ class SpotLightShader2D extends ScreenShader {
      * the screen texture that we pull from for
      * rendering the new scene.
      */
-    @param var tex:Sampler2D;
+    @param var texs:Sampler2DArray;
 
     /**
      * The player position on the screen to use as the center of the circle
@@ -51,7 +51,10 @@ class SpotLightShader2D extends ScreenShader {
     @param var playerPos:Vec2;
 
     function fragment() {
-      var texColor = tex.get(input.uv);
+      // Room Color Without Lights
+      var texColor = texs.get(vec3(input.uv, 1));
+      // Room color with the lights on
+      var lights = texs.get(vec3(input.uv, 0));
       // Center  of the radial circle
       var movingCenter = vec2(playerPos.x / widthHeight.x,
         playerPos.y / widthHeight.y);
@@ -68,7 +71,12 @@ class SpotLightShader2D extends ScreenShader {
       var str = 1 - (smoothstep(0.1, radius + smoothEdges, pct));
 
       var tmp = texColor;
-      texColor *= ((str));
+      // Flash Light Adjustment
+      if (lights.r > .99 && lights.g > .99 && lights.b > .99) {
+        texColor *= 1;
+      } else {
+        texColor *= ((str));
+      }
 
       // // Smooth Edges
       pixelColor = texColor + (tmp * strength);

@@ -3,6 +3,7 @@
   It doesn't do much, except creating Main and taking care of app speed ()
 **/
 
+import h3d.mat.TextureArray;
 import h3d.Vector;
 import h3d.pass.ScreenFx;
 import shaders.SpotLightShader2D;
@@ -42,7 +43,7 @@ class Boot extends hxd.App {
     s3d.renderer = renderer;
     new Main(s2d);
     spotlight = new SpotLightShader2D();
-    spotlight.tex = new Texture(engine.width, engine.height, [Target]);
+    spotlight.texs = new TextureArray(engine.width, engine.height, 2, [Target]);
     spotlight.widthHeight = new Vector(engine.width, engine.height);
     spotlight.playerPos = new Vector(0, 0);
     onResize();
@@ -86,10 +87,19 @@ class Boot extends hxd.App {
     // For the spotlight for the player character
     if (Game.ME != null && Game.ME.level != null && !Game.ME.level.destroyed) {
       var level = Game.ME.level;
-      engine.pushTarget(spotlight.tex, 1);
+      engine.pushTarget(spotlight.texs, 0);
+      engine.pushTarget(spotlight.texs, 1);
       engine.clear(0, 1);
 
       // Populate the render texture for use in the shader
+      // First Texture is just world without lights
+      level.player.flashLight.turnOff();
+      s2d.render(e);
+      engine.popTarget();
+
+      // Light Texture
+      engine.clear(0, 1);
+      level.player.flashLight.turnOn();
       s2d.render(e);
       engine.popTarget();
 
@@ -97,6 +107,8 @@ class Boot extends hxd.App {
       var absPos = level.player.spr.getAbsPos();
       spotlight.playerPos.x = (absPos.x);
       spotlight.playerPos.y = (absPos.y);
+      spotlight.widthHeight.x = engine.width;
+      spotlight.widthHeight.y = engine.height;
       new ScreenFx(spotlight).render();
     } else {
       // Render the standard scene in the game

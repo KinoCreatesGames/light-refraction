@@ -1,5 +1,6 @@
 package en;
 
+import h2d.col.Point;
 import objects.FlashLight;
 import dn.heaps.Controller.ControllerAccess;
 
@@ -28,11 +29,14 @@ class Player extends BaseEnt {
 
   public function setup() {
     ct = Main.ME.controller.createAccess('player');
+    setupFlashLights();
     setupGraphics();
   }
 
   public function setupFlashLights() {
     flashLight = new FlashLight();
+    this.spr.addChild(flashLight.lightG);
+    flashLight.turnOff();
   }
 
   public function setupGraphics() {
@@ -44,8 +48,19 @@ class Player extends BaseEnt {
 
   override function update() {
     super.update();
+    updateFlashLights();
     updateCollisions();
     updateControls();
+  }
+
+  public function updateFlashLights() {
+    // Have Flashlight face the normal from player position to the mouse
+    var scn = Boot.ME.s2d;
+    var pos = spr.getAbsPos();
+    // PlayerToMouse
+    var pToM = new Point(scn.mouseX - pos.x, scn.mouseY - pos.y).normalized();
+
+    flashLight.lightG.rotation = M.angTo(0, 0, pToM.x, pToM.y);
   }
 
   public function updateCollisions() {

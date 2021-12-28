@@ -1,3 +1,5 @@
+import scn.GameOver;
+import scn.Pause;
 import en.Enemy;
 import en.collectibles.Collectible;
 import en.Player;
@@ -63,6 +65,7 @@ class Level extends dn.Process {
 
   public function setupEntities() {
     player = new Player(8, 8);
+    var e = new Enemy(3, 3);
   }
 
   /** TRUE if given coords are in level bounds **/
@@ -90,6 +93,29 @@ class Level extends dn.Process {
     return collectibles.members.filter((collectible) -> collectible.cx == x
       && collectible.cy == y && collectible.isAlive())
       .first();
+  }
+
+  override function update() {
+    super.update();
+    handlePause();
+  }
+
+  /**
+   * Handles pausing the game
+   */
+  public function handlePause() {
+    if (game.ca.isKeyboardPressed(K.ESCAPE)) {
+      hxd.Res.sound.pause_in.play();
+      this.pause();
+      new Pause();
+    }
+  }
+
+  public function handleGameOver() {
+    if (player.isDead()) {
+      this.pause();
+      new GameOver();
+    }
   }
 
   function render() {

@@ -12,5 +12,15 @@ class Enemy extends BaseEnt {
     setup();
   }
 
-  public function setup() {}
+  public function setup() {
+    // Setup element within the game
+    setupGraphics();
+  }
+
+  public function setupGraphics() {
+    var g = new h2d.Graphics(spr);
+    g.beginFill(0xff0000);
+    g.drawRect(0, 0, 8, 8);
+    g.endFill();
+  }
 }
