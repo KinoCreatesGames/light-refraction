@@ -1,5 +1,7 @@
 package ui;
 
+import dn.Process;
+
 class Hud extends dn.Process {
   public var game(get, never):Game;
 
@@ -31,6 +33,7 @@ class Hud extends dn.Process {
 
     flow = new h2d.Flow(root);
     setup();
+    Process.resizeAll();
   }
 
   public function setup() {
@@ -48,19 +51,27 @@ class Hud extends dn.Process {
   /**
    * Sets up the flash lights for rendering
    */
-  public function setupFlashLights() {}
+  public function setupFlashLights() {
+    var flT = hxd.Res.img.flash_light.toAseprite().toTile();
+    stdFlashLight = new TextureGauge(flT, flT, root);
+  }
 
   override function onResize() {
     super.onResize();
     root.setScale(Const.UI_SCALE);
+    if (level != null) {
+      resizeFlashLights();
+    }
   }
 
   public inline function invalidate()
     invalidated = true;
 
   function render() {
-    renderHealth();
-    renderFlashlights();
+    if (level != null) {
+      renderHealth();
+      renderFlashlights();
+    }
   }
 
   public function renderHealth() {
@@ -70,7 +81,15 @@ class Hud extends dn.Process {
     health.endFill();
   }
 
-  public function renderFlashlights() {}
+  public function renderFlashlights() {
+    var pl = level.player;
+    stdFlashLight.updatePerc(pl.flashLight.batteryLife);
+  }
+
+  public function resizeFlashLights() {
+    stdFlashLight.x = 32;
+    stdFlashLight.y = Std.int((h() / Const.UI_SCALE) * .75);
+  }
 
   override function postUpdate() {
     super.postUpdate();

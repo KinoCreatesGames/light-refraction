@@ -42,7 +42,8 @@ class Player extends BaseEnt {
   public function setupGraphics() {
     var g = new h2d.Graphics(spr);
     g.beginFill(0xffa0ff);
-    g.drawRect(0, 0, 8, 8);
+    var size = Const.GRID;
+    g.drawRect(0, 0, size, size);
     g.endFill();
   }
 

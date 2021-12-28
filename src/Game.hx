@@ -23,6 +23,8 @@ class Game extends dn.Process {
   /** UI **/
   public var hud:ui.Hud;
 
+  public var proj:LDTkProj;
+
   public function new() {
     super(Main.ME);
     ME = this;
@@ -30,16 +32,18 @@ class Game extends dn.Process {
     ca.setLeftDeadZone(0.2);
     ca.setRightDeadZone(0.2);
     createRootInLayers(Main.ME.root, Const.DP_BG);
+    proj = new LDTkProj();
 
     scroller = new h2d.Layers();
     root.add(scroller, Const.DP_BG);
     scroller.filter = new h2d.filter.ColorMatrix(); // force rendering for pixel perfect
 
     camera = new Camera();
-    level = new Level();
+
     fx = new Fx();
     hud = new ui.Hud();
     hud.hide();
+    startInitialGame();
 
     Process.resizeAll();
     trace(Lang.t._("Game is ready."));
@@ -53,7 +57,7 @@ class Game extends dn.Process {
     // Play Game Loop Music
     // bgm = hxd.Res.music.juhani_stage.play(true, 0.5);
     // level = new Level(proj.all_levels.Level_0);
-    level = new Level();
+    level = new Level(proj.all_levels.Level_0);
     hud.show();
     fx = new Fx();
   }

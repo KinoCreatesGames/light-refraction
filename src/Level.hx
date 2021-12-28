@@ -1,3 +1,5 @@
+import ui.Hud;
+import en.collectibles.Battery;
 import scn.GameOver;
 import scn.Pause;
 import en.Enemy;
@@ -19,13 +21,13 @@ class Level extends dn.Process {
   public var cWid(get, never):Int;
 
   inline function get_cWid()
-    return 16;
+    return 32;
 
   /** Level grid-based height **/
   public var cHei(get, never):Int;
 
   inline function get_cHei()
-    return 16;
+    return 32;
 
   /** Level pixel width**/
   public var pxWid(get, never):Int;
@@ -35,6 +37,12 @@ class Level extends dn.Process {
 
   /** Level pixel height**/
   public var pxHei(get, never):Int;
+
+  public var hud(get, never):Hud;
+
+  public function get_hud() {
+    return Game.ME.hud;
+  }
 
   inline function get_pxHei()
     return cHei * Const.GRID;
@@ -47,10 +55,16 @@ class Level extends dn.Process {
   public var collectibles:Group<Collectible>;
   public var enemies:Group<Enemy>;
 
-  public function new() {
+  public var data:LDTkProj_Level;
+
+  public function new(?levelData:LDTkProj_Level) {
     super(Game.ME);
     createRootInLayers(Game.ME.scroller, Const.DP_BG);
-    setup();
+    if (levelData != null) {
+      data = levelData;
+      setup();
+    }
+    hud.show();
   }
 
   public function setup() {
@@ -64,8 +78,26 @@ class Level extends dn.Process {
   }
 
   public function setupEntities() {
-    player = new Player(8, 8);
-    var e = new Enemy(3, 3);
+    for (pl in data.l_Entities.all_Player) {
+      player = new Player(pl.cx, pl.cy);
+    }
+    setupEnemies();
+    setupCollectibles();
+  }
+
+  public function setupEnemies() {
+    for (enemy in data.l_Entities.all_Enemy) {
+      var e = new Enemy(enemy.cx, enemy.cy);
+      enemies.add(e);
+    }
+  }
+
+  public function setupCollectibles() {
+    // Batteries
+    for (battery in data.l_Entities.all_Battery) {
+      var bt = new Battery(battery);
+      collectibles.add(bt);
+    }
   }
 
   /** TRUE if given coords are in level bounds **/

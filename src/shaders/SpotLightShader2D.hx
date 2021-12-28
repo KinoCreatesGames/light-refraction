@@ -83,7 +83,7 @@ class SpotLightShader2D extends ScreenShader {
     }
   }
 
-  public function new(radius:Float = .1, smoothEdge:Float = 0.02,
+  public function new(radius:Float = .2, smoothEdge:Float = 0.02,
       strength:Float = .3) {
     super();
     this.radius = radius;
