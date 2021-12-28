@@ -20,7 +20,7 @@ class Enemy extends BaseEnt {
   public function setupGraphics() {
     var g = new h2d.Graphics(spr);
     g.beginFill(0xff0000);
-    g.drawRect(0, 0, 8, 8);
+    g.drawRect(0, 0, Const.GRID, Const.GRID);
     g.endFill();
   }
 }

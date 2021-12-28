@@ -26,4 +26,18 @@ class BaseEnt extends Entity {
   public function takeDamage(value:Int = 1) {
     health -= value;
   }
+
+  public var ready:Bool;
+
+  public function new(x:Int, y:Int) {
+    super(x, y);
+    ready = false;
+  }
+
+  override function postUpdate() {
+    super.postUpdate();
+    // Standard post update, updates the sprite position
+    // Once updated we'll consider the entity ready
+    ready = true;
+  }
 }

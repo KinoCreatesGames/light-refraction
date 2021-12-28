@@ -1,5 +1,6 @@
 package en;
 
+import h2d.col.Polygon;
 import h2d.col.Point;
 import objects.FlashLight;
 import dn.heaps.Controller.ControllerAccess;
@@ -22,6 +23,8 @@ class Player extends BaseEnt {
    */
   public var flashLight:FlashLight;
 
+  public var lightCollider:h2d.col.Polygon;
+
   public function new(x:Int, y:Int) {
     super(x, y);
     setup();
@@ -34,7 +37,7 @@ class Player extends BaseEnt {
   }
 
   public function setupFlashLights() {
-    flashLight = new FlashLight();
+    flashLight = new FlashLight(0xffa0ff);
     this.spr.addChild(flashLight.lightG);
     flashLight.turnOff();
   }
@@ -60,12 +63,39 @@ class Player extends BaseEnt {
     var pos = spr.getAbsPos();
     // PlayerToMouse
     var pToM = new Point(scn.mouseX - pos.x, scn.mouseY - pos.y).normalized();
-
+    var oldRotation = flashLight.lightG.rotation * 1;
     flashLight.lightG.rotation = M.angTo(0, 0, pToM.x, pToM.y);
+
+    var col = new Polygon(flashLight.lightPolygon.points.map((p) -> {
+      var pC = p.clone();
+
+      // Always rotate first before doing any addition, order of operations matter
+      pC.rotate(flashLight.lightG.rotation);
+      pC.x += flashLight.lightG.getAbsPos().x;
+      pC.y += flashLight.lightG.getAbsPos().y;
+      return pC;
+    }));
+    // if (!cd.has('testT')) {
+    //   cd.setS('testT', 3, () -> {
+    //     var pC = col.points[0];
+    //     var eC = col.points[col.points.length - 2];
+    //     trace('${pC.x}, ${pC.y}');
+    //     trace('${eC.x}, ${eC.y}');
+    //     trace('Enemy ${a.x}, ${a.y}');
+    //     trace(col.contains(new Point(a.x, a.y)));
+    //   });
+    // }
+    lightCollider = col;
   }
 
   public function updateCollisions() {
     if (level != null) {
+      // Test
+      for (enemy in level.enemies) {
+        if (level.collideWithLightEn(enemy)) {
+          enemy.destroy();
+        }
+      }
       collideWithEnemy();
       collideWithCollectible();
     }

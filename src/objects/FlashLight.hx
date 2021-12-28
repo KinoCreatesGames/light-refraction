@@ -1,5 +1,8 @@
 package objects;
 
+import h2d.col.Polygon;
+import graphics.Graphics2DSv;
+import h3d.Vector;
 import hxd.Timer;
 
 /**
@@ -25,12 +28,26 @@ class FlashLight extends Entity {
    */
   public var drainPerc:Float;
 
+  /**
+   * Used to determine the shading area of the flashlight
+   * within the spotlight shader.
+   */
+  public var clipColor:Int;
+
   public var color:Int;
+
+  /**
+   * V Color passed into the shader 
+   * for use later
+   */
+  public var vColor:Vector;
 
   /**
    * Flashlight graphic using PI Shape.
    */
-  public var lightG:h2d.Graphics;
+  public var lightG:Graphics2DSv;
+
+  public var lightPolygon:h2d.col.Polygon;
 
   /**
    * The range of the light 
@@ -45,7 +62,9 @@ class FlashLight extends Entity {
     super(0, 0);
     on = false;
     batteryLife = 1.;
+    this.clipColor = 0xffffff; // Color for shading purposes used in shader to determine flashlight area
     this.color = color;
+    this.vColor = Vector.fromColor(this.color);
     this.drainPerc = 0.02;
     this.lightRange = lightRange * Const.GRID;
     setup();
@@ -53,13 +72,22 @@ class FlashLight extends Entity {
 
   public function setup() {
     // Setup graphics
-    lightG = new h2d.Graphics(spr);
+    lightG = new Graphics2DSv(spr);
     lightG.blendMode = Alpha;
     // lightG.alpha = 0.0;
-    lightG.beginFill(this.color);
+    lightG.beginFill(this.clipColor);
     var start = 0.toRad();
     var end = 60.toRad();
     lightG.drawPie(cx, cy, lightRange, start, end);
+    lightG.endFill();
+    lightPolygon = new Polygon(lightG.savedPoints.map((p) -> p.clone()));
+    lightG.clear();
+    // Works
+    lightG.beginFill(this.clipColor);
+    for (point in lightPolygon.points) {
+      lightG.addVertex(point.x + this.spr.getAbsPos().x,
+        point.y + lightG.getAbsPos().y, 1, 1, 1, 1);
+    }
     lightG.endFill();
   }
 

@@ -109,6 +109,7 @@ class Boot extends hxd.App {
       spotlight.playerPos.y = (absPos.y);
       spotlight.widthHeight.x = engine.width;
       spotlight.widthHeight.y = engine.height;
+      spotlight.flashlightTint = level.player.flashLight.vColor;
       new ScreenFx(spotlight).render();
     } else {
       // Render the standard scene in the game

@@ -26,6 +26,13 @@ class SpotLightShader2D extends ScreenShader {
     @param var strength:Float;
 
     /**
+     * The Flashlight tint color to be used 
+     * for tinting thef lash light area
+     * within the spotlight shader.
+     */
+    @param var flashlightTint:Vec4;
+
+    /**
      * The width / height of the game engine screen
      * in order to correct the circle
      */
@@ -73,7 +80,9 @@ class SpotLightShader2D extends ScreenShader {
       var tmp = texColor;
       // Flash Light Adjustment
       if (lights.r > .99 && lights.g > .99 && lights.b > .99) {
+        // texColor *= ((1 * flashlightTint) * 1.75);
         texColor *= 1;
+        texColor += (flashlightTint * .6);
       } else {
         texColor *= ((str));
       }

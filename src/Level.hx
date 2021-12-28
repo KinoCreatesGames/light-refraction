@@ -1,3 +1,5 @@
+import en.BaseEnt;
+import h2d.col.Point;
 import ui.Hud;
 import en.collectibles.Battery;
 import scn.GameOver;
@@ -125,6 +127,16 @@ class Level extends dn.Process {
     return collectibles.members.filter((collectible) -> collectible.cx == x
       && collectible.cy == y && collectible.isAlive())
       .first();
+  }
+
+  public function collideWithLightEn(entity:BaseEnt) {
+    if (entity != null && entity.isAlive() && entity.ready) {
+      var absPos = entity.spr.getAbsPos();
+      var p = new Point(absPos.x, absPos.y);
+      // trace('Destroy, ${absPos.x}, ${absPos.y}');
+      return player.lightCollider.contains(p);
+    }
+    return false;
   }
 
   override function update() {
