@@ -1,3 +1,4 @@
+import en.objects.Lamp;
 import en.BaseEnt;
 import h2d.col.Point;
 import ui.Hud;
@@ -56,7 +57,7 @@ class Level extends dn.Process {
 
   public var collectibles:Group<Collectible>;
   public var enemies:Group<Enemy>;
-
+  public var lights:Group<Entity>;
   public var data:LDTkProj_Level;
 
   public function new(?levelData:LDTkProj_Level) {
@@ -77,6 +78,7 @@ class Level extends dn.Process {
   public function setupGroups() {
     collectibles = new Group<Collectible>();
     enemies = new Group<Enemy>();
+    lights = new Group<Entity>();
   }
 
   public function setupEntities() {
@@ -85,6 +87,7 @@ class Level extends dn.Process {
     }
     setupEnemies();
     setupCollectibles();
+    setupLights();
   }
 
   public function setupEnemies() {
@@ -99,6 +102,13 @@ class Level extends dn.Process {
     for (battery in data.l_Entities.all_Battery) {
       var bt = new Battery(battery);
       collectibles.add(bt);
+    }
+  }
+
+  public function setupLights() {
+    for (lg in data.l_Entities.all_Lamp) {
+      var light = new Lamp(lg);
+      lights.add(light);
     }
   }
 

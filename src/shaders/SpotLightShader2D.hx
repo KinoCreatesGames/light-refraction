@@ -79,10 +79,11 @@ class SpotLightShader2D extends ScreenShader {
 
       var tmp = texColor;
       // Flash Light Adjustment
-      if (lights.r > .99 && lights.g > .99 && lights.b > .99) {
+      if (lights.r > .99 || lights.g > .99 || lights.b > .99) {
         // texColor *= ((1 * flashlightTint) * 1.75);
-        texColor *= 1;
-        texColor += (flashlightTint * .6);
+        texColor = (texColor * .85) + (lights * .6);
+        // texColor *= 1;
+        // texColor += (flashlightTint * .6);
       } else {
         texColor *= ((str));
       }

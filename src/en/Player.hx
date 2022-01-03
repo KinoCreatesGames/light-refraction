@@ -32,8 +32,13 @@ class Player extends BaseEnt {
 
   public function setup() {
     ct = Main.ME.controller.createAccess('player');
+    setupStats();
     setupFlashLights();
     setupGraphics();
+  }
+
+  public function setupStats() {
+    this.health = 3;
   }
 
   public function setupFlashLights() {
@@ -107,6 +112,8 @@ class Player extends BaseEnt {
       var enemyT = Type.getClass(enemy);
       switch (enemyT) {
         case _:
+          // Take damage
+          this.takeDamage();
           // Do nothing
       }
     }
@@ -117,6 +124,9 @@ class Player extends BaseEnt {
     if (collectible != null) {
       var collectibleT = Type.getClass(collectible);
       switch (collectibleT) {
+        case en.collectibles.Battery:
+          // Give back battery percentage to the max
+          flashLight.batteryLife = 1.;
         case _:
           // Do nothing
       }

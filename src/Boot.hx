@@ -93,6 +93,10 @@ class Boot extends hxd.App {
 
       // Populate the render texture for use in the shader
       // First Texture is just world without lights
+      // Remove the lights from everything else in the level as well
+      level.lights.members.iter((el) -> {
+        el.spr.visible = false;
+      });
       level.player.flashLight.turnOff();
       s2d.render(e);
       engine.popTarget();
@@ -100,6 +104,9 @@ class Boot extends hxd.App {
       // Light Texture
       engine.clear(0, 1);
       level.player.flashLight.turnOn();
+      level.lights.members.iter((el) -> {
+        el.spr.visible = true;
+      });
       s2d.render(e);
       engine.popTarget();
 
