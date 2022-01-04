@@ -157,4 +157,10 @@ class Player extends BaseEnt {
       }
     }
   }
+
+  // Standard overrides
+  override function takeDamage(value:Int = 1) {
+    Game.ME.camera.shakeS(0.5, 0.5);
+    super.takeDamage(value);
+  }
 }
