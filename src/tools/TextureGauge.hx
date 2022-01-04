@@ -1,5 +1,6 @@
 package tools;
 
+import h3d.Vector;
 import h2d.Mask;
 import h2d.Tile;
 import h2d.Bitmap;
@@ -30,7 +31,7 @@ class TextureGauge {
   public var y(get, set):Int;
 
   public function get_x() {
-    return Std.int(this.back.x);
+    return Std.int(this.root.x);
   }
 
   public function set_x(value:Int) {
@@ -51,6 +52,8 @@ class TextureGauge {
     this.flowType = RIGHT_LEFT;
     root = new h2d.Object(parent);
     this.back = new Bitmap(back, root);
+    // TODO - Remove this line to go back to original texture gauge design
+    this.back.colorAdd = Vector.fromColor(0xaaaaaa);
     this.mask = new Mask(Std.int(front.width), Std.int(front.height), root);
     this.mask.scrollBounds = h2d.col.Bounds.fromValues(-mask.width / 2,
       -mask.height / 2, mask.width * 2, mask.height * 2);

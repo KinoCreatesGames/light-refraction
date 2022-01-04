@@ -57,9 +57,14 @@ class Player extends BaseEnt {
 
   override function update() {
     super.update();
+    updateHUD();
     updateFlashLights();
     updateCollisions();
     updateControls();
+  }
+
+  public function updateHUD() {
+    hud.invalidate();
   }
 
   public function updateFlashLights() {
@@ -160,6 +165,7 @@ class Player extends BaseEnt {
 
   // Standard overrides
   override function takeDamage(value:Int = 1) {
+    // Shake camera when the player takes damage.
     Game.ME.camera.shakeS(0.5, 0.5);
     super.takeDamage(value);
   }

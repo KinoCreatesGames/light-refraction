@@ -3,6 +3,7 @@
   It doesn't do much, except creating Main and taking care of app speed ()
 **/
 
+import shaders.CompositeShader;
 import h3d.mat.TextureArray;
 import h3d.Vector;
 import h3d.pass.ScreenFx;
@@ -18,6 +19,12 @@ class Boot extends hxd.App {
 
   public var renderer:CustomRenderer;
   public var spotlight:SpotLightShader2D;
+
+  /**
+   * Shader that 
+   * Combines  all the final textures together and render the scene.
+   */
+  public var composite:CompositeShader;
 
   #if debug
   var tmodSpeedMul = 1.0;
@@ -46,6 +53,8 @@ class Boot extends hxd.App {
     spotlight.texs = new TextureArray(engine.width, engine.height, 2, [Target]);
     spotlight.widthHeight = new Vector(engine.width, engine.height);
     spotlight.playerPos = new Vector(0, 0);
+    composite = new CompositeShader(new TextureArray(engine.width,
+      engine.height, 2, [Target]));
     onResize();
   }
 
@@ -98,6 +107,7 @@ class Boot extends hxd.App {
         el.spr.visible = false;
       });
       level.player.flashLight.turnOff();
+      level.hud.hide();
       s2d.render(e);
       engine.popTarget();
 
@@ -117,7 +127,13 @@ class Boot extends hxd.App {
       spotlight.widthHeight.x = engine.width;
       spotlight.widthHeight.y = engine.height;
       spotlight.flashlightTint = level.player.flashLight.vColor;
-      new ScreenFx(spotlight).render();
+      ScreenFx.run(spotlight, composite.textures, 0);
+      // Draw the HUD into the second texture
+      // Note we can use the drawTo texture method to reduce render calls
+      level.hud.show();
+      level.hud.root.drawTo(composite.textures);
+      new ScreenFx(composite).render();
+      // Compsite  Final Textures
     } else {
       // Render the standard scene in the game
       super.render(e);

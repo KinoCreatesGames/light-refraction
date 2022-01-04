@@ -54,6 +54,8 @@ class Hud extends dn.Process {
   public function setupFlashLights() {
     var flT = hxd.Res.img.flash_light.toAseprite().toTile();
     stdFlashLight = new TextureGauge(flT, flT, root);
+    stdFlashLight.flowType = UP_DOWN;
+    stdFlashLight.root.scale(3);
   }
 
   override function onResize() {
@@ -102,9 +104,11 @@ class Hud extends dn.Process {
 
   public function hide() {
     flow.visible = false;
+    stdFlashLight.root.visible = false;
   }
 
   public function show() {
     flow.visible = true;
+    stdFlashLight.root.visible = true;
   }
 }

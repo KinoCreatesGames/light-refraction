@@ -19,19 +19,19 @@ class CompositeShader extends ScreenShader {
      * the game with that specified color.
      */
     function fragment() {
-      // Mode7
+      // Level
       var texColor = textures.get(vec3(input.uv, 0));
-      // Characters
-      var texThree = textures.get(vec3(input.uv, 2));
-      var result = texColor + texThree;
-      if (texThree.a > 0.1) {
-        result = texThree;
-        if (texThree.b > .90) {
-          texThree.rgb = texThree.bbb;
-          texThree.a = 1;
-          result = texThree + texColor;
-        }
-      }
+      // HUD
+      // var texThree = textures.get(vec3(input.uv, 2));
+      var result = texColor;
+      // if (texThree.a > 0.1) {
+      //   result = texThree;
+      //   if (texThree.b > .90) {
+      //     texThree.rgb = texThree.bbb;
+      //     texThree.a = 1;
+      //     result = texThree + texColor;
+      //   }
+      // }
       pixelColor = result;
     }
   }
