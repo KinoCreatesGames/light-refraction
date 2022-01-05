@@ -256,13 +256,13 @@
 					"entityInstances": [
 						{
 							"__identifier": "Player",
-							"__grid": [4,4],
+							"__grid": [4,3],
 							"__pivot": [0,0],
 							"__tile": null,
 							"width": 32,
 							"height": 32,
 							"defUid": 1,
-							"px": [128,128],
+							"px": [128,96],
 							"fieldInstances": []
 						},
 						{

@@ -53,9 +53,8 @@ class Hud extends dn.Process {
    */
   public function setupFlashLights() {
     var flT = hxd.Res.img.flash_light.toAseprite().toTile();
-    stdFlashLight = new TextureGauge(flT, flT, root);
+    stdFlashLight = new TextureGauge(flT, flT, flow);
     stdFlashLight.flowType = UP_DOWN;
-    stdFlashLight.root.scale(3);
   }
 
   override function onResize() {
@@ -90,7 +89,13 @@ class Hud extends dn.Process {
 
   public function resizeFlashLights() {
     stdFlashLight.x = 32;
-    stdFlashLight.y = Std.int((h() / Const.UI_SCALE) * .75);
+    var scaledH = (h() / Const.UI_SCALE);
+    stdFlashLight.y = Std.int(scaledH - (scaledH * .25));
+    stdFlashLight.y = 270;
+    // TODO - Play around with UI coordinates for best results.
+    // trace(Const.UI_SCALE);
+    // trace(h());
+    // trace(stdFlashLight.y);
   }
 
   override function postUpdate() {

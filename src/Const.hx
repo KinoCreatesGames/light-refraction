@@ -29,7 +29,7 @@ class Const {
   static inline function get_SCALE() {
     // can be replaced with another way to determine the game scaling
     // Updating this will change the way the game is viewed in the viewport.
-    return dn.heaps.Scaler.bestFit_i(640, 360);
+    return dn.heaps.Scaler.bestFit_i(320, 256);
   }
 
   /** Specific scaling for top UI elements **/
