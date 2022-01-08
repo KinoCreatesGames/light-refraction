@@ -144,7 +144,7 @@ class Level extends dn.Process {
       var absPos = entity.spr.getAbsPos();
       var p = new Point(absPos.x, absPos.y);
       // trace('Destroy, ${absPos.x}, ${absPos.y}');
-      return player.lightCollider.contains(p);
+      return player.lightCollider.contains(p) && !player.flashLightOff;
     }
     return false;
   }
