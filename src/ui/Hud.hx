@@ -84,7 +84,7 @@ class Hud extends dn.Process {
 
   public function renderFlashlights() {
     var pl = level.player;
-    stdFlashLight.updatePerc(pl.flashLight.batteryLife);
+    // stdFlashLight.updatePerc(pl.flashLight.batteryLife);
   }
 
   public function resizeFlashLights() {

@@ -25,6 +25,8 @@ class Player extends BaseEnt {
 
   public var lightCollider:h2d.col.Polygon;
 
+  public var flashLightOff:Bool;
+
   public function new(x:Int, y:Int) {
     super(x, y);
     setup();
@@ -45,6 +47,7 @@ class Player extends BaseEnt {
     flashLight = new FlashLight(0xffa0ff);
     this.spr.addChild(flashLight.lightG);
     flashLight.turnOff();
+    flashLightOff = !flashLight.isOn();
   }
 
   public function setupGraphics() {
@@ -143,6 +146,17 @@ class Player extends BaseEnt {
     var right = ct.rightDown();
     var down = ct.downDown();
     var up = ct.upDown();
+    var cancel = ct.bDown();
+    if (cancel && !cd.has('lightCD')) {
+      if (flashLight.isOn()) {
+        flashLight.turnOff();
+        flashLightOff = true;
+      } else if (!flashLight.isOn()) {
+        flashLight.turnOn();
+        flashLightOff = false;
+      }
+      cd.setS('lightCD', 0.2);
+    }
 
     if (left || right || down || up) {
       if (left) {

@@ -106,14 +106,18 @@ class Boot extends hxd.App {
       level.lights.members.iter((el) -> {
         el.spr.visible = false;
       });
-      level.player.flashLight.turnOff();
+      if (!level.player.flashLightOff) {
+        level.player.flashLight.turnOff();
+      }
       level.hud.hide();
       s2d.render(e);
       engine.popTarget();
 
       // Light Texture
       engine.clear(0, 1);
-      level.player.flashLight.turnOn();
+      if (!level.player.flashLightOff) {
+        level.player.flashLight.turnOn();
+      }
       level.lights.members.iter((el) -> {
         el.spr.visible = true;
       });
