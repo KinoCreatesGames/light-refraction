@@ -149,6 +149,17 @@ class Level extends dn.Process {
     return false;
   }
 
+  /**
+   * Collision detection between the elements on the level.  
+   * Level information is available to all entities to check.
+   * Returns true if the position overlaps a level tile 
+   * @param x 
+   * @param y 
+   */
+  public function hasAnyCollision(x:Int, y:Int) {
+    return data.l_AutoIGrid.getInt(x, y) != 3;
+  }
+
   override function update() {
     super.update();
     handlePause();
@@ -175,16 +186,10 @@ class Level extends dn.Process {
   function render() {
     // Placeholder level render
     root.removeChildren();
-    for (cx in 0...cWid)
-      for (cy in 0...cHei) {
-        var g = new h2d.Graphics(root);
-        if (cx == 0
-          || cy == 0
-          || cx == cWid - 1
-          || cy == cHei - 1) g.beginFill(0xffcc00); else
-          g.beginFill(Color.randomColor(rnd(0, 1), 0.5, 0.4));
-        g.drawRect(cx * Const.GRID, cy * Const.GRID, Const.GRID, Const.GRID);
-      }
+
+    var tlGroup = data.l_Floor.render();
+    data.l_Walls.render(tlGroup);
+    root.addChild(tlGroup);
   }
 
   override function postUpdate() {

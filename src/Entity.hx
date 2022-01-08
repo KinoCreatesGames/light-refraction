@@ -375,6 +375,10 @@ class Entity {
 
   public function fixedUpdate() {} // runs at a "guaranteed" 30 fps
 
+  public function onPreStepX() {}
+
+  public function onPreStepY() {}
+
   public function update() { // runs at an unknown fps
     // X
     var steps = M.ceil(M.fabs(dxTotal * tmod));
@@ -383,6 +387,7 @@ class Entity {
       xr += step;
 
       // [ add X collisions checks here ]
+      onPreStepX();
 
       while (xr > 1) {
         xr--;
@@ -406,6 +411,7 @@ class Entity {
       yr += step;
 
       // [ add Y collisions checks here ]
+      onPreStepY();
 
       while (yr > 1) {
         yr--;

@@ -163,6 +163,52 @@ class Player extends BaseEnt {
     }
   }
 
+  override function onPreStepX() {
+    super.onPreStepX();
+    // Left
+    if (level.hasAnyCollision(cx - 1, cy) && xr <= 0.3) {
+      xr = 0.3;
+      dx = 0;
+      // dx = M.fabs(dx);
+    }
+
+    // Right
+    if (level.hasAnyCollision(cx + 1, cy) && xr >= 0.1) {
+      // push back to previous cell
+      xr = 0.1;
+      dx = 0;
+      // dx = (-1 * M.fabs(dx));
+    }
+  }
+
+  override function onPreStepY() {
+    super.onPreStepY();
+    // if (level.hasAnyCollision(cx, cy + 1)
+    //   && yr >= 0.5
+    //   || level.hasAnyCollision(cx + M.round(xr), cy + 1)
+    //   && yr >= 0.5) {
+    //   // Handle squash and stretch for entities in the game
+    //   if (level.hasAnyCollision(cx, cy + M.round(yr + 0.3))) {
+    //     setSquashY(0.6);
+    //     dy = 0;
+    //   }
+    //   yr = 0.3;
+    //   dy = 0;
+    // }
+
+    if (level.hasAnyCollision(cx, cy + 1)) {
+      setSquashY(0.6);
+      yr = -0.1;
+      dy = 0;
+    }
+
+    if (level.hasAnyCollision(cx, cy - 1)) {
+      yr = 1.1;
+      dy = 0;
+      setSquashY(0.6);
+    }
+  }
+
   // Standard overrides
   override function takeDamage(value:Int = 1) {
     // Shake camera when the player takes damage.

@@ -92,7 +92,7 @@ class Hud extends dn.Process {
     var scaledH = (h() / Const.UI_SCALE);
     stdFlashLight.y = Std.int(scaledH - (scaledH * .25));
     stdFlashLight.y = 270;
-    // TODO - Play around with UI coordinates for best results.
+    // TODO - Play around with UI coordinates for best results. Look at pixel perfect rendering
     // trace(Const.UI_SCALE);
     // trace(h());
     // trace(stdFlashLight.y);
