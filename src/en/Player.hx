@@ -169,6 +169,7 @@ class Player extends BaseEnt {
     if (level.hasAnyCollision(cx - 1, cy) && xr <= 0.3) {
       xr = 0.3;
       dx = 0;
+      setSquashX(0.6);
       // dx = M.fabs(dx);
     }
 
@@ -177,6 +178,7 @@ class Player extends BaseEnt {
       // push back to previous cell
       xr = 0.1;
       dx = 0;
+      setSquashX(0.6);
       // dx = (-1 * M.fabs(dx));
     }
   }
@@ -197,15 +199,15 @@ class Player extends BaseEnt {
     // }
 
     if (level.hasAnyCollision(cx, cy + 1)) {
-      setSquashY(0.6);
+      // setSquashY(0.6);
       yr = -0.1;
-      dy = 0;
+      dy = -0.1;
     }
 
     if (level.hasAnyCollision(cx, cy - 1)) {
-      yr = 1.1;
-      dy = 0;
-      setSquashY(0.6);
+      yr = 1.01;
+      dy = .1;
+      // setSquashY(0.6);
     }
   }
 
