@@ -8,5 +8,8 @@ package en.collectibles;
 class Collectible extends Entity {
   public function new(x:Int, y:Int) {
     super(x, y);
+    setupGraphic();
   }
+
+  public function setupGraphic() {}
 }
