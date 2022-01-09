@@ -25,6 +25,11 @@ class Game extends dn.Process {
 
   public var proj:LDTkProj;
 
+  /**
+   * Whether the shader for the CRT filter is on.
+   */
+  public var crtON:Bool;
+
   public function new() {
     super(Main.ME);
     ME = this;

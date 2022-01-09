@@ -3,6 +3,8 @@
   It doesn't do much, except creating Main and taking care of app speed ()
 **/
 
+import hxd.Timer;
+import shaders.CRTShader;
 import shaders.CompositeShader;
 import h3d.mat.TextureArray;
 import h3d.Vector;
@@ -19,6 +21,7 @@ class Boot extends hxd.App {
 
   public var renderer:CustomRenderer;
   public var spotlight:SpotLightShader2D;
+  public var crt:CRTShader;
 
   /**
    * Shader that 
@@ -55,6 +58,9 @@ class Boot extends hxd.App {
     spotlight.playerPos = new Vector(0, 0);
     composite = new CompositeShader(new TextureArray(engine.width,
       engine.height, 2, [Target]));
+    crt = new CRTShader();
+    crt.widthHeight = new Vector();
+    crt.tex = new Texture(engine.width, engine.height, [Target]);
     onResize();
   }
 
@@ -136,7 +142,17 @@ class Boot extends hxd.App {
       // Note we can use the drawTo texture method to reduce render calls
       level.hud.show();
       level.hud.root.drawTo(composite.textures);
-      new ScreenFx(composite).render();
+      ScreenFx.run(composite, crt.tex, 0);
+
+      if (Game.ME.crtON) {
+        crt.widthHeight.x = engine.width;
+        crt.widthHeight.y = engine.height;
+        crt.time += Timer.elapsedTime * 4;
+        ScreenFx.run(composite, crt.tex, 0);
+        new ScreenFx(crt).render();
+      } else {
+        new ScreenFx(composite).render();
+      }
       // Compsite  Final Textures
     } else {
       // Render the standard scene in the game
