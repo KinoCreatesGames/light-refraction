@@ -1,5 +1,7 @@
 package en;
 
+import dn.heaps.assets.Aseprite;
+
 class Enemy extends BaseEnt {
   /**
    * An enemy within them.
@@ -19,8 +21,10 @@ class Enemy extends BaseEnt {
 
   public function setupGraphics() {
     var g = new h2d.Graphics(spr);
-    g.beginFill(0xff0000);
-    g.drawRect(0, 0, Const.GRID, Const.GRID);
-    g.endFill();
+    var ase = hxd.Res.img.Wisp.toAseprite();
+    var slib = Aseprite.convertToSLib(Const.FPS, ase);
+    spr.set(slib);
+    spr.anim.registerStateAnim('idle', 0);
+    spr.setCenterRatio();
   }
 }
