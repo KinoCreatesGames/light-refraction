@@ -38,6 +38,7 @@ class Game extends dn.Process {
     ca.setRightDeadZone(0.2);
     createRootInLayers(Main.ME.root, Const.DP_BG);
     proj = new LDTkProj();
+    crtON = true;
 
     scroller = new h2d.Layers();
     root.add(scroller, Const.DP_BG);

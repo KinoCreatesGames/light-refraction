@@ -9,7 +9,7 @@
 		"url": "https://ldtk.io"
 	},
 	"jsonVersion": "0.9.3",
-	"nextUid": 30,
+	"nextUid": 38,
 	"worldLayout": "Free",
 	"worldGridWidth": 256,
 	"worldGridHeight": 256,
@@ -30,6 +30,25 @@
 	"levelNamePattern": "Level_%idx",
 	"flags": [],
 	"defs": { "layers": [
+		{
+			"__type": "Tiles",
+			"identifier": "Decoration",
+			"type": "Tiles",
+			"uid": 30,
+			"gridSize": 16,
+			"displayOpacity": 1,
+			"pxOffsetX": 0,
+			"pxOffsetY": 0,
+			"requiredTags": [],
+			"excludedTags": [],
+			"intGridValues": [{ "value": 1, "identifier": null, "color": "#000000" }],
+			"autoTilesetDefUid": null,
+			"autoRuleGroups": [],
+			"autoSourceLayerDefUid": null,
+			"tilesetDefUid": 12,
+			"tilePivotX": 0,
+			"tilePivotY": 0
+		},
 		{
 			"__type": "Entities",
 			"identifier": "Entities",
@@ -499,6 +518,95 @@
 					"textLanguageMode": null
 				}
 			]
+		},
+		{
+			"identifier": "Exit",
+			"uid": 31,
+			"tags": [],
+			"width": 32,
+			"height": 32,
+			"resizableX": true,
+			"resizableY": true,
+			"keepAspectRatio": false,
+			"fillOpacity": 1,
+			"lineOpacity": 1,
+			"hollow": true,
+			"color": "#FF61FB",
+			"renderMode": "Cross",
+			"showName": true,
+			"tilesetId": null,
+			"tileId": null,
+			"tileRenderMode": "Stretch",
+			"maxCount": 0,
+			"limitScope": "PerLevel",
+			"limitBehavior": "MoveLastOne",
+			"pivotX": 0,
+			"pivotY": 0,
+			"fieldDefs": [
+				{
+					"identifier": "LevelTagName",
+					"__type": "String",
+					"uid": 33,
+					"type": "F_String",
+					"isArray": false,
+					"canBeNull": false,
+					"arrayMinLength": null,
+					"arrayMaxLength": null,
+					"editorDisplayMode": "NameAndValue",
+					"editorDisplayPos": "Above",
+					"editorAlwaysShow": true,
+					"editorCutLongValues": true,
+					"min": null,
+					"max": null,
+					"regex": null,
+					"acceptFileTypes": null,
+					"defaultOverride": {
+						"id": "V_String",
+						"params": ["LevelName"]
+					},
+					"textLanguageMode": null
+				},
+				{
+					"identifier": "spawnX",
+					"__type": "Int",
+					"uid": 36,
+					"type": "F_Int",
+					"isArray": false,
+					"canBeNull": false,
+					"arrayMinLength": null,
+					"arrayMaxLength": null,
+					"editorDisplayMode": "NameAndValue",
+					"editorDisplayPos": "Above",
+					"editorAlwaysShow": true,
+					"editorCutLongValues": true,
+					"min": null,
+					"max": null,
+					"regex": null,
+					"acceptFileTypes": null,
+					"defaultOverride": null,
+					"textLanguageMode": null
+				},
+				{
+					"identifier": "spawnY",
+					"__type": "Int",
+					"uid": 37,
+					"type": "F_Int",
+					"isArray": false,
+					"canBeNull": false,
+					"arrayMinLength": null,
+					"arrayMaxLength": null,
+					"editorDisplayMode": "NameAndValue",
+					"editorDisplayPos": "Above",
+					"editorAlwaysShow": true,
+					"editorCutLongValues": true,
+					"min": null,
+					"max": null,
+					"regex": null,
+					"acceptFileTypes": null,
+					"defaultOverride": null,
+					"textLanguageMode": null
+				}
+			]
 		}
 	], "tilesets": [
 		{
@@ -541,7 +649,31 @@
 				"averageColors": "fc8794470000fd86fd86fabbb46974799a4449aa4b8700000000fdcafdca0000000000007935fa760000000000000d860000000000000000756748550000000000000000000000000000000047787784000000000000000000000000000000008c6a00000000000000000000000000000000e26ae26adaab"
 			}
 		}
-	], "enums": [], "externalEnums": [], "levelFields": [] },
+	], "enums": [], "externalEnums": [], "levelFields": [
+		{
+			"identifier": "Name",
+			"__type": "String",
+			"uid": 32,
+			"type": "F_String",
+			"isArray": false,
+			"canBeNull": true,
+			"arrayMinLength": null,
+			"arrayMaxLength": null,
+			"editorDisplayMode": "NameAndValue",
+			"editorDisplayPos": "Above",
+			"editorAlwaysShow": true,
+			"editorCutLongValues": true,
+			"min": null,
+			"max": null,
+			"regex": null,
+			"acceptFileTypes": null,
+			"defaultOverride": {
+				"id": "V_String",
+				"params": ["LevelName"]
+			},
+			"textLanguageMode": null
+		}
+	] },
 	"levels": [
 		{
 			"identifier": "Level_0",
@@ -559,8 +691,49 @@
 			"bgPivotY": 0.5,
 			"__bgPos": null,
 			"externalRelPath": null,
-			"fieldInstances": [],
+			"fieldInstances": [{
+				"__identifier": "Name",
+				"__value": "Debug",
+				"__type": "String",
+				"defUid": 32,
+				"realEditorValues": [{
+					"id": "V_String",
+					"params": ["Debug"]
+				}]
+			}],
 			"layerInstances": [
+				{
+					"__identifier": "Decoration",
+					"__type": "Tiles",
+					"__cWid": 24,
+					"__cHei": 18,
+					"__gridSize": 16,
+					"__opacity": 1,
+					"__pxTotalOffsetX": 0,
+					"__pxTotalOffsetY": 0,
+					"__tilesetDefUid": 12,
+					"__tilesetRelPath": "LTilesPNG.png",
+					"levelId": 0,
+					"layerDefUid": 30,
+					"pxOffsetX": 0,
+					"pxOffsetY": 0,
+					"visible": true,
+					"optionalRules": [],
+					"intGrid": [],
+					"intGridCsv": [],
+					"autoLayerTiles": [],
+					"seed": 4746441,
+					"overrideTilesetUid": null,
+					"gridTiles": [
+						{ "px": [112,80], "src": [288,64], "f": 0, "t": 29, "d": [127] },
+						{ "px": [144,80], "src": [224,160], "f": 0, "t": 57, "d": [129] },
+						{ "px": [176,80], "src": [256,160], "f": 0, "t": 58, "d": [131] },
+						{ "px": [288,80], "src": [288,32], "f": 0, "t": 19, "d": [138] },
+						{ "px": [32,96], "src": [288,64], "f": 0, "t": 29, "d": [146] },
+						{ "px": [192,144], "src": [288,64], "f": 0, "t": 29, "d": [228] }
+					],
+					"entityInstances": []
+				},
 				{
 					"__identifier": "Entities",
 					"__type": "Entities",
@@ -642,13 +815,13 @@
 						},
 						{
 							"__identifier": "Lamp",
-							"__grid": [4,2],
+							"__grid": [3,2],
 							"__pivot": [0.5,0.5],
 							"__tile": null,
 							"width": 32,
 							"height": 32,
 							"defUid": 7,
-							"px": [144,80],
+							"px": [112,80],
 							"fieldInstances": [
 								{ "__identifier": "Radius", "__value": 32, "__type": "Float", "defUid": 8, "realEditorValues": [] },
 								{ "__identifier": "LightColor", "__value": "#DEF8FF", "__type": "Color", "defUid": 9, "realEditorValues": [] }
@@ -695,15 +868,34 @@
 							]
 						},
 						{
-							"__identifier": "Battery",
-							"__grid": [4,2],
+							"__identifier": "Exit",
+							"__grid": [11,3],
 							"__pivot": [0,0],
 							"__tile": null,
 							"width": 32,
-							"height": 32,
-							"defUid": 3,
-							"px": [128,64],
-							"fieldInstances": []
+							"height": 160,
+							"defUid": 31,
+							"px": [352,96],
+							"fieldInstances": [
+								{
+									"__identifier": "LevelTagName",
+									"__value": "Debug",
+									"__type": "String",
+									"defUid": 33,
+									"realEditorValues": [{
+										"id": "V_String",
+										"params": ["Debug"]
+									}]
+								},
+								{ "__identifier": "spawnX", "__value": 0, "__type": "Int", "defUid": 36, "realEditorValues": [] },
+								{
+									"__identifier": "spawnY",
+									"__value": 5,
+									"__type": "Int",
+									"defUid": 37,
+									"realEditorValues": [{ "id": "V_Int", "params": [5] }]
+								}
+							]
 						}
 					]
 				},

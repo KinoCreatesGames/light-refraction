@@ -1,3 +1,6 @@
+import h2d.col.Bounds;
+import en.hazard.Exit;
+import en.hazard.Hazard;
 import en.objects.Lamp;
 import en.BaseEnt;
 import h2d.col.Point;
@@ -58,6 +61,7 @@ class Level extends dn.Process {
   public var collectibles:Group<Collectible>;
   public var enemies:Group<Enemy>;
   public var lights:Group<Entity>;
+  public var hazards:Group<Hazard>;
   public var data:LDTkProj_Level;
 
   public function new(?levelData:LDTkProj_Level) {
@@ -79,6 +83,7 @@ class Level extends dn.Process {
     collectibles = new Group<Collectible>();
     enemies = new Group<Enemy>();
     lights = new Group<Entity>();
+    hazards = new Group<Hazard>();
   }
 
   public function setupEntities() {
@@ -88,6 +93,7 @@ class Level extends dn.Process {
     setupEnemies();
     setupCollectibles();
     setupLights();
+    setupHazards();
   }
 
   public function setupEnemies() {
@@ -109,6 +115,17 @@ class Level extends dn.Process {
     for (lg in data.l_Entities.all_Lamp) {
       var light = new Lamp(lg);
       lights.add(light);
+    }
+  }
+
+  /**
+   * Sets up the hazards within the game.
+   * Allowing you to interact with them.
+   */
+  public function setupHazards() {
+    for (enExit in data.l_Entities.all_Exit) {
+      var exit = new Exit(enExit);
+      hazards.add(exit);
     }
   }
 
@@ -160,6 +177,49 @@ class Level extends dn.Process {
     return data.l_AutoIGrid.getInt(x, y) != 3;
   }
 
+  public function hasAnyDecoration(x:Int, y:Int) {}
+
+  public function hasAnyHazardCollision(x:Int, y:Int) {
+    hazards.members.iter((hazard) -> {
+      var hazardType = Type.getClass(hazard);
+      switch (hazardType) {
+        case _:
+          // Do nothing
+      }
+    });
+  }
+
+  /**
+   * Uses grid positions
+   * @param x 
+   * @param y 
+   */
+  public function hasExitCollision(x:Int, y:Int) {
+    var bBox = new Bounds();
+    return hazards.members.filter((hazard) -> Std.isOfType(hazard,
+      en.hazard.Exit))
+      .filter((el) -> {
+        var exit:en.hazard.Exit = cast el;
+        bBox.x = exit.colPoint.x;
+        bBox.y = exit.colPoint.y;
+        bBox.width = exit.colPoint.z;
+        bBox.height = exit.colPoint.w;
+        // trace(bBox.x);
+        return bBox.contains(new Point(x, y));
+      })
+      .first();
+  }
+
+  /**
+   * Transfers the player once they interact with an exit
+   * within the game.
+   * @param exit 
+   */
+  public function transferPlayer(exit:Exit) {
+    player.cx = Std.int(exit.startPoint.x);
+    player.cy = Std.int(exit.startPoint.y);
+  }
+
   override function update() {
     super.update();
     handlePause();
@@ -187,8 +247,10 @@ class Level extends dn.Process {
     // Placeholder level render
     root.removeChildren();
 
+    // Render Floor Walls and Decorations
     var tlGroup = data.l_Floor.render();
     data.l_Walls.render(tlGroup);
+    data.l_Decoration.render(tlGroup);
     root.addChild(tlGroup);
   }
 

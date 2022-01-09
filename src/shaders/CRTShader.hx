@@ -62,7 +62,7 @@ class CRTShader extends ScreenShader {
         pxColor.rgb *= clamp(.99 * ceil(segment) * 0.015, .5, 1.5);
         // Brighten lines and add more blue
         pxColor.rgb *= 1.5;
-        pxColor.b *= 1.3;
+        pxColor.b *= (1.15);
       }
       pixelColor = pxColor;
     }

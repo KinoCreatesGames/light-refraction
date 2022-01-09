@@ -111,6 +111,7 @@ class Player extends BaseEnt {
       }
       collideWithEnemy();
       collideWithCollectible();
+      collideWithExit();
     }
   }
 
@@ -138,6 +139,13 @@ class Player extends BaseEnt {
         case _:
           // Do nothing
       }
+    }
+  }
+
+  public function collideWithExit() {
+    var collided = level.hasExitCollision(cx, cy);
+    if (collided != null) {
+      level.transferPlayer(cast collided);
     }
   }
 
