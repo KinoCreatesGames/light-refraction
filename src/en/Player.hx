@@ -133,8 +133,12 @@ class Player extends BaseEnt {
     if (collectible != null) {
       var collectibleT = Type.getClass(collectible);
       switch (collectibleT) {
+        case en.collectibles.Health:
+          addHealth(1);
+          collectible.destroy();
         case en.collectibles.Battery:
           // Give back battery percentage to the max
+          collectible.destroy();
           flashLight.batteryLife = 1.;
         case _:
           // Do nothing
