@@ -102,7 +102,9 @@ class Boot extends hxd.App {
     // For the spotlight for the player character
     if (Game.ME != null && Game.ME.level != null && !Game.ME.level.destroyed) {
       var level = Game.ME.level;
+      // Unlit World
       engine.pushTarget(spotlight.texs, 0);
+      // Light Texture Render
       engine.pushTarget(spotlight.texs, 1);
       engine.clear(0, 1);
 

@@ -88,13 +88,13 @@ class Level extends dn.Process {
   }
 
   public function setupEntities() {
-    for (pl in data.l_Entities.all_Player) {
-      player = new Player(pl.cx, pl.cy);
-    }
     setupEnemies();
     setupCollectibles();
     setupLights();
     setupHazards();
+    for (pl in data.l_Entities.all_Player) {
+      player = new Player(pl.cx, pl.cy);
+    }
   }
 
   public function setupEnemies() {

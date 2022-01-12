@@ -52,9 +52,10 @@ class Player extends BaseEnt {
 
   public function setupGraphics() {
     var g = new h2d.Graphics(spr);
-    g.beginFill(0xffa0ff);
-    var size = Const.GRID;
-    g.drawRect(0, 0, size, size);
+    var tile = hxd.Res.img.MCBasePNG.toTile();
+    g.beginTileFill(0, 0, 1, 1, tile);
+    // var size = Const.GRID;
+    g.drawTile(0, 0, tile);
     g.endFill();
   }
 
