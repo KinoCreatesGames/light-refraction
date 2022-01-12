@@ -1,3 +1,5 @@
+import ui.MsgWindow;
+import ui.Notification;
 import en.objects.Light;
 import en.collectibles.Health;
 import h2d.col.Bounds;
@@ -50,6 +52,18 @@ class Level extends dn.Process {
 
   public function get_hud() {
     return Game.ME.hud;
+  }
+
+  public var notif(get, never):Notification;
+
+  public function get_notif() {
+    return Game.ME.notif;
+  }
+
+  public var msg(get, never):MsgWindow;
+
+  public function get_msg() {
+    return Game.ME.msg;
   }
 
   inline function get_pxHei()

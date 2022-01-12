@@ -107,6 +107,10 @@ class Hud extends dn.Process {
     }
   }
 
+  public function isVisible() {
+    return flow.visible;
+  }
+
   public function hide() {
     flow.visible = false;
     stdFlashLight.root.visible = false;

@@ -145,9 +145,17 @@ class Boot extends hxd.App {
       // Note we can use the drawTo texture method to reduce render calls
       level.hud.show();
       level.hud.root.drawTo(composite.textures);
+      if (level.notif.isVisible()) {
+        level.notif.root.drawTo(composite.textures);
+      }
+
+      if (level.msg.isVisible()) {
+        level.msg.root.drawTo(composite.textures);
+      }
       level.lights.members.iter((el) -> {
         el.showGraphic();
       });
+
       ScreenFx.run(composite, crt.tex, 0);
 
       if (Game.ME.crtON) {

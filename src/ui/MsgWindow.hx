@@ -133,6 +133,10 @@ class MsgWindow extends dn.Process {
     ct.takeExclusivity();
   }
 
+  public function isVisible() {
+    return this.win.visible;
+  }
+
   function onClose() {}
 
   public function close() {

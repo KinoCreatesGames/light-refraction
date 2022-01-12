@@ -47,6 +47,10 @@ class Notification extends dn.Process {
     win.removeChildren();
   }
 
+  public function isVisible() {
+    return this.win.visible;
+  }
+
   public function hide() {
     win.visible = false;
     mask.visible = false;

@@ -57,6 +57,9 @@ class Player extends BaseEnt {
     // var size = Const.GRID;
     g.drawTile(0, 0, tile);
     g.endFill();
+    // Offset Player
+    g.x -= 32;
+    g.y -= 32;
   }
 
   override function update() {
