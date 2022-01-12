@@ -3,6 +3,7 @@
   It doesn't do much, except creating Main and taking care of app speed ()
 **/
 
+import h2d.filter.Nothing;
 import hxd.Timer;
 import shaders.CRTShader;
 import shaders.CompositeShader;
@@ -52,6 +53,9 @@ class Boot extends hxd.App {
     renderer = new CustomRenderer();
     s3d.renderer = renderer;
     new Main(s2d);
+    // Apply pixel perfect rendering to scene
+    s2d.filter = new Nothing();
+    // s2d.scaleMode = ScaleMode.AutoZoom(320, 180, true);
     spotlight = new SpotLightShader2D();
     spotlight.texs = new TextureArray(engine.width, engine.height, 2, [Target]);
     spotlight.widthHeight = new Vector(engine.width, engine.height);

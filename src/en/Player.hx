@@ -37,6 +37,7 @@ class Player extends BaseEnt {
     setupStats();
     setupFlashLights();
     setupGraphics();
+    game.camera.trackEntity(this, true);
   }
 
   public function setupStats() {
