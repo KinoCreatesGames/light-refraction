@@ -23,6 +23,16 @@ class Game extends dn.Process {
   /** UI **/
   public var hud:ui.Hud;
 
+  /**
+   * Notification window
+   */
+  public var notif:ui.Notification;
+
+  /**
+   * Message Window
+   */
+  public var msg:ui.MsgWindow;
+
   public var proj:LDTkProj;
 
   /**
@@ -47,8 +57,15 @@ class Game extends dn.Process {
     camera = new Camera();
 
     fx = new Fx();
+    // HUD Elements
     hud = new ui.Hud();
     hud.hide();
+    notif = new ui.Notification();
+    notif.hide();
+    msg = new ui.MsgWindow();
+    msg.hide();
+    // Text Elements
+
     startInitialGame();
 
     Process.resizeAll();

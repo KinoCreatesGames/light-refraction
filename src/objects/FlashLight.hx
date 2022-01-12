@@ -62,7 +62,7 @@ class FlashLight extends Entity {
     super(0, 0);
     on = false;
     batteryLife = 1.;
-    this.clipColor = 0xffffff; // Color for shading purposes used in shader to determine flashlight area
+    this.clipColor = color; // Color for shading purposes used in shader to determine flashlight area
     this.color = color;
     this.vColor = Vector.fromColor(this.color);
     this.drainPerc = 0.02;

@@ -142,6 +142,7 @@ class Entity {
 
     spr = new HSprite(Assets.tiles);
     #if debug
+    removeEmptyTexture();
     #else
     // Empty texture is a green square on all in game objects when there is no sprite lib asset attached to an entity
     removeEmptyTexture();
@@ -154,7 +155,7 @@ class Entity {
   }
 
   public function removeEmptyTexture() {
-    spr.tile.getTexture().clear(0x0, 1);
+    spr.tile.getTexture().clear(0x0, 0);
   }
 
   inline function set_dir(v) {

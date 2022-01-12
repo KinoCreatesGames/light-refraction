@@ -112,7 +112,7 @@ class Boot extends hxd.App {
       // First Texture is just world without lights
       // Remove the lights from everything else in the level as well
       level.lights.members.iter((el) -> {
-        el.spr.visible = false;
+        el.turnOff();
       });
       if (!level.player.flashLightOff) {
         level.player.flashLight.turnOff();
@@ -127,7 +127,8 @@ class Boot extends hxd.App {
         level.player.flashLight.turnOn();
       }
       level.lights.members.iter((el) -> {
-        el.spr.visible = true;
+        el.turnOn();
+        el.hideGraphic();
       });
       s2d.render(e);
       engine.popTarget();
@@ -144,6 +145,9 @@ class Boot extends hxd.App {
       // Note we can use the drawTo texture method to reduce render calls
       level.hud.show();
       level.hud.root.drawTo(composite.textures);
+      level.lights.members.iter((el) -> {
+        el.showGraphic();
+      });
       ScreenFx.run(composite, crt.tex, 0);
 
       if (Game.ME.crtON) {

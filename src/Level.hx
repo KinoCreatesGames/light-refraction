@@ -1,3 +1,4 @@
+import en.objects.Light;
 import en.collectibles.Health;
 import h2d.col.Bounds;
 import en.hazard.Exit;
@@ -61,7 +62,7 @@ class Level extends dn.Process {
 
   public var collectibles:Group<Collectible>;
   public var enemies:Group<Enemy>;
-  public var lights:Group<Entity>;
+  public var lights:Group<Light>;
   public var hazards:Group<Hazard>;
   public var data:LDTkProj_Level;
 
@@ -83,7 +84,7 @@ class Level extends dn.Process {
   public function setupGroups() {
     collectibles = new Group<Collectible>();
     enemies = new Group<Enemy>();
-    lights = new Group<Entity>();
+    lights = new Group<Light>();
     hazards = new Group<Hazard>();
   }
 
@@ -119,8 +120,11 @@ class Level extends dn.Process {
   }
 
   public function setupLights() {
-    for (lg in data.l_Entities.all_Lamp) {
+    for (lg in data.l_LightEntities.all_Lamp) {
       var light = new Lamp(lg);
+      // Accounts for grid size difference
+      light.cx = Std.int(lg.cx / (Const.GRID / data.l_LightEntities.gridSize));
+      light.cy = Std.int(lg.cy / (Const.GRID / data.l_LightEntities.gridSize));
       lights.add(light);
     }
   }
