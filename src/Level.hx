@@ -1,3 +1,4 @@
+import en.collectibles.Health;
 import h2d.col.Bounds;
 import en.hazard.Exit;
 import en.hazard.Hazard;
@@ -108,6 +109,12 @@ class Level extends dn.Process {
     for (battery in data.l_Entities.all_Battery) {
       var bt = new Battery(battery);
       collectibles.add(bt);
+    }
+
+    // Hearts
+    for (health in data.l_Entities.all_Health) {
+      var healthDrink = new Health(health);
+      collectibles.add(healthDrink);
     }
   }
 

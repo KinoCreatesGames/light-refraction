@@ -9,7 +9,7 @@
 		"url": "https://ldtk.io"
 	},
 	"jsonVersion": "0.9.3",
-	"nextUid": 38,
+	"nextUid": 39,
 	"worldLayout": "Free",
 	"worldGridWidth": 256,
 	"worldGridHeight": 256,
@@ -607,6 +607,31 @@
 					"textLanguageMode": null
 				}
 			]
+		},
+		{
+			"identifier": "Health",
+			"uid": 38,
+			"tags": [],
+			"width": 32,
+			"height": 32,
+			"resizableX": false,
+			"resizableY": false,
+			"keepAspectRatio": false,
+			"fillOpacity": 1,
+			"lineOpacity": 1,
+			"hollow": false,
+			"color": "#DE1B34",
+			"renderMode": "Ellipse",
+			"showName": true,
+			"tilesetId": null,
+			"tileId": null,
+			"tileRenderMode": "Stretch",
+			"maxCount": 0,
+			"limitScope": "PerLevel",
+			"limitBehavior": "MoveLastOne",
+			"pivotX": 0,
+			"pivotY": 0,
+			"fieldDefs": []
 		}
 	], "tilesets": [
 		{
@@ -896,6 +921,17 @@
 									"realEditorValues": [{ "id": "V_Int", "params": [5] }]
 								}
 							]
+						},
+						{
+							"__identifier": "Health",
+							"__grid": [2,6],
+							"__pivot": [0,0],
+							"__tile": null,
+							"width": 32,
+							"height": 32,
+							"defUid": 38,
+							"px": [64,192],
+							"fieldInstances": []
 						}
 					]
 				},
