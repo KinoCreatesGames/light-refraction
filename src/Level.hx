@@ -162,7 +162,7 @@ class Level extends dn.Process {
   }
 
   public function setupLighting() {
-    lightSys.gatherLevelInfo(data);
+    lightSys.gatherLevelInfo(this, data);
     lightSys.convertoToPolygons();
     lightSys.castLight();
   }
@@ -294,11 +294,10 @@ class Level extends dn.Process {
 
   override function postUpdate() {
     super.postUpdate();
-
-    lightSys.castLight();
-    lightSys.debugDraw(this);
     this.lightSys.lightPoint.x = player.spr.x;
     this.lightSys.lightPoint.y = player.spr.y;
+    lightSys.castLight();
+    lightSys.debugDraw(this);
     if (invalidated) {
       invalidated = false;
       render();

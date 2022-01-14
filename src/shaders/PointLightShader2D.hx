@@ -87,7 +87,7 @@ class PointLightShader2D extends hxsl.Shader {
         // cl.g *= result;
         cl.a *= pct;
       }
-      // cl.a *= cos(time);
+
       var uv = input.uv;
       uv.r = pct;
 

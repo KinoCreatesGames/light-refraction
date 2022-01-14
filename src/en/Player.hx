@@ -13,7 +13,7 @@ import dn.heaps.Controller.ControllerAccess;
  * activate our flashlight.
  */
 class Player extends BaseEnt {
-  public static inline var MOVE_SPD:Float = .2;
+  public static inline var MOVE_SPD:Float = .1;
 
   public var ct:ControllerAccess;
 
