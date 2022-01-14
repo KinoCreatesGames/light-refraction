@@ -835,10 +835,10 @@
 								{ "__identifier": "Radius", "__value": 32, "__type": "Float", "defUid": 8, "realEditorValues": [] },
 								{
 									"__identifier": "LightColor",
-									"__value": "#2A469E",
+									"__value": "#00228D",
 									"__type": "Color",
 									"defUid": 9,
-									"realEditorValues": [{ "id": "V_Int", "params": [2770590] }]
+									"realEditorValues": [{ "id": "V_Int", "params": [8845] }]
 								},
 								{ "__identifier": "isOn", "__value": true, "__type": "Bool", "defUid": 39, "realEditorValues": [] }
 							]
@@ -856,10 +856,10 @@
 								{ "__identifier": "Radius", "__value": 32, "__type": "Float", "defUid": 8, "realEditorValues": [] },
 								{
 									"__identifier": "LightColor",
-									"__value": "#405D75",
+									"__value": "#00457D",
 									"__type": "Color",
 									"defUid": 9,
-									"realEditorValues": [{ "id": "V_Int", "params": [4218229] }]
+									"realEditorValues": [{ "id": "V_Int", "params": [17789] }]
 								},
 								{ "__identifier": "isOn", "__value": true, "__type": "Bool", "defUid": 39, "realEditorValues": [] }
 							]

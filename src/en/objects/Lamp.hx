@@ -1,5 +1,12 @@
 package en.objects;
 
+import shaders.PointLightFilter;
+import dn.heaps.filter.PixelOutline;
+import h3d.prim.Disc;
+import h3d.Vector;
+import shaders.SineDeformShader2D;
+import h2d.Bitmap;
+import shaders.PointLightShader2D;
 import hxd.Timer;
 
 class Lamp extends Light {
@@ -11,8 +18,8 @@ class Lamp extends Light {
     lightRadius = lamp.f_Radius;
     lightColor = lamp.f_LightColor_int;
     isOn = lamp.f_isOn;
-    setupGraphic();
     setupLight();
+    setupGraphic();
   }
 
   public function setupGraphic() {
@@ -28,13 +35,23 @@ class Lamp extends Light {
 
   public function setupLight() {
     light = new h2d.Graphics(this.spr);
+
     // Create Light Circle
     light.blendMode = Add;
     // light.alpha = 0.7;
-
-    light.beginFill(lightColor);
+    var shader = new PointLightShader2D();
+    shader.widthHeight.x = game.w();
+    shader.widthHeight.y = game.h();
+    shader.pos.x = this.spr.x;
+    shader.pos.y = this.spr.y;
+    shader.color = Vector.fromColor(lightColor);
+    var colorTile = h2d.Tile.fromColor(lightColor, 1, 1);
+    light.beginTileFill(0, 0, 64, 64, colorTile);
     light.drawCircle(0, 0, lightRadius);
     light.endFill();
+    light.addShader(shader);
+
+    // light.filter = new PixelOutline(0x0000ff);
   }
 
   override function update() {

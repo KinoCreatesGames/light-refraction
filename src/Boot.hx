@@ -116,7 +116,7 @@ class Boot extends hxd.App {
       // First Texture is just world without lights
       // Remove the lights from everything else in the level as well
       level.lights.members.iter((el) -> {
-        el.turnOff();
+        // el.turnOff();
       });
       if (!level.player.flashLightOff) {
         level.player.flashLight.turnOff();

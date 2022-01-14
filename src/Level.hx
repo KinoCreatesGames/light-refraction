@@ -1,3 +1,4 @@
+import system.LightSys;
 import ui.MsgWindow;
 import ui.Notification;
 import en.objects.Light;
@@ -80,19 +81,25 @@ class Level extends dn.Process {
   public var hazards:Group<Hazard>;
   public var data:LDTkProj_Level;
 
+  // Light System Information
+  public var lightSys:LightSys;
+
   public function new(?levelData:LDTkProj_Level) {
     super(Game.ME);
     createRootInLayers(Game.ME.scroller, Const.DP_BG);
     if (levelData != null) {
       data = levelData;
+      lightSys = new LightSys(this);
       setup();
     }
+
     hud.show();
   }
 
   public function setup() {
     setupGroups();
     setupEntities();
+    setupLighting();
   }
 
   public function setupGroups() {
@@ -152,6 +159,12 @@ class Level extends dn.Process {
       var exit = new Exit(enExit);
       hazards.add(exit);
     }
+  }
+
+  public function setupLighting() {
+    lightSys.gatherLevelInfo(data);
+    lightSys.convertoToPolygons();
+    lightSys.castLight();
   }
 
   /** TRUE if given coords are in level bounds **/
@@ -282,6 +295,10 @@ class Level extends dn.Process {
   override function postUpdate() {
     super.postUpdate();
 
+    lightSys.castLight();
+    lightSys.debugDraw(this);
+    this.lightSys.lightPoint.x = player.spr.x;
+    this.lightSys.lightPoint.y = player.spr.y;
     if (invalidated) {
       invalidated = false;
       render();

@@ -229,17 +229,17 @@ class Player extends BaseEnt {
     //   dy = 0;
     // }
 
-    if (level.hasAnyCollision(cx, cy + 1)) {
-      // setSquashY(0.6);
-      yr = -0.1;
-      dy = -0.1;
-    }
+    // if (level.hasAnyCollision(cx, cy + 1)) {
+    //   // setSquashY(0.6);
+    //   yr = -0.1;
+    //   dy = -0.1;
+    // }
 
-    if (level.hasAnyCollision(cx, cy - 1)) {
-      yr = 1.01;
-      dy = .1;
-      // setSquashY(0.6);
-    }
+    // if (level.hasAnyCollision(cx, cy - 1)) {
+    //   yr = 1.01;
+    //   dy = .1;
+    //   // setSquashY(0.6);
+    // }
   }
 
   // Standard overrides

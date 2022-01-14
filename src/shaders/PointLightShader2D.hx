@@ -1,17 +1,15 @@
 package shaders;
 
-import h3d.shader.ScreenShader;
-import h3d.Vector;
-import h3d.mat.Texture;
-
 /**
- * 2D Spotlight Shader
+ * 2D PointLight Shader
  * that allows you to create a spotlight effect
  * within your game similar
  * to the Pokemon franchise games in the caves.
  */
-class SpotLightShader2D extends ScreenShader {
+class PointLightShader2D extends hxsl.Shader {
   static var SRC = {
+    @:import h3d.shader.Base2d; // Necessary for base 2D Shaders
+
     /**
      * The radius of the circle that
      * makes the spotlight in the middle of the screen
@@ -24,13 +22,6 @@ class SpotLightShader2D extends ScreenShader {
      * on the rest of the screen
      */
     @param var strength:Float;
-
-    /**
-     * The Flashlight tint color to be used 
-     * for tinting thef lash light area
-     * within the spotlight shader.
-     */
-    @param var flashlightTint:Vec4;
 
     /**
      * The width / height of the game engine screen
@@ -50,21 +41,26 @@ class SpotLightShader2D extends ScreenShader {
      * the screen texture that we pull from for
      * rendering the new scene.
      */
-    @param var texs:Sampler2DArray;
+    @param var texture:Sampler2D;
 
     /**
      * The player position on the screen to use as the center of the circle
      */
-    @param var playerPos:Vec2;
+    @param var pos:Vec2;
 
+    /**
+     * Point Color  tint
+     */
+    @param var color:Vec4;
+
+    @param var sTime:Float;
     function fragment() {
       // Room Color Without Lights
-      var texColor = texs.get(vec3(input.uv, 1));
+      // var texColor = texture.get(input.uv);
       // Room color with the lights on
-      var lights = texs.get(vec3(input.uv, 0));
+      //   var lights = texs.get(vec3(input.uv, 0));
       // Center  of the radial circle
-      var movingCenter = vec2(playerPos.x / widthHeight.x,
-        playerPos.y / widthHeight.y);
+      var movingCenter = vec2(pos.x / widthHeight.x, pos.y / widthHeight.y);
       // Screen center
       var center = vec2(.5, .5);
       // Correct for the resolution aspect ratio
@@ -72,32 +68,40 @@ class SpotLightShader2D extends ScreenShader {
       // To meet the Y coordinates
       var resolutionCorrect = vec2(widthHeight.x / widthHeight.y, 1.);
       // Percent away from the center
-      var pct = distance(input.uv * resolutionCorrect,
-        movingCenter * resolutionCorrect);
+      var pct = distance(input.uv, movingCenter);
       // Smoothing
-      var str = 1 - (smoothstep(0.1, radius + smoothEdges, pct));
+      var str = 1 - (smoothstep(0.2, radius + smoothEdges, pct));
 
-      var tmp = texColor;
-      // Flash Light Adjustment
-      if (lights.r > .99 || lights.g > .99 || lights.b > .99) {
-        // texColor *= ((1 * flashlightTint) * 1.75);
-        // texColor = (texColor * 1.) * (lights * 1.);
-        // texColor *= 1;
-        // texColor += (flashlightTint * .6);
-      } else {
-        texColor *= ((str));
+      //   var tmp = texColor;
+      //   texColor *= ((str));
+      //   Smooth Edges
+      // pixelColor = pixelColor;
+      var light = vec4(.7, .7, .7, 1);
+      // light *= cos(sTime);
+      var cl = vec4(color.rgb, 1);
+      // cl = light * cl;
+      if (pct > radius) {
+        var result = clamp(1 - pct, .1, 1);
+        // Tint instead
+        cl.b *= result * (1 - str);
+        // cl.g *= result;
+        cl.a *= pct;
       }
+      // cl.a *= cos(time);
+      var uv = input.uv;
+      uv.r = pct;
 
-      // // Smooth Edges
-      pixelColor = texColor + (tmp * strength);
+      pixelColor = cl;
+      // pixelColor = texColor * str;
     }
   }
 
-  public function new(radius:Float = .2, smoothEdge:Float = 0.02,
+  public function new(radius:Float = .45, smoothEdge:Float = 0.02,
       strength:Float = .3) {
     super();
     this.radius = radius;
     this.smoothEdges = smoothEdge;
     this.strength = strength;
+    this.sTime = 0;
   }
 }
