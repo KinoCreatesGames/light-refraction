@@ -297,7 +297,8 @@ class Level extends dn.Process {
     this.lightSys.lightPoint.x = player.spr.x;
     this.lightSys.lightPoint.y = player.spr.y;
     lightSys.castLight();
-    lightSys.debugDraw(this);
+    lightSys.renderLight();
+    // lightSys.debugDraw(this);
     if (invalidated) {
       invalidated = false;
       render();

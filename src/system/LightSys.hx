@@ -50,23 +50,19 @@ class LightSys {
 
   public var lightPoint:Point;
 
-  var lightRays:Array<Ray>;
-  var intersectionPoints:Array<Point>;
   var lightRadius = 40;
-  var polyPoints:Array<Point>;
 
   public var lightG:h2d.Graphics;
 
   public var pointLights:Array<PointLight>;
+  public var flashLight:FlashLight;
 
   /**
    * Create the lighting system for use within the game on a specific level.
    */
   public function new(level) {
     levelPoly = [];
-    lightRays = [];
-    intersectionPoints = [];
-    polyPoints = [];
+
     pointLights = [];
     lightPoly = new Polygon();
     flashlightPoly = new Polygon();
@@ -82,112 +78,22 @@ class LightSys {
   public function gatherLevelInfo(level:Level, data:LDTkProj_Level) {
     // Turn entities into polygonal data
     this.data = data;
-    var test = new PointLight(lightPoint.clone(), level.root, data);
+    var p = lightPoint.clone();
+    p.y -= 40;
+    p.x += 20;
+    var test = new PointLight(p, level.root, data);
+    var testTwo = new system.FlashLight(lightPoint.clone(), 30, 60.,
+      level.root, data);
+    flashLight = testTwo;
+    testTwo.lightRadius = 160;
     pointLights.push(test);
+    pointLights.push(testTwo);
   }
 
   public function castLight() {
-    lightRays.resize(0);
-    intersectionPoints.resize(0);
-    polyPoints.resize(0);
     // castPointLights();
     // castFlashlight();
-  }
-
-  public function castPointLights() {
-    var lineSegments = levelPoly.flatMap((poly) -> poly.toSegments());
-    var rayAmount = 30;
-    var radius = 360;
-    var angleSplit = (360 / rayAmount);
-    var totalAng = 0;
-
-    var createAllRays = (pOne:Point, pTwo:Point) -> {
-      var dist = pOne.distance(pTwo);
-      var rot = 5.toRad();
-      var rayOne = Ray.fromPoints(pOne, pTwo);
-      var rotPoint = rayOne.getPoint(dist);
-      var rotPointTwo = rotPoint.clone();
-      rotPoint.rotate(rot);
-      rotPointTwo.rotate(-rot);
-      var rotatedRay = Ray.fromPoints(pOne, rotPoint);
-      var rotatedRayTwo = Ray.fromPoints(pOne, rotPointTwo);
-      lightRays.push(rayOne);
-      lightRays.push(rotatedRay);
-      lightRays.push(rotatedRayTwo);
-    }
-
-    for (amount in 0...rayAmount) {
-      var rad = (angleSplit * amount).toRad();
-      var start = new Point(0, 0);
-      var endP = new Point(start.x + lightRadius, start.y);
-      endP.rotate(rad);
-      var ray = Ray.fromPoints(start, endP);
-      ray.px = lightPoint.x;
-      ray.py = lightPoint.y;
-      lightRays.push(ray);
-    }
-
-    // for (segment in lineSegments) {
-    //   var startPoint = new Point(segment.x, segment.y);
-    //   var endPoint = new Point(segment.x + segment.dx, segment.y + segment.dy);
-
-    //   // endPoint.scale(2); // Adding after rotation negates rotations
-    //   createAllRays(lightPoint, endPoint);
-    //   createAllRays(lightPoint, startPoint);
-    // }
-    // Check Collision by splitting polygons into segments and recording points
-    var checkList = [];
-    var rayIndex = 0;
-    // trace(lightRays.length);
-    for (ray in lightRays) {
-      var result = null;
-      lineSegments.iter((segment) -> {
-        // Only add ray cast hits that are within the light radius
-        // Heaps segments intersect on both sides for ray?
-        // Look into this later
-        result = segment.lineIntersection(ray);
-
-        var lP = ray.getPoint(lightRadius);
-        if (result != null) {
-          var flooredResult = result.clone();
-          flooredResult.x = M.floor(flooredResult.x);
-          flooredResult.y = M.floor(flooredResult.y);
-          var flP = ray.getPoint((result.distance(lightPoint)));
-          flP.x = M.floor(flP.x);
-          flP.y = M.floor(flP.y);
-          if (result.x.isValidNumber()
-            && result.distance(lightPoint) <= lightRadius
-            && flP.equals(flooredResult)
-            && !checkList.contains(rayIndex)) {
-            intersectionPoints.push(result);
-            checkList.push(rayIndex);
-          }
-        }
-      });
-      if (!checkList.contains(rayIndex)) {
-        var radPoint = ray.getPoint(lightRadius);
-        if (!levelPoly.exists((poly) -> poly.contains(radPoint)))
-          polyPoints.push(radPoint);
-        checkList.push(rayIndex);
-      }
-      rayIndex++;
-    }
-    // trace('Ray Result Matches ${intersectionPoints}');
-    // trace(intersectionPoints.length);
-  }
-
-  public function castFlashlight() {
-    // // Construct light as  radius polygon
-    // // Flashlight Radius
-    // var lineSegments = levelPoly.flatMap((poly) -> poly.toSegments());
-    // var rayAmount = 30;
-    // var angleSplit = (90 / 30).toRad();
-    // var start = new Point(0, 0);
-    // for (amount in rayAmount) {
-    //   var endPoint = start.clone();
-    //   endPoint.rotate(amount * angleSplit);
-    //   Ray.fromPoints(start, endPoint);
-    // }
+    flashLight.castLight();
   }
 
   public function convertoToPolygons() {
@@ -267,108 +173,30 @@ class LightSys {
         levelPoly.push(polygon);
       }
     }
-    var test = pointLights.first();
-    test.gatherInfo(levelPoly);
-    test.castLight();
+
+    // Cast the point lights after drawing polygonal data
+    for (light in pointLights) {
+      light.gatherInfo(levelPoly);
+      light.castLight();
+    }
+  }
+
+  public function renderLight() {
+    for (light in pointLights) {
+      light.renderLight();
+    }
+    if (Game.ME.level != null) {
+      var player = Game.ME.level.player;
+      flashLight.origin.x = player.spr.x;
+      flashLight.origin.y = player.spr.y;
+      var abs = player.spr.getAbsPos();
+      flashLight.absCoords = new Point(abs.x, abs.y);
+    }
   }
 
   public function debugDraw(level:Level) {
-    // trace('Polygon count ${levelPoly.length}');
-    // for (poly in levelPoly) {
-    //   var graphic = new h2d.Graphics(level.root);
-    //   graphic.beginFill(0xffffff);
-    //   for (point in poly.points) {
-    //     graphic.lineTo(point.x, point.y);
-    //   }
-    //   graphic.endFill();
-    // }
-    var test = pointLights.first();
-
-    test.renderLight();
-
-    lightG.clear();
-    level.root.addChild(lightG);
-    // for (ray in lightRays) {
-    //   // var graphic = new h2d.Graphics(level.root);
-    //   lightG.lineStyle(1, 0xff0000, 1);
-    //   lightG.beginFill(0xff0000);
-    //   lightG.lineTo(ray.px, ray.py);
-    //   var endP = ray.getPoint(lightRadius);
-    //   lightG.lineTo(endP.x, endP.y);
-    //   lightG.endFill();
-    // }
-
-    var finalPoints = polyPoints.concat(intersectionPoints);
-    // TODO: Start getting the closest intersections
-    // Sort Intersection by angle
-    finalPoints.sort((pOne, pTwo) -> {
-      var angOne = M.angTo(lightPoint.x, lightPoint.y, pOne.x, pOne.y);
-      var angTwo = M.angTo(lightPoint.x, lightPoint.y, pTwo.x, pTwo.y);
-      // trace('Angles ${angOne} ${angTwo}');
-      return angOne < angTwo ? -1 : 1;
-      // return M.floor((M.fabs(angOne - angTwo) * 100);
-    });
-
-    // graphic.lineStyle(1, 0xaa00ff, 1);
-    // graphic.color.r *= point.y;
-
-    // graphic.lineTo(lightPoint.x, lightPoint.y);
-    // var fp = intersectionPoints[0];
-    // var sp = intersectionPoints[1];
-
-    // graphic.lineTo(sp.x, sp.y);
-    // // graphic.lineTo(fp.x, fp.y);
-    // trace(sp.x);
-    // trace(fp.x);
-    // var pG = new h2d.Graphics(level.root);
-    // for (point in intersectionPoints) {
-    //   lightG.beginFill(0x00ffaa);
-    //   lightG.drawCircle(point.x, point.y, 3);
-    // }
-    // lightG.endFill();
-    var start = 0;
-
-    var game = Game.ME;
-    var shader = lightG.getShader(PointLightShader2D);
-    shader.widthHeight.x = game.w();
-    shader.widthHeight.y = game.h();
-    shader.pos.x = lightPoint.x;
-    shader.pos.y = lightPoint.y;
-    shader.color = Vector.fromColor(0xff0ff0);
-    // shader.sTime += Timer.elapsedTime;
-    lightG.beginFill(0xaa00ff);
-    var colors = [0x0a00ff, 0xff0000, 0x00ffaa];
-    // trace(finalPoints.length);
-    // trace(intersectionPoints.length);
-
-    // for (point in finalPoints) {
-    //   lightPoly.push(point);
-    //   var c = lightG.color;
-    //   // trace(point.x);
-    //   // trace(point.y);
-    //   var uv = (start / finalPoints.length);
-    //   var uvTwo = (lightPoint.distance(point)) / lightRadius;
-    //   lightG.addVertex(point.x, point.y, 1, 1, c.b, uvTwo, uvTwo);
-    //   var color = 0xffffff;
-    //   // var finalC = C.offsetColorInt(color, Std.int(start * 10));
-    //   // lightG.lineStyle(1, colors[start % colors.length], 1);
-
-    //   // lightG.lineTo(lightPoint.x, lightPoint.y);
-    //   // lightG.lineTo(point.x, point.y);
-    //   // graphic.beginFill(0x00ffaa);
-    //   // lightG.drawCircle(point.x, point.y, 3);
-    //   // // trace(point.x);
-    //   // trace(point.x);
-    //   // trace(point.y);
-    //   // graphic.endFill();
-    //   start++;
-    //   //
-    // }
-    // lightG.blendMode = BlendMode.SoftAdd;
-    // lightG.color.a = 0.7;
-
-    // graphic.endFill();
-    // graphic.drawRect(0, 0, 300, 400);
-    // graphic.endFill();
+    for (light in pointLights) {
+      light.debugDraw();
+    }
   }
 }

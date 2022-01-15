@@ -1,5 +1,6 @@
 package system;
 
+import hxd.Timer;
 import h2d.BlendMode;
 import h2d.col.Point;
 import h2d.col.Polygon;
@@ -75,6 +76,8 @@ class PointLight extends Drawable {
    * the scene within the game.
    */
   public function castLight() {
+    lightRays.resize(0);
+    polyPoints.resize(0);
     var checkList = [];
     var rayIndex = 0;
     var lineSegments = lvlSegments;
@@ -125,7 +128,6 @@ class PointLight extends Drawable {
         checkList.push(rayIndex);
       }
       rayIndex++;
-      trace(polyPoints.length);
     }
 
     // Sort all of the rays into the proper order for casting them on screen
@@ -154,35 +156,33 @@ class PointLight extends Drawable {
     lightG.blendMode = BlendMode.SoftAdd;
     lightG.color.a = 0.7;
     lightG.endFill();
+
+    // var factor = M.fclamp(M.fabs(Math.sin(Timer.frameCount.toRad() * .85)) * 1.25,
+    //   1, 1.25);
+    // lightG.setScale(factor);
   }
 
   public function debugDraw() {
     lightG.clear();
     var start = 0;
+    level.root.addChild(lightG);
+    lightG.beginFill(0xaa00ff);
+    // graphic.lineStyle(1, 0xaa00ff, 1);
+    var colors = [0x0a00ff, 0xff0000, 0x00ffaa];
     for (point in polyPoints) {
-      //   lightPoly.push(point);
-      var c = lightG.color;
-      // trace(point.x);
-      // trace(point.y);
-      var uv = (start / polyPoints.length);
-      var uvTwo = (origin.distance(point)) / lightRadius;
-      lightG.addVertex(point.x, point.y, 1, 1, c.b, uvTwo, uvTwo);
-      var color = 0xffffff;
-      // var finalC = C.offsetColorInt(color, Std.int(start * 10));
-      // lightG.lineStyle(1, colors[start % colors.length], 1);
+      lightG.lineStyle(1, colors[start % colors.length], 1);
 
-      // lightG.lineTo(lightPoint.x, lightPoint.y);
-      // lightG.lineTo(point.x, point.y);
-      // graphic.beginFill(0x00ffaa);
-      // lightG.drawCircle(point.x, point.y, 3);
-      // // trace(point.x);
-      // trace(point.x);
-      // trace(point.y);
+      lightG.lineTo(origin.x, origin.y);
+      lightG.lineTo(point.x, point.y);
+      //   graphic.beginFill(0x00ffaa);
+      lightG.drawCircle(point.x, point.y, 3);
+
       // graphic.endFill();
       start++;
       //
     }
     lightG.blendMode = BlendMode.SoftAdd;
     lightG.color.a = 0.7;
+    lightG.endFill();
   }
 }
