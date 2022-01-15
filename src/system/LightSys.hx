@@ -60,7 +60,7 @@ class LightSys {
   /**
    * Create the lighting system for use within the game on a specific level.
    */
-  public function new(level) {
+  public function new(level:Level) {
     levelPoly = [];
 
     pointLights = [];
@@ -72,17 +72,18 @@ class LightSys {
     lightPoint = new Point(150, 150);
     flOrigin = lightPoint.clone();
     flRadius = lightRadius;
+    this.data = level.data;
+    gatherLevelInfo(level, this.data);
     // Create Test Point Light
   }
 
   public function gatherLevelInfo(level:Level, data:LDTkProj_Level) {
     // Turn entities into polygonal data
-    this.data = data;
     var p = lightPoint.clone();
     p.y -= 40;
     p.x += 20;
     var test = new PointLight(p, level.root, data);
-    var testTwo = new system.FlashLight(lightPoint.clone(), 30, 60.,
+    var testTwo = new system.FlashLight(lightPoint.clone(), 0xf101ff, 30, 60.,
       level.root, data);
     flashLight = testTwo;
     testTwo.lightRadius = 160;

@@ -143,7 +143,7 @@ class Boot extends hxd.App {
       spotlight.playerPos.y = (absPos.y);
       spotlight.widthHeight.x = engine.width;
       spotlight.widthHeight.y = engine.height;
-      spotlight.flashlightTint = level.player.flashLight.vColor;
+      spotlight.flashlightTint = Vector.fromColor(level.player.flashLight.lColor);
       ScreenFx.run(spotlight, composite.textures, 0);
       // Draw the HUD into the second texture
       // Note we can use the drawTo texture method to reduce render calls

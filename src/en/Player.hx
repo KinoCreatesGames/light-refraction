@@ -1,8 +1,8 @@
 package en;
 
+import system.FlashLight;
 import h2d.col.Polygon;
 import h2d.col.Point;
-import objects.FlashLight;
 import dn.heaps.Controller.ControllerAccess;
 
 /**
@@ -27,6 +27,8 @@ class Player extends BaseEnt {
 
   public var flashLightOff:Bool;
 
+  public var listener:EventListener<Player>;
+
   public function new(x:Int, y:Int) {
     super(x, y);
     setup();
@@ -34,8 +36,9 @@ class Player extends BaseEnt {
 
   public function setup() {
     ct = Main.ME.controller.createAccess('player');
+    listener = EventListener.create();
     setupStats();
-    setupFlashLights();
+    // setupFlashLights(); //Moved to be set up during the level process
     setupGraphics();
     game.camera.trackEntity(this, true);
   }
@@ -44,9 +47,11 @@ class Player extends BaseEnt {
     this.health = 3;
   }
 
-  public function setupFlashLights() {
-    flashLight = new FlashLight(0xffa0ff);
-    this.spr.addChild(flashLight.lightG);
+  public function setupFlashLights(flashlight:system.FlashLight) {
+    this.flashLight = flashlight;
+    // this.spr.addChild(flashLight.lightG);
+    // Renders flashlight on the same layer as everything else.
+    Game.ME.scroller.add(flashLight.lightG, Const.DP_MAIN);
     flashLight.turnOff();
     flashLightOff = !flashLight.isOn();
   }
@@ -76,34 +81,8 @@ class Player extends BaseEnt {
   }
 
   public function updateFlashLights() {
-    // Have Flashlight face the normal from player position to the mouse
-    var scn = Boot.ME.s2d;
-    var pos = spr.getAbsPos();
-    // PlayerToMouse
-    var pToM = new Point(scn.mouseX - pos.x, scn.mouseY - pos.y).normalized();
-    var oldRotation = flashLight.lightG.rotation * 1;
-    flashLight.lightG.rotation = M.angTo(0, 0, pToM.x, pToM.y);
-
-    var col = new Polygon(flashLight.lightPolygon.points.map((p) -> {
-      var pC = p.clone();
-
-      // Always rotate first before doing any addition, order of operations matter
-      pC.rotate(flashLight.lightG.rotation);
-      pC.x += flashLight.lightG.getAbsPos().x;
-      pC.y += flashLight.lightG.getAbsPos().y;
-      return pC;
-    }));
-    // if (!cd.has('testT')) {
-    //   cd.setS('testT', 3, () -> {
-    //     var pC = col.points[0];
-    //     var eC = col.points[col.points.length - 2];
-    //     trace('${pC.x}, ${pC.y}');
-    //     trace('${eC.x}, ${eC.y}');
-    //     trace('Enemy ${a.x}, ${a.y}');
-    //     trace(col.contains(new Point(a.x, a.y)));
-    //   });
-    // }
-    lightCollider = col;
+    flashLight.update();
+    lightCollider = flashLight.lightPoly;
   }
 
   public function updateCollisions() {
@@ -166,10 +145,11 @@ class Player extends BaseEnt {
     var cancel = ct.bDown();
     if (cancel && !cd.has('lightCD')) {
       if (flashLight.isOn()) {
-        flashLight.turnOff();
+        // flashLight.turnOff();
+
         flashLightOff = true;
       } else if (!flashLight.isOn()) {
-        flashLight.turnOn();
+        // flashLight.turnOn();
         flashLightOff = false;
       }
       cd.setS('lightCD', 0.2);

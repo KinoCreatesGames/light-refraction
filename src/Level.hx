@@ -116,6 +116,7 @@ class Level extends dn.Process {
     setupHazards();
     for (pl in data.l_Entities.all_Player) {
       player = new Player(pl.cx, pl.cy);
+      player.setupFlashLights(lightSys.flashLight);
     }
   }
 
@@ -162,7 +163,7 @@ class Level extends dn.Process {
   }
 
   public function setupLighting() {
-    lightSys.gatherLevelInfo(this, data);
+    // lightSys.gatherLevelInfo(this, data);
     lightSys.convertoToPolygons();
     lightSys.castLight();
   }

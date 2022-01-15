@@ -1,11 +1,56 @@
 package system;
 
+import h3d.Vector;
+import shaders.PointLightShader2D;
 import h2d.col.Ray;
 import h2d.col.Point;
 import h2d.BlendMode;
 
 class FlashLight extends PointLight {
   public var absCoords:Point = new Point(0, 0);
+  public var batteryLife = 1.;
+  public var on:Bool = false;
+  public var cd:dn.Cooldown = new dn.Cooldown(Const.FPS);
+  public var drainPerc:Float = 0.02;
+
+  public inline function isOn() {
+    return this.on;
+  }
+
+  public inline function turnOn() {
+    on = true;
+    lightG.visible = on;
+  }
+
+  public inline function turnOff() {
+    on = false;
+    lightG.visible = on;
+  }
+
+  public function update() {
+    updateBatteryDrain();
+  }
+
+  public function updateBatteryDrain() {
+    if (on) {
+      if (!cd.has('drain')) {
+        cd.setS('drain', 1, () -> {
+          batteryLife -= drainPerc;
+        });
+      }
+    }
+  }
+
+  override function setup() {
+    var shader = new PointLightShader2D();
+    shader.widthHeight.x = game.w();
+    shader.widthHeight.y = game.h();
+    shader.pos.x = this.origin.x;
+    shader.pos.y = this.origin.y;
+    shader.color = Vector.fromColor(lColor);
+
+    lightG.addShader(shader);
+  }
 
   override function castLight() {
     lightRays.resize(0);
@@ -82,8 +127,8 @@ class FlashLight extends PointLight {
   override public function renderLight() {
     lightG.clear();
     var start = 0;
-    level.root.addChild(lightG);
-    lightG.beginFill(0xaa00ff);
+
+    lightG.beginFill(lColor);
     // graphic.lineStyle(1, 0xaa00ff, 1);
     // lightG.lineTo(origin.x, origin.y);
     // lightG.addVertex(origin.x, origin.y, 1, 1, 1, 1);

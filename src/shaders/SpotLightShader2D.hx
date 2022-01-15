@@ -78,15 +78,15 @@ class SpotLightShader2D extends ScreenShader {
       var str = 1 - (smoothstep(0.1, radius + smoothEdges, pct));
 
       var tmp = texColor;
-      // Flash Light Adjustment
-      if (lights.r > .99 || lights.g > .99 || lights.b > .99) {
-        // texColor *= ((1 * flashlightTint) * 1.75);
-        // texColor = (texColor * 1.) * (lights * 1.);
-        // texColor *= 1;
-        // texColor += (flashlightTint * .6);
-      } else {
-        texColor *= ((str));
-      }
+      // This line gives the lights extra brightness within the game
+      // if (lights.r > .99 || lights.g > .99 || lights.b > .99) {
+      //   // texColor *= ((1 * flashlightTint) * 1.75);
+      //   // texColor = (texColor * 1.) * (lights * 1.);
+      //   // texColor *= 1;
+      //   // texColor += (flashlightTint * .6);
+      // } else {
+      texColor *= ((str));
+      // }
 
       // // Smooth Edges
       pixelColor = texColor + (tmp * strength);
