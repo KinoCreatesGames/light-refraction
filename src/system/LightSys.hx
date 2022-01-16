@@ -83,11 +83,11 @@ class LightSys {
     p.y -= 40;
     p.x += 20;
     var test = new PointLight(p, level.root, data);
-    var testTwo = new system.FlashLight(lightPoint.clone(), 0xf101ff, 30, 60.,
+    var testTwo = new system.FlashLight(lightPoint.clone(), 0xaaaaff, 30, 60.,
       level.root, data);
     flashLight = testTwo;
     testTwo.lightRadius = 160;
-    pointLights.push(test);
+    // pointLights.push(test);
     pointLights.push(testTwo);
   }
 

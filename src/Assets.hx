@@ -1,3 +1,4 @@
+import dn.heaps.assets.Aseprite;
 import dn.heaps.slib.*;
 
 class Assets {
@@ -7,10 +8,12 @@ class Assets {
   public static var fontMedium:h2d.Font;
   public static var fontLarge:h2d.Font;
   public static var tiles:SpriteLib;
+  public static var uiEl:SpriteLib;
 
   static var initDone = false;
 
   public static var projData:ldtk.Project;
+  public static var uiDict = Aseprite.getDict(hxd.Res.img.UIFX);
 
   public static function init() {
     if (initDone) return;
@@ -22,6 +25,9 @@ class Assets {
     fontMedium = hxd.Res.fonts.barlow_condensed_medium_regular_17.toFont();
     fontLarge = hxd.Res.fonts.barlow_condensed_medium_regular_32.toFont();
     tiles = dn.heaps.assets.Atlas.load("atlas/tiles.atlas");
+    uiEl = Aseprite.convertToSLib(Const.FPS, hxd.Res.img.UIFX.toAseprite());
+
+    // Build UI assets directly from UI elements
 
     // Deep night project
     projData = new ldtkData.LDTkProj();

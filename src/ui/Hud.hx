@@ -1,5 +1,6 @@
 package ui;
 
+import haxe.rtti.CType.Rights;
 import dn.Process;
 
 class Hud extends dn.Process {
@@ -52,9 +53,10 @@ class Hud extends dn.Process {
    * Sets up the flash lights for rendering
    */
   public function setupFlashLights() {
-    var flT = hxd.Res.img.flash_light.toAseprite().toTile();
-    stdFlashLight = new TextureGauge(flT, flT, flow);
-    stdFlashLight.flowType = UP_DOWN;
+    var front = Assets.uiEl.getTile(Assets.uiDict.BatteryFrontFull);
+    var back = Assets.uiEl.getTile(Assets.uiDict.BatteryBG);
+    stdFlashLight = new TextureGauge(front, back, flow);
+    stdFlashLight.flowType = RIGHT_LEFT;
   }
 
   override function onResize() {
@@ -84,7 +86,7 @@ class Hud extends dn.Process {
 
   public function renderFlashlights() {
     var pl = level.player;
-    // stdFlashLight.updatePerc(pl.flashLight.batteryLife);
+    stdFlashLight.updatePerc(pl.flashLight.batteryLife);
   }
 
   public function resizeFlashLights() {

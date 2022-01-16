@@ -26,13 +26,6 @@ class SpotLightShader2D extends ScreenShader {
     @param var strength:Float;
 
     /**
-     * The Flashlight tint color to be used 
-     * for tinting thef lash light area
-     * within the spotlight shader.
-     */
-    @param var flashlightTint:Vec4;
-
-    /**
      * The width / height of the game engine screen
      * in order to correct the circle
      */
@@ -59,9 +52,7 @@ class SpotLightShader2D extends ScreenShader {
 
     function fragment() {
       // Room Color Without Lights
-      var texColor = texs.get(vec3(input.uv, 1));
-      // Room color with the lights on
-      var lights = texs.get(vec3(input.uv, 0));
+      var texColor = texs.get(vec3(input.uv, 0));
       // Center  of the radial circle
       var movingCenter = vec2(playerPos.x / widthHeight.x,
         playerPos.y / widthHeight.y);
@@ -78,15 +69,8 @@ class SpotLightShader2D extends ScreenShader {
       var str = 1 - (smoothstep(0.1, radius + smoothEdges, pct));
 
       var tmp = texColor;
-      // This line gives the lights extra brightness within the game
-      // if (lights.r > .99 || lights.g > .99 || lights.b > .99) {
-      //   // texColor *= ((1 * flashlightTint) * 1.75);
-      //   // texColor = (texColor * 1.) * (lights * 1.);
-      //   // texColor *= 1;
-      //   // texColor += (flashlightTint * .6);
-      // } else {
+
       texColor *= ((str));
-      // }
 
       // // Smooth Edges
       pixelColor = texColor + (tmp * strength);

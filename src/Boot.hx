@@ -62,6 +62,7 @@ class Boot extends hxd.App {
     spotlight.playerPos = new Vector(0, 0);
     composite = new CompositeShader(new TextureArray(engine.width,
       engine.height, 2, [Target]));
+    composite.lightTexture = new Texture(engine.width, engine.height, [Target]);
     crt = new CRTShader();
     crt.widthHeight = new Vector();
     crt.tex = new Texture(engine.width, engine.height, [Target]);
@@ -107,11 +108,11 @@ class Boot extends hxd.App {
     if (Game.ME != null && Game.ME.level != null && !Game.ME.level.destroyed) {
       var level = Game.ME.level;
       // Unlit World
+      composite.textures.clear(0, 1);
+      composite.lightTexture.clear(0, 1);
+      spotlight.texs.clear(0, 1);
       engine.pushTarget(spotlight.texs, 0);
-      // Light Texture Render
-      engine.pushTarget(spotlight.texs, 1);
-      engine.clear(0, 1);
-
+      engine.pushTarget(composite.textures, 1);
       // Populate the render texture for use in the shader
       // First Texture is just world without lights
       // Remove the lights from everything else in the level as well
@@ -125,17 +126,23 @@ class Boot extends hxd.App {
       s2d.render(e);
       engine.popTarget();
 
-      // Light Texture
       engine.clear(0, 1);
+      // Get copy of lit world
+      s2d.render(e);
+      engine.popTarget();
+      engine.clear(0, 1);
+      // Render spotlight info into same texture
+      // level.root.drawTo(composite.lightTexture);
       if (!level.player.flashLightOff) {
         level.player.flashLight.turnOn();
+        level.player.flashLight.lightG.drawTo(composite.lightTexture);
       }
       level.lights.members.iter((el) -> {
         el.turnOn();
-        el.hideGraphic();
+        // el.hideGraphic();
+        el.spr.drawTo(composite.lightTexture);
+        // el.light.drawTo(composite.lightTexture);
       });
-      s2d.render(e);
-      engine.popTarget();
 
       // Update spotlight playerPos Information
       var absPos = level.player.spr.getAbsPos();
@@ -143,7 +150,6 @@ class Boot extends hxd.App {
       spotlight.playerPos.y = (absPos.y);
       spotlight.widthHeight.x = engine.width;
       spotlight.widthHeight.y = engine.height;
-      spotlight.flashlightTint = Vector.fromColor(level.player.flashLight.lColor);
       ScreenFx.run(spotlight, composite.textures, 0);
       // Draw the HUD into the second texture
       // Note we can use the drawTo texture method to reduce render calls
@@ -160,7 +166,7 @@ class Boot extends hxd.App {
         el.showGraphic();
       });
 
-      ScreenFx.run(composite, crt.tex, 0);
+      // ScreenFx.run(composite, crt.tex, 0); //Not needed?
 
       if (Game.ME.crtON) {
         crt.widthHeight.x = engine.width;

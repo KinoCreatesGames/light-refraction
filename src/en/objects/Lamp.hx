@@ -44,12 +44,14 @@ class Lamp extends Light {
     shader.widthHeight.y = game.h();
     shader.pos.x = this.spr.x;
     shader.pos.y = this.spr.y;
-    shader.color = Vector.fromColor(lightColor);
+    shader.color = Vector.fromColor(0x111111);
     var colorTile = h2d.Tile.fromColor(lightColor, 1, 1);
     light.beginTileFill(0, 0, 64, 64, colorTile);
     light.drawCircle(0, 0, lightRadius);
     light.endFill();
     light.addShader(shader);
+    light.colorAdd = Vector.fromColor(lightColor);
+    // light.alpha = .3; alpha doesn't work once shader is applied
 
     // light.filter = new PixelOutline(0x0000ff);
   }
@@ -65,10 +67,12 @@ class Lamp extends Light {
 
   override function turnOff() {
     isOn = false;
+    light.visible = isOn;
   }
 
   override function turnOn() {
     isOn = true;
+    light.visible = isOn;
   }
 
   override function hideGraphic() {

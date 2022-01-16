@@ -76,20 +76,18 @@ class PointLightShader2D extends hxsl.Shader {
       //   texColor *= ((str));
       //   Smooth Edges
       // pixelColor = pixelColor;
-      var light = vec4(.7, .7, .7, 1);
+      // var light = vec4(1.3, 1.3, 1.3, .3);
       // light *= cos(sTime);
-      var cl = vec4(color.rgb, 1);
+      var cl = vec4(color.rgb, .35);
       // cl = light * cl;
       if (pct > radius) {
         var result = clamp(1 - pct, .1, 1);
         // Tint instead
-        cl.b *= result * (1 - str);
+        // cl.b *= result * (1 - str);
         // cl.g *= result;
         cl.a *= pct;
       }
-
-      var uv = input.uv;
-      uv.r = pct;
+      // cl *= str;
 
       pixelColor = cl;
       // pixelColor = texColor * str;

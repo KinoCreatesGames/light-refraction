@@ -53,7 +53,7 @@ class TextureGauge {
     root = new h2d.Object(parent);
     this.back = new Bitmap(back, root);
     // TODO - Remove this line to go back to original texture gauge design
-    this.back.colorAdd = Vector.fromColor(0xaaaaaa);
+
     this.mask = new Mask(Std.int(front.width), Std.int(front.height), root);
     this.mask.scrollBounds = h2d.col.Bounds.fromValues(-mask.width / 2,
       -mask.height / 2, mask.width * 2, mask.height * 2);
@@ -77,7 +77,8 @@ class TextureGauge {
       case LEFT_RIGHT:
         this.front.scaleX = -delta;
       case RIGHT_LEFT:
-        this.front.scaleX = delta;
+        var result = Std.int(this.front.tile.width * delta);
+        this.mask.width = result;
       case DOWN_UP:
         this.mask.height = Std.int(this.front.tile.height * delta);
       case UP_DOWN:

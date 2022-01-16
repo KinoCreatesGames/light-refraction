@@ -1,5 +1,6 @@
 package system;
 
+import hxd.Timer;
 import h3d.Vector;
 import shaders.PointLightShader2D;
 import h2d.col.Ray;
@@ -28,6 +29,7 @@ class FlashLight extends PointLight {
   }
 
   public function update() {
+    cd.update(Timer.tmod);
     updateBatteryDrain();
   }
 
@@ -39,6 +41,10 @@ class FlashLight extends PointLight {
         });
       }
     }
+
+    if (batteryLife <= 0) {
+      turnOff();
+    }
   }
 
   override function setup() {
@@ -48,7 +54,7 @@ class FlashLight extends PointLight {
     shader.pos.x = this.origin.x;
     shader.pos.y = this.origin.y;
     shader.color = Vector.fromColor(lColor);
-
+    lightG.alpha = 0.7;
     lightG.addShader(shader);
   }
 
