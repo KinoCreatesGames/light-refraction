@@ -54,3 +54,7 @@ enum abstract CollectibleTypes(String) from String to String {
   var JLife = 'Life';
   var JetPack = 'JetPack';
 }
+
+enum Controllers {
+  PauseScreen;
+}

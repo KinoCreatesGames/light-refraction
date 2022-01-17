@@ -1,12 +1,12 @@
 import dn.Process;
 import hxd.Key;
-import dn.heaps.input.ControllerAccess;
+import dn.legacy.Controller.ControllerAccess;
 
 class Game extends dn.Process {
   public static var ME:Game;
 
   /** Game controller (pad or keyboard) **/
-  public var ca:ControllerAccess<T>;
+  public var ca:ControllerAccess;
 
   /** Particles **/
   public var fx:Fx;

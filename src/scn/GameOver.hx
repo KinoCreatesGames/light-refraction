@@ -2,6 +2,8 @@ package scn;
 
 import h2d.Flow.FlowAlign;
 import hxd.snd.Channel;
+import dn.legacy.Controller;
+import dn.legacy.Controller.ControllerAccess;
 
 class GameOver extends dn.Process {
   var game(get, never):Game;
@@ -13,7 +15,7 @@ class GameOver extends dn.Process {
   public var complete:Bool;
   public var bgm:Channel;
 
-  var ct:dn.heaps.Controller.ControllerAccess;
+  var ct:ControllerAccess;
 
   public var mask:h2d.Bitmap;
 

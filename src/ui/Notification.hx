@@ -1,13 +1,15 @@
 package ui;
 
 import dn.heaps.filter.PixelOutline;
+import dn.legacy.Controller;
+import dn.legacy.Controller.ControllerAccess;
 
 class Notification extends dn.Process {
   public var win:h2d.Flow;
   public var text:h2d.Text;
   public var padding:Int;
 
-  var ct:dn.heaps.Controller.ControllerAccess;
+  var ct:ControllerAccess;
   var mask:h2d.Bitmap;
 
   public function new() {

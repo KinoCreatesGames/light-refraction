@@ -1,6 +1,8 @@
 package ui;
 
 import dn.Process;
+import dn.legacy.Controller;
+import dn.legacy.Controller.ControllerAccess;
 
 /**
  * Message window for displaying text within the game
@@ -12,7 +14,7 @@ class MsgWindow extends dn.Process {
   public var textBuffer:String;
   public var allText:Array<String>;
   public var textIndex:Int;
-  public var ct:dn.heaps.Controller.ControllerAccess;
+  public var ct:ControllerAccess;
 
   public function new() {
     super(Main.ME);

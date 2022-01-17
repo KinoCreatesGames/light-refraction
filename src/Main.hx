@@ -1,8 +1,6 @@
-import dn.heaps.Controller;
-import dn.heaps.Controller.ControllerAccess;
 import Data;
-import dn.heaps.Controller;
-import dn.heaps.Controller.ControllerAccess;
+import dn.legacy.Controller;
+import dn.legacy.Controller.ControllerAccess;
 import hxd.Key;
 
 class Main extends dn.Process {

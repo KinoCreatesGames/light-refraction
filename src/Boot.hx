@@ -13,8 +13,8 @@ import h3d.pass.ScreenFx;
 import shaders.SpotLightShader2D;
 import h3d.Engine;
 import renderer.CustomRenderer;
-import dn.heaps.input.Controller;
-import dn.heaps.input.ControllerAccess;
+import dn.legacy.Controller;
+import dn.legacy.Controller.ControllerAccess;
 import h3d.mat.Texture;
 
 class Boot extends hxd.App {

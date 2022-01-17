@@ -3,6 +3,8 @@ package scn;
 import ui.transition.FadeToBlack;
 import hxd.snd.Channel;
 import h2d.Flow.FlowAlign;
+import dn.legacy.Controller;
+import dn.legacy.Controller.ControllerAccess;
 
 class Credits extends dn.Process {
   var game(get, never):Game;
@@ -14,7 +16,7 @@ class Credits extends dn.Process {
     return Game.ME;
   }
 
-  public var ca:dn.heaps.Controller.ControllerAccess;
+  public var ca:ControllerAccess;
 
   public var complete:Bool;
   public var win:h2d.Flow;

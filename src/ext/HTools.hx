@@ -2,8 +2,10 @@ package ext;
 
 import hxd.Pixels;
 import h3d.Vector;
-import dn.heaps.input.ControllerAccess;
+import dn.legacy.Controller;
+import dn.legacy.Controller.ControllerAccess;
 import h2d.Text.Align;
+import GameTypes.Controllers;
 
 inline function center(text:h2d.Text) {
   text.textAlign = Align.Center;

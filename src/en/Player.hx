@@ -3,7 +3,9 @@ package en;
 import system.FlashLight;
 import h2d.col.Polygon;
 import h2d.col.Point;
-import dn.heaps.input.ControllerAccess;
+import GameTypes.Controllers;
+import dn.legacy.Controller;
+import dn.legacy.Controller.ControllerAccess;
 
 /**
  * Player class
@@ -15,7 +17,7 @@ import dn.heaps.input.ControllerAccess;
 class Player extends BaseEnt {
   public static inline var MOVE_SPD:Float = .1;
 
-  public var ct:ControllerAccess<T>;
+  public var ct:ControllerAccess;
 
   /**
    * Standard flashlight within the game

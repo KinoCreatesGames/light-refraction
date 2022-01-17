@@ -2,9 +2,10 @@ package scn;
 
 import hxd.snd.Channel;
 import ui.cmp.TxtBtn;
+import dn.legacy.Controller.ControllerAccess;
 
 class Pause extends dn.Process {
-  var ct:dn.heaps.input.ControllerAccess<T>;
+  var ct:ControllerAccess;
   var mask:h2d.Bitmap;
 
   public var se:Channel;

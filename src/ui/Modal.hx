@@ -1,7 +1,7 @@
 package ui;
 
-import dn.heaps.Controller;
-import dn.heaps.Controller.ControllerAccess;
+import dn.legacy.Controller;
+import dn.legacy.Controller.ControllerAccess;
 
 class Modal extends ui.Window {
   public static var ALL:Array<Modal> = [];
