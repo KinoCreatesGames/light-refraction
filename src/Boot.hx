@@ -129,13 +129,12 @@ class Boot extends hxd.App {
       }
       level.hud.hide();
       s2d.render(e);
-      engine.popTarget();
+      engine.popClear();
 
-      engine.clear(0, 1);
       // Get copy of lit world
       s2d.render(e);
-      engine.popTarget();
-      engine.clear(0, 1);
+      engine.popClear();
+
       // Render spotlight info into same texture
       // level.root.drawTo(composite.lightTexture);
       if (!level.player.flashLightOff) {

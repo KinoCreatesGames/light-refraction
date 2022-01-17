@@ -1,5 +1,7 @@
 package ext;
 
+import h3d.Engine;
+import aseprite.Aseprite;
 import hxd.Pixels;
 import h3d.Vector;
 import dn.legacy.Controller;
@@ -97,4 +99,30 @@ function isPixelCollide(x:Float, y:Float, color:Int, collisionPixels:Pixels,
   // Ends up being 0 from the vector from color we have to account for that;
   vec.a = 1.;
   return vec.equals(colMapColor);
+}
+
+/**
+ * Ase to SLIB that creates a
+ * spritelib within the game from an aseprite file
+ * for consumation for an HSprite class.
+ * @param ase 
+ * @param fps 
+ */
+inline function aseToSlib(ase:Aseprite, fps:Int) {
+  return dn.heaps.assets.Aseprite.convertToSLib(fps, ase);
+}
+
+/**
+ * 
+ * Rendering engine pop and clear for when working
+ * with render textures within the game for shader code.
+ * ```
+ * engine.popTarget()
+ * engine.clear(color, depth);
+ * ```
+ */
+inline function popClear(engine:Engine, color:Int = 0, ?depth:Float = 1,
+    ?stencil:Int) {
+  engine.popTarget();
+  engine.clear(color, depth, stencil);
 }

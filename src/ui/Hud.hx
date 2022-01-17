@@ -1,5 +1,6 @@
 package ui;
 
+import dn.Cooldown;
 import en.Player;
 import dn.heaps.assets.Aseprite;
 import h2d.Anim;
@@ -138,4 +139,14 @@ class Hud extends dn.Process {
       stdFlashLight.root.visible = true;
     }
   }
+
+  /**
+   * Fade out the UI
+   */
+  public function fadeOutUI() {}
+
+  /**
+   * Fade in the UI Elements
+   */
+  public function fadeInUI() {}
 }

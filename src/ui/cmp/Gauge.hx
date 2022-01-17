@@ -53,6 +53,8 @@ class Gauge {
     return Std.int(this.root.y);
   }
 
+  // TODO: extract this out  and just pass width, height, and
+  // also add in the color front / back
   public function new(front:h2d.Graphics, back:h2d.Graphics,
       parent:h2d.Object) {
     this.flowType = RIGHT_LEFT;
