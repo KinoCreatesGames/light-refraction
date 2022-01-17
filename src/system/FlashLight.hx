@@ -130,6 +130,32 @@ class FlashLight extends PointLight {
     lightPoly = polyPoints.copy();
   }
 
+  override function debugDraw() {
+    lightG.clear();
+    var start = 0;
+
+    lightG.beginFill(lColor);
+    // graphic.lineStyle(1, 0xaa00ff, 1);
+    // lightG.lineTo(origin.x, origin.y);
+    // lightG.addVertex(origin.x, origin.y, 1, 1, 1, 1);
+    var colors = [0x0a00ff, 0xff0000, 0x00ffaa];
+    for (point in polyPoints) {
+      var c = lightG.color;
+
+      lightG.lineStyle(1, colors[start % colors.length], 1);
+      //   lightG.addVertex(point.x, point.y, 1, 1, c.b, uvTwo, uvTwo);
+      lightG.lineTo(origin.x, origin.y);
+      lightG.lineTo(point.x, point.y);
+      lightG.drawCircle(point.x, point.y, 3);
+    }
+    lightG.lineTo(origin.x, origin.y);
+    // lightG.addVertex(origin.x, origin.y, 1, 1, 1, 1);
+    lightG.blendMode = BlendMode.SoftAdd;
+    lightG.color.a = 0.7;
+    lightG.endFill();
+    // lightG.rotation += hxd.Timer.elapsedTime;
+  }
+
   override public function renderLight() {
     lightG.clear();
     var start = 0;

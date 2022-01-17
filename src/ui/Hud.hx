@@ -1,5 +1,8 @@
 package ui;
 
+import en.Player;
+import dn.heaps.assets.Aseprite;
+import h2d.Anim;
 import haxe.rtti.CType.Rights;
 import dn.Process;
 
@@ -22,7 +25,7 @@ class Hud extends dn.Process {
   var flow:h2d.Flow;
   var invalidated = true;
 
-  var health:h2d.Graphics;
+  var healthGauge:AnimatedTextureGauge;
   var stdFlashLight:TextureGauge;
   var spiritFlashLight:TextureGauge;
 
@@ -38,15 +41,28 @@ class Hud extends dn.Process {
   }
 
   public function setup() {
-    setupHealth();
-    setupFlashLights();
+    flow.layout = Horizontal;
+    flow.horizontalSpacing = 12;
+    flow.horizontalAlign = Left;
+    flow.verticalAlign = Middle;
   }
 
-  public function setupHealth() {
-    health = new h2d.Graphics(flow);
-    health.beginFill(0xff0000, 1);
-    health.drawCircle(0, 0, 3);
-    health.endFill();
+  public function setupHealth(player:Player) {
+    // Might have to update this with the tmod while game is running to match studio
+    var slib = Aseprite.convertToSLib(Const.FPS,
+      hxd.Res.img.HealthUI.toAseprite());
+    var spr = new HSprite(slib);
+    spr.anim.registerStateAnim('goodHealth', 1, 1,
+      () -> player.healthPerc > .75);
+    spr.anim.registerStateAnim('dangerHealth', 1, 1.2,
+      () -> player.healthPerc < .75 && player.healthPerc > .4);
+    spr.anim.registerStateAnim('badHealth', 1, 1.5,
+      () -> player.healthPerc <= .4);
+    // Create Health Gauge
+    // var front = new Anim();
+    var back = hxd.Res.img.HealthUIBack.toTile();
+    healthGauge = new AnimatedTextureGauge(spr, back, flow);
+    healthGauge.flowType = RIGHT_LEFT;
   }
 
   /**
@@ -78,10 +94,8 @@ class Hud extends dn.Process {
   }
 
   public function renderHealth() {
-    health.clear();
-    health.beginFill(0xff0000, 1);
-    health.drawCircle(0, 0, 3);
-    health.endFill();
+    var pl = level.player;
+    healthGauge.updatePerc(pl.healthPerc);
   }
 
   public function renderFlashlights() {
@@ -90,10 +104,10 @@ class Hud extends dn.Process {
   }
 
   public function resizeFlashLights() {
-    stdFlashLight.x = 32;
+    // stdFlashLight.x = 32;
     var scaledH = (h() / Const.UI_SCALE);
-    stdFlashLight.y = Std.int(scaledH - (scaledH * .25));
-    stdFlashLight.y = 270;
+    // stdFlashLight.y = Std.int(scaledH - (scaledH * .25));
+    // stdFlashLight.y = 270;
     // TODO - Play around with UI coordinates for best results. Look at pixel perfect rendering
     // trace(Const.UI_SCALE);
     // trace(h());
@@ -115,11 +129,15 @@ class Hud extends dn.Process {
 
   public function hide() {
     flow.visible = false;
-    stdFlashLight.root.visible = false;
+    if (stdFlashLight != null) {
+      stdFlashLight.root.visible = false;
+    }
   }
 
   public function show() {
     flow.visible = true;
-    stdFlashLight.root.visible = true;
+    if (stdFlashLight != null) {
+      stdFlashLight.root.visible = true;
+    }
   }
 }

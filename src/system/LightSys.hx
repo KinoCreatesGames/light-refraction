@@ -199,5 +199,12 @@ class LightSys {
     for (light in pointLights) {
       light.debugDraw();
     }
+    if (Game.ME.level != null) {
+      var player = Game.ME.level.player;
+      flashLight.origin.x = player.spr.x;
+      flashLight.origin.y = player.spr.y;
+      var abs = player.spr.getAbsPos();
+      flashLight.absCoords = new Point(abs.x, abs.y);
+    }
   }
 }

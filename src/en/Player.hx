@@ -3,7 +3,7 @@ package en;
 import system.FlashLight;
 import h2d.col.Polygon;
 import h2d.col.Point;
-import dn.heaps.Controller.ControllerAccess;
+import dn.heaps.input.ControllerAccess;
 
 /**
  * Player class
@@ -15,7 +15,7 @@ import dn.heaps.Controller.ControllerAccess;
 class Player extends BaseEnt {
   public static inline var MOVE_SPD:Float = .1;
 
-  public var ct:ControllerAccess;
+  public var ct:ControllerAccess<T>;
 
   /**
    * Standard flashlight within the game
@@ -106,6 +106,7 @@ class Player extends BaseEnt {
       switch (enemyT) {
         case _:
           // Take damage
+          enemy.kill(this);
           this.takeDamage();
           // Do nothing
       }
@@ -145,11 +146,11 @@ class Player extends BaseEnt {
     var cancel = ct.bDown();
     if (cancel && !cd.has('lightCD')) {
       if (flashLight.isOn()) {
-        // flashLight.turnOff();
+        flashLight.turnOff();
 
         flashLightOff = true;
       } else if (!flashLight.isOn()) {
-        // flashLight.turnOn();
+        flashLight.turnOn();
         flashLightOff = false;
       }
       cd.setS('lightCD', 0.2);

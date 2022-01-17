@@ -13,8 +13,8 @@ import h3d.pass.ScreenFx;
 import shaders.SpotLightShader2D;
 import h3d.Engine;
 import renderer.CustomRenderer;
-import dn.heaps.Controller;
-import dn.heaps.Controller.ControllerAccess;
+import dn.heaps.input.Controller;
+import dn.heaps.input.ControllerAccess;
 import h3d.mat.Texture;
 
 class Boot extends hxd.App {
@@ -63,6 +63,7 @@ class Boot extends hxd.App {
     composite = new CompositeShader(new TextureArray(engine.width,
       engine.height, 2, [Target]));
     composite.lightTexture = new Texture(engine.width, engine.height, [Target]);
+    composite.hudTexture = new Texture(engine.width, engine.height, [Target]);
     crt = new CRTShader();
     crt.widthHeight = new Vector();
     crt.tex = new Texture(engine.width, engine.height, [Target]);
@@ -110,14 +111,18 @@ class Boot extends hxd.App {
       // Unlit World
       composite.textures.clear(0, 1);
       composite.lightTexture.clear(0, 1);
+      composite.lightTexture.resize(engine.width, engine.height);
+      composite.hudTexture.clear(0, 1);
+      composite.hudTexture.resize(engine.width, engine.height);
       spotlight.texs.clear(0, 1);
       engine.pushTarget(spotlight.texs, 0);
       engine.pushTarget(composite.textures, 1);
+
       // Populate the render texture for use in the shader
       // First Texture is just world without lights
       // Remove the lights from everything else in the level as well
       level.lights.members.iter((el) -> {
-        // el.turnOff();
+        el.turnOff();
       });
       if (!level.player.flashLightOff) {
         level.player.flashLight.turnOff();
@@ -154,13 +159,13 @@ class Boot extends hxd.App {
       // Draw the HUD into the second texture
       // Note we can use the drawTo texture method to reduce render calls
       level.hud.show();
-      level.hud.root.drawTo(composite.textures);
+      level.hud.root.drawTo(composite.hudTexture);
       if (level.notif.isVisible()) {
-        level.notif.root.drawTo(composite.textures);
+        level.notif.root.drawTo(composite.hudTexture);
       }
 
       if (level.msg.isVisible()) {
-        level.msg.root.drawTo(composite.textures);
+        level.msg.root.drawTo(composite.hudTexture);
       }
       level.lights.members.iter((el) -> {
         el.showGraphic();

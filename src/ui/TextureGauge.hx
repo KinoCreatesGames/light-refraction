@@ -1,4 +1,4 @@
-package tools;
+package ui;
 
 import h3d.Vector;
 import h2d.Mask;

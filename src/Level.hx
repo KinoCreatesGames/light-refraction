@@ -117,6 +117,11 @@ class Level extends dn.Process {
     for (pl in data.l_Entities.all_Player) {
       player = new Player(pl.cx, pl.cy);
       player.setupFlashLights(lightSys.flashLight);
+      player.listener.addListener('setupPlayer', (player:Player) -> {
+        hud.setupHealth(player);
+        hud.setupFlashLights();
+      });
+      player.listener.emit('setupPlayer', player);
     }
   }
 
@@ -298,8 +303,8 @@ class Level extends dn.Process {
     this.lightSys.lightPoint.x = player.spr.x;
     this.lightSys.lightPoint.y = player.spr.y;
     lightSys.castLight();
-    lightSys.renderLight();
-    // lightSys.debugDraw(this);
+    // lightSys.renderLight();
+    lightSys.debugDraw(this);
     if (invalidated) {
       invalidated = false;
       render();

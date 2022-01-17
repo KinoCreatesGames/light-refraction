@@ -85,9 +85,11 @@ class PointLightShader2D extends hxsl.Shader {
         // Tint instead
         // cl.b *= result * (1 - str);
         // cl.g *= result;
-        cl.a *= pct;
       }
+      cl.a *= str;
       // cl *= str;
+      // cl.a *= 1 - pct;
+      // cl.a *= (str * .3);
 
       pixelColor = cl;
       // pixelColor = texColor * str;

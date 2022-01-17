@@ -2,6 +2,13 @@ package en;
 
 class BaseEnt extends Entity {
   public var health:Int;
+  public var maxHealth:Int = 3;
+
+  public var healthPerc(get, null):Float;
+
+  public inline function get_healthPerc() {
+    return health / maxHealth;
+  }
 
   /**
    * Based on what the health of the current character is.
