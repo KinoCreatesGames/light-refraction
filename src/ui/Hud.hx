@@ -25,7 +25,7 @@ class Hud extends dn.Process {
   var flow:h2d.Flow;
   var invalidated = true;
 
-  var healthGauge:AnimatedTextureGauge;
+  var healthGauge:HSprite;
   var stdFlashLight:TextureGauge;
   var spiritFlashLight:TextureGauge;
 
@@ -60,9 +60,8 @@ class Hud extends dn.Process {
       () -> player.healthPerc <= .4);
     // Create Health Gauge
     // var front = new Anim();
-    var back = hxd.Res.img.HealthUIBack.toTile();
-    healthGauge = new AnimatedTextureGauge(spr, back, flow);
-    healthGauge.flowType = RIGHT_LEFT;
+    healthGauge = spr;
+    flow.addChild(healthGauge);
   }
 
   /**
@@ -95,7 +94,6 @@ class Hud extends dn.Process {
 
   public function renderHealth() {
     var pl = level.player;
-    healthGauge.updatePerc(pl.healthPerc);
   }
 
   public function renderFlashlights() {
