@@ -7,14 +7,26 @@ import dn.legacy.Controller.ControllerAccess;
 import h2d.Text.Align;
 import GameTypes.Controllers;
 
+/**
+ * Align in the center.
+ * @param text 
+ */
 inline function center(text:h2d.Text) {
   text.textAlign = Align.Center;
 }
 
+/**
+ * Align to the left.
+ * @param text 
+ */
 inline function left(text:h2d.Text) {
   text.textAlign = Align.Left;
 }
 
+/**
+ * Align to the right.
+ * @param text 
+ */
 inline function right(text:h2d.Text) {
   text.textAlign = Align.Right;
 }
