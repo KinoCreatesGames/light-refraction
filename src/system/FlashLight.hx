@@ -55,7 +55,7 @@ class FlashLight extends PointLight {
     shader.pos.y = this.origin.y;
     shader.color = Vector.fromColor(lColor);
     lightG.alpha = 0.7;
-    lightG.addShader(shader);
+    // lightG.addShader(shader);
   }
 
   override function castLight() {
@@ -120,13 +120,13 @@ class FlashLight extends PointLight {
     }
 
     // Sort all of the rays into the proper order for casting them on screen
-    polyPoints.sort((pOne, pTwo) -> {
-      var angOne = M.angTo(origin.x, origin.y, pOne.x, pOne.y);
-      var angTwo = M.angTo(origin.x, origin.y, pTwo.x, pTwo.y);
-      // trace('Angles ${angOne} ${angTwo}');
-      return angOne < angTwo ? -1 : 1;
-      // return M.floor((M.fabs(angOne - angTwo) * 100);
-    });
+    // polyPoints.sort((pOne, pTwo) -> {
+    //   var angOne = M.angTo(origin.x, origin.y, pOne.x, pOne.y);
+    //   var angTwo = M.angTo(origin.x, origin.y, pTwo.x, pTwo.y);
+    //   // trace('Angles ${angOne} ${angTwo}');
+    //   return angOne > angTwo ? -1 : 1;
+    //   // return M.floor((M.fabs(angOne - angTwo) * 100);
+    // });
     lightPoly = polyPoints.copy();
   }
 
@@ -139,14 +139,17 @@ class FlashLight extends PointLight {
     // lightG.lineTo(origin.x, origin.y);
     // lightG.addVertex(origin.x, origin.y, 1, 1, 1, 1);
     var colors = [0x0a00ff, 0xff0000, 0x00ffaa];
+    lightG.lineStyle(1, colors[start % colors.length], 1);
     for (point in polyPoints) {
       var c = lightG.color;
 
-      lightG.lineStyle(1, colors[start % colors.length], 1);
       //   lightG.addVertex(point.x, point.y, 1, 1, c.b, uvTwo, uvTwo);
-      lightG.lineTo(origin.x, origin.y);
+      // lightG.lineTo(origin.x, origin.y);
+      if (start % 2 == 0) {
+        lightG.drawCircle(point.x, point.y, 3);
+      }
       lightG.lineTo(point.x, point.y);
-      lightG.drawCircle(point.x, point.y, 3);
+      start++;
     }
     lightG.lineTo(origin.x, origin.y);
     // lightG.addVertex(origin.x, origin.y, 1, 1, 1, 1);
@@ -163,15 +166,16 @@ class FlashLight extends PointLight {
     lightG.beginFill(lColor);
     // graphic.lineStyle(1, 0xaa00ff, 1);
     // lightG.lineTo(origin.x, origin.y);
-    // lightG.addVertex(origin.x, origin.y, 1, 1, 1, 1);
+    lightG.addVertex(origin.x, origin.y, 1, 1, 1, 1);
     var colors = [0x0a00ff, 0xff0000, 0x00ffaa];
+    // lightG.lineTo(origin.x, origin.y);
     for (point in polyPoints) {
       var c = lightG.color;
       var uvTwo = (origin.distance(point)) / lightRadius;
       //   lightG.addVertex(point.x, point.y, 1, 1, c.b, uvTwo, uvTwo);
       lightG.lineTo(point.x, point.y);
     }
-    lightG.lineTo(origin.x, origin.y);
+    // lightG.lineTo(origin.x, origin.y);
     // lightG.addVertex(origin.x, origin.y, 1, 1, 1, 1);
     lightG.blendMode = BlendMode.SoftAdd;
     lightG.color.a = 0.7;

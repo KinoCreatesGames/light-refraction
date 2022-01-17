@@ -50,8 +50,7 @@ class Hud extends dn.Process {
 
   public function setupHealth(player:Player) {
     // Might have to update this with the tmod while game is running to match studio
-    var slib = Aseprite.convertToSLib(Const.FPS,
-      hxd.Res.img.HealthUI.toAseprite());
+    var slib = hxd.Res.img.HealthUI.toAseprite().aseToSlib(Const.FPS);
     var spr = new HSprite(slib);
     spr.anim.registerStateAnim('goodHealth', 1, 1,
       () -> player.healthPerc > .75);
