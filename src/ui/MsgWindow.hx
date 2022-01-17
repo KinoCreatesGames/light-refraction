@@ -8,6 +8,17 @@ import dn.legacy.Controller.ControllerAccess;
  * Message window for displaying text within the game
  */
 class MsgWindow extends dn.Process {
+  public var lgContainer:h2d.Flow;
+  public var choiceTimer:Float;
+
+  /**
+   * Shows the choice within the games
+   * inside. Contains the information
+   * on what time it is for that specific
+   * choice.
+   */
+  public var choice:TextureGauge;
+
   public var win:h2d.Flow;
   public var text:h2d.Text;
   public var padding:Int;
@@ -26,6 +37,10 @@ class MsgWindow extends dn.Process {
     textIndex = -1;
     setupWindow();
     Process.resizeAll();
+  }
+
+  public function setupLGContainer() {
+    lgContainer = new h2d.Flow(root);
   }
 
   public function setupWindow() {
