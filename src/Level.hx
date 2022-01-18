@@ -260,6 +260,7 @@ class Level extends dn.Process {
    * @param exit 
    */
   public function transferPlayer(exit:Exit) {
+    Boot.ME.addTransition();
     player.cx = Std.int(exit.startPoint.x);
     player.cy = Std.int(exit.startPoint.y);
   }

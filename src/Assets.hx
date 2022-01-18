@@ -1,3 +1,4 @@
+import h3d.mat.Texture;
 import dn.heaps.assets.Aseprite;
 import dn.heaps.slib.*;
 
@@ -9,6 +10,7 @@ class Assets {
   public static var fontLarge:h2d.Font;
   public static var tiles:SpriteLib;
   public static var uiEl:SpriteLib;
+  public static var transTex:h3d.mat.Texture;
 
   static var initDone = false;
 
@@ -26,6 +28,7 @@ class Assets {
     fontLarge = hxd.Res.fonts.barlow_condensed_medium_regular_32.toFont();
     tiles = dn.heaps.assets.Atlas.load("atlas/tiles.atlas");
     uiEl = Aseprite.convertToSLib(Const.FPS, hxd.Res.img.UIFX.toAseprite());
+    transTex = hxd.Res.textures.TransitionOne.toTexture();
 
     // Build UI assets directly from UI elements
 

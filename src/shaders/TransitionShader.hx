@@ -44,5 +44,6 @@ class TransitionShader extends ScreenShader {
   public function new(?color:Vector, endTime:Float = 3.0) {
     super();
     this.cutColor = color == null ? new Vector(0, 0, 0, 1) : color;
+    this.endTime = endTime;
   }
 }

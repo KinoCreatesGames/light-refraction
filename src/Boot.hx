@@ -3,6 +3,8 @@
   It doesn't do much, except creating Main and taking care of app speed ()
 **/
 
+import ui.transition.ShaderTransition;
+import shaders.ChromaticAberrationShader2D;
 import h2d.filter.Nothing;
 import hxd.Timer;
 import shaders.CRTShader;
@@ -23,6 +25,8 @@ class Boot extends hxd.App {
   public var renderer:CustomRenderer;
   public var spotlight:SpotLightShader2D;
   public var crt:CRTShader;
+  public var chromA:ChromaticAberrationShader2D;
+  public var transition:ShaderTransition;
 
   /**
    * Shader that 
@@ -43,6 +47,14 @@ class Boot extends hxd.App {
   **/
   static function main() {
     new Boot();
+  }
+
+  public function addTransition() {
+    transition = ShaderTransition.createTransition();
+  }
+
+  public function removeTransition() {
+    transition = null;
   }
 
   /**
@@ -67,6 +79,8 @@ class Boot extends hxd.App {
     crt = new CRTShader();
     crt.widthHeight = new Vector();
     crt.tex = new Texture(engine.width, engine.height, [Target]);
+    chromA = new ChromaticAberrationShader2D(new Texture(engine.width,
+      engine.height, [Target]));
     onResize();
   }
 
@@ -103,9 +117,8 @@ class Boot extends hxd.App {
 
   @:access(h3d.scene.Scene, h3d.scene.Renderer, CustomRenderer)
   override function render(e:Engine) {
-    // If we're on the level we're going to take the
-    // render texture and use it for the vignette effect
-    // For the spotlight for the player character
+    // Renders the transition in the case of the transition being called from
+    // The level on moving from one area to another one.
     if (Game.ME != null && Game.ME.level != null && !Game.ME.level.destroyed) {
       var level = Game.ME.level;
       // Unlit World
@@ -177,7 +190,15 @@ class Boot extends hxd.App {
         crt.widthHeight.y = engine.height;
         crt.time += Timer.elapsedTime * 4;
         ScreenFx.run(composite, crt.tex, 0);
-        new ScreenFx(crt).render();
+        // could make CA shader
+
+        if (transition != null) {
+          ScreenFx.run(crt, transition.shader.texture, 0);
+          new ScreenFx(transition.shader).render();
+        } else {
+          ScreenFx.run(crt, composite.textures, 0);
+          new ScreenFx(composite).render();
+        }
       } else {
         new ScreenFx(composite).render();
       }
@@ -186,5 +207,7 @@ class Boot extends hxd.App {
       // Render the standard scene in the game
       super.render(e);
     }
+
+    // s2d.render(e);
   }
 }

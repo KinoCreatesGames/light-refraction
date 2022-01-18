@@ -1,5 +1,6 @@
 package ext;
 
+import h3d.shader.ScreenShader;
 import h3d.Engine;
 import aseprite.Aseprite;
 import hxd.Pixels;
@@ -125,4 +126,12 @@ inline function popClear(engine:Engine, color:Int = 0, ?depth:Float = 1,
     ?stencil:Int) {
   engine.popTarget();
   engine.clear(color, depth, stencil);
+}
+
+/**
+ * Creates a screen shader with the texture property already set for the shader.
+ * @param shader 
+ */
+inline function createScShader<T:ScreenShader>(shader:T) {
+  return shader;
 }

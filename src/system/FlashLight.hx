@@ -1,5 +1,6 @@
 package system;
 
+import shaders.FlashLightShader2D;
 import hxd.Timer;
 import h3d.Vector;
 import shaders.PointLightShader2D;
@@ -48,14 +49,18 @@ class FlashLight extends PointLight {
   }
 
   override function setup() {
-    var shader = new PointLightShader2D();
-    shader.widthHeight.x = game.w();
-    shader.widthHeight.y = game.h();
-    shader.pos.x = this.origin.x;
-    shader.pos.y = this.origin.y;
-    shader.color = Vector.fromColor(lColor);
+    var shader = new FlashLightShader2D();
+    // shader.widthHeight.x = game.w();
+    // shader.widthHeight.y = game.h();
+    // shader.pos.x = this.origin.x;
+    // shader.pos.y = this.origin.y;
+    // shader.color = Vector.fromColor(lColor);
     lightG.alpha = 0.7;
-    // lightG.addShader(shader);
+    lightG.addShader(shader);
+
+    lightG.adjustColor({
+      hue: 0.2
+    });
   }
 
   override function castLight() {
@@ -172,13 +177,13 @@ class FlashLight extends PointLight {
     for (point in polyPoints) {
       var c = lightG.color;
       var uvTwo = (origin.distance(point)) / lightRadius;
-      //   lightG.addVertex(point.x, point.y, 1, 1, c.b, uvTwo, uvTwo);
-      lightG.lineTo(point.x, point.y);
+      lightG.addVertex(point.x, point.y, 1, 1, c.b, uvTwo, uvTwo);
+      // lightG.lineTo(point.x, point.y);
     }
     // lightG.lineTo(origin.x, origin.y);
     // lightG.addVertex(origin.x, origin.y, 1, 1, 1, 1);
-    lightG.blendMode = BlendMode.SoftAdd;
-    lightG.color.a = 0.7;
+    // lightG.blendMode = BlendMode.SoftAdd;
+    // lightG.color.a = 0.7;
     lightG.endFill();
     // lightG.rotation += hxd.Timer.elapsedTime;
   }

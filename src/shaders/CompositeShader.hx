@@ -45,12 +45,13 @@ class CompositeShader extends ScreenShader {
       var clHud = hud.r;
       clHud += hud.g;
       clHud += hud.b;
+      result = texColor * .5 + mix(litTexColor * 2, lights * 1.5, .9);
       if (clHud > 0) {
         result = hud;
       } else if (clResult > 0) {
         // lights.r += .3;
         // lights.r += 1;
-        result = litTexColor + lights * .3;
+        // result = litTexColor + lights * .3;
       }
 
       pixelColor = result;

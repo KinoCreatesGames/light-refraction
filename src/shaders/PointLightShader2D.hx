@@ -60,6 +60,7 @@ class PointLightShader2D extends hxsl.Shader {
       // Room color with the lights on
       //   var lights = texs.get(vec3(input.uv, 0));
       // Center  of the radial circle
+      var uv = input.uv;
       var movingCenter = vec2(pos.x / widthHeight.x, pos.y / widthHeight.y);
       // Screen center
       var center = vec2(.5, .5);
@@ -76,9 +77,11 @@ class PointLightShader2D extends hxsl.Shader {
       //   texColor *= ((str));
       //   Smooth Edges
       // pixelColor = pixelColor;
-      // var light = vec4(1.3, 1.3, 1.3, .3);
+      var light = vec4(1, 1, 1, 1);
       // light *= cos(sTime);
-      var cl = vec4(color.rgb, .35);
+
+      var cl = vec4(color.rgb, 1);
+      cl = mix(light, cl, .4);
       // cl = light * cl;
       if (pct > radius) {
         var result = clamp(1 - pct, .1, 1);
@@ -86,11 +89,14 @@ class PointLightShader2D extends hxsl.Shader {
         // cl.b *= result * (1 - str);
         // cl.g *= result;
       }
-      cl.a *= str;
+      // cl =
+      // cl.a *= (1 - pct) * .5;
       // cl *= str;
       // cl.a *= 1 - pct;
       // cl.a *= (str * .3);
-
+      cl.r = uv.x;
+      cl.b = uv.y;
+      cl.g = 0;
       pixelColor = cl;
       // pixelColor = texColor * str;
     }
