@@ -93,12 +93,7 @@ class Player extends BaseEnt {
     // of the elements within the game.
     var abs = this.spr.absPos();
 
-    lightCollider = new Polygon(flashLight.lightPoly.points.map((point) -> {
-      var p = point.clone();
-      // p.x += abs.x;
-      // p.y += abs.y;
-      return p;
-    }));
+    lightCollider = new Polygon(flashLight.lightPoly.points);
   }
 
   public function updateCollisions() {

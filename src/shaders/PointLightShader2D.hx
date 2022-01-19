@@ -81,7 +81,7 @@ class PointLightShader2D extends hxsl.Shader {
       // light *= cos(sTime);
 
       var cl = vec4(color.rgb, 1);
-      cl = mix(light, cl, .4);
+      cl = mix(light, cl, .7);
       // cl = light * cl;
       if (pct > radius) {
         var result = clamp(1 - pct, .1, 1);
@@ -92,11 +92,12 @@ class PointLightShader2D extends hxsl.Shader {
       // cl =
       // cl.a *= (1 - pct) * .5;
       // cl *= str;
-      // cl.a *= 1 - pct;
+      cl.a *= 1 - pct;
       // cl.a *= (str * .3);
-      cl.r = uv.x;
-      cl.b = uv.y;
-      cl.g = 0;
+      // cl.r = uv.x;
+      // cl.b = uv.y;
+      // cl.g = 0;
+      // cl *= 1.5;
       pixelColor = cl;
       // pixelColor = texColor * str;
     }

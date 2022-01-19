@@ -1,5 +1,6 @@
 package system;
 
+import h2d.Drawable;
 import h2d.BlendMode;
 import hxd.Timer;
 import shaders.PointLightShader2D;
@@ -54,6 +55,7 @@ class LightSys {
 
   public var lightG:h2d.Graphics;
 
+  public var regularLights:Array<StdLight>;
   public var pointLights:Array<PointLight>;
   public var flashLight:FlashLight;
 
@@ -64,6 +66,7 @@ class LightSys {
     levelPoly = [];
 
     pointLights = [];
+    regularLights = [];
     lightPoly = new Polygon();
     flashlightPoly = new Polygon();
     var shader = new PointLightShader2D();
@@ -83,7 +86,18 @@ class LightSys {
     p.y -= 40;
     p.x += 20;
     var test = new PointLight(p, level.root, data);
-    var testTwo = new system.FlashLight(lightPoint.clone(), 0xaaaaff, 30, 60.,
+    // Setup Point Lights
+    for (pl in data.l_LightEntities.all_PointLight) {
+      var light = new PointLight(new Point(pl.pixelX, pl.pixelY),
+        pl.f_LightColor_int, 10, 360, level.root, data);
+      pointLights.push(light);
+    }
+
+    for (sl in data.l_LightEntities.all_StdLight) {
+      var light = new StdLight(level.lightRoot, sl);
+      regularLights.push(light);
+    }
+    var testTwo = new system.FlashLight(lightPoint.clone(), 0xaaaaff, 50, 60.,
       level.root, data);
     flashLight = testTwo;
     testTwo.lightRadius = 160;
@@ -185,6 +199,9 @@ class LightSys {
   public function renderLight() {
     for (light in pointLights) {
       light.renderLight();
+    }
+    for (sl in regularLights) {
+      sl.update();
     }
     if (Game.ME.level != null) {
       var player = Game.ME.level.player;

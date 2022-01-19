@@ -156,13 +156,6 @@ class PointLight extends Drawable {
     }
 
     // Sort all of the rays into the proper order for casting them on screen
-    polyPoints.sort((pOne, pTwo) -> {
-      var angOne = M.angTo(origin.x, origin.y, pOne.x, pOne.y);
-      var angTwo = M.angTo(origin.x, origin.y, pTwo.x, pTwo.y);
-      // trace('Angles ${angOne} ${angTwo}');
-      return angOne < angTwo ? -1 : 1;
-      // return M.floor((M.fabs(angOne - angTwo) * 100);
-    });
     lightPoly = polyPoints.copy();
   }
 

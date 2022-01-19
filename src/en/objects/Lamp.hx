@@ -45,9 +45,14 @@ class Lamp extends Light {
     shader.pos.x = this.spr.x;
     shader.pos.y = this.spr.y;
     shader.color = Vector.fromColor(0x111111);
+    var d = Disc.defaultUnitDisc();
     var colorTile = h2d.Tile.fromColor(lightColor, 1, 1);
     light.beginTileFill(0, 0, 64, 64, colorTile);
-    light.drawCircle(0, 0, lightRadius);
+    for (point in d.points) {
+      point.scale(5);
+      light.addVertex(point.x, point.y, 1, 1, 1, 1, 0.5, .5);
+    }
+    // light.drawCircle(0, 0, lightRadius);
     light.endFill();
     light.addShader(shader);
     light.colorAdd = Vector.fromColor(lightColor);

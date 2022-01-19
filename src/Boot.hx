@@ -154,6 +154,8 @@ class Boot extends hxd.App {
         level.player.flashLight.turnOn();
         level.player.flashLight.lightG.drawTo(composite.lightTexture);
       }
+      level.lightRoot.drawTo(composite.lightTexture);
+      // trace(level.lightRoot.numChildren);
       level.lights.members.iter((el) -> {
         el.turnOn();
         // el.hideGraphic();

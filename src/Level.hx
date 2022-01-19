@@ -1,3 +1,4 @@
+import h2d.Object;
 import h2d.col.Ray;
 import system.LightSys;
 import ui.MsgWindow;
@@ -81,6 +82,7 @@ class Level extends dn.Process {
   public var lights:Group<Light>;
   public var hazards:Group<Hazard>;
   public var data:LDTkProj_Level;
+  public var lightRoot:Object;
 
   // Light System Information
   public var lightSys:LightSys;
@@ -90,6 +92,7 @@ class Level extends dn.Process {
     createRootInLayers(Game.ME.scroller, Const.DP_BG);
     if (levelData != null) {
       data = levelData;
+      lightRoot = new h2d.Object(Game.ME.scroller);
       lightSys = new LightSys(this);
       setup();
     }
