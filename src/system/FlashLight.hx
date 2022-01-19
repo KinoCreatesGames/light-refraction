@@ -132,7 +132,6 @@ class FlashLight extends PointLight {
     //   return angOne > angTwo ? -1 : 1;
     //   // return M.floor((M.fabs(angOne - angTwo) * 100);
     // });
-    lightPoly = polyPoints.copy();
   }
 
   override function debugDraw() {
@@ -166,20 +165,25 @@ class FlashLight extends PointLight {
 
   override public function renderLight() {
     lightG.clear();
+    lightPoly.points.resize(0);
     var start = 0;
 
     lightG.beginFill(lColor);
     // graphic.lineStyle(1, 0xaa00ff, 1);
     // lightG.lineTo(origin.x, origin.y);
     lightG.addVertex(origin.x, origin.y, 1, 1, 1, 1);
+    lightPoly.points.push(origin);
     var colors = [0x0a00ff, 0xff0000, 0x00ffaa];
     // lightG.lineTo(origin.x, origin.y);
     for (point in polyPoints) {
       var c = lightG.color;
       var uvTwo = (origin.distance(point)) / lightRadius;
       lightG.addVertex(point.x, point.y, 1, 1, c.b, uvTwo, uvTwo);
+      lightPoly.points.push(point);
       // lightG.lineTo(point.x, point.y);
     }
+    lightG.addVertex(origin.x, origin.y, 1, 1, 1, 1);
+    // lightPoly.points.push(origin);
     // lightG.lineTo(origin.x, origin.y);
     // lightG.addVertex(origin.x, origin.y, 1, 1, 1, 1);
     // lightG.blendMode = BlendMode.SoftAdd;

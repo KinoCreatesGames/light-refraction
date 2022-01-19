@@ -20,6 +20,11 @@ class Player extends BaseEnt {
   public var ct:ControllerAccess;
 
   /**
+   * In gamey keys that are within your posession.
+   */
+  public var keys:Int;
+
+  /**
    * Standard flashlight within the game
    * that just gives the player vision within a cone around them.
    */
@@ -84,7 +89,16 @@ class Player extends BaseEnt {
 
   public function updateFlashLights() {
     flashLight.update();
-    lightCollider = flashLight.lightPoly;
+    // Update the light poly with the absolute position
+    // of the elements within the game.
+    var abs = this.spr.absPos();
+
+    lightCollider = new Polygon(flashLight.lightPoly.points.map((point) -> {
+      var p = point.clone();
+      // p.x += abs.x;
+      // p.y += abs.y;
+      return p;
+    }));
   }
 
   public function updateCollisions() {
@@ -127,6 +141,9 @@ class Player extends BaseEnt {
           // Give back battery percentage to the max
           collectible.destroy();
           flashLight.batteryLife = 1.;
+        case en.collectibles.Key:
+          collectible.destroy();
+          keys += 1;
         case _:
           // Do nothing
       }

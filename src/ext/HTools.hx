@@ -1,5 +1,6 @@
 package ext;
 
+import h2d.col.Point;
 import h3d.shader.ScreenShader;
 import h3d.Engine;
 import aseprite.Aseprite;
@@ -134,4 +135,15 @@ inline function popClear(engine:Engine, color:Int = 0, ?depth:Float = 1,
  */
 inline function createScShader<T:ScreenShader>(shader:T) {
   return shader;
+}
+
+/**
+ * Returns the absolute position of the sprite
+ * as a single Heaps point object.
+ * @param sprite 
+ * @return Point
+ */
+inline function absPos(sprite:HSprite):Point {
+  var matrix = sprite.getAbsPos();
+  return new Point(matrix.x, matrix.y);
 }

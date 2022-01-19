@@ -1,3 +1,4 @@
+import h2d.col.Ray;
 import system.LightSys;
 import ui.MsgWindow;
 import ui.Notification;
@@ -203,9 +204,10 @@ class Level extends dn.Process {
   public function collideWithLightEn(entity:BaseEnt) {
     if (entity != null && entity.isAlive() && entity.ready) {
       var absPos = entity.spr.getAbsPos();
-      var p = new Point(absPos.x, absPos.y);
+      var p = new Point(entity.spr.x, entity.spr.y);
       // trace('Destroy, ${absPos.x}, ${absPos.y}');
-      return player.lightCollider.contains(p) && !player.flashLightOff;
+      return player.lightCollider.getCollider().contains(p)
+        && !player.flashLightOff;
     }
     return false;
   }
