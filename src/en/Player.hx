@@ -92,6 +92,9 @@ class Player extends BaseEnt {
     // Update the light poly with the absolute position
     // of the elements within the game.
     var abs = this.spr.absPos();
+    if (flashLight.isOn()) {
+      hud.pingActive();
+    }
 
     lightCollider = new Polygon(flashLight.lightPoly.points);
   }
@@ -119,6 +122,7 @@ class Player extends BaseEnt {
           // Take damage
           enemy.kill(this);
           this.takeDamage();
+          hud.pingActive();
           // Do nothing
       }
     }

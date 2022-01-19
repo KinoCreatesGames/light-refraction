@@ -30,6 +30,15 @@ class Hud extends dn.Process {
   var stdFlashLight:TextureGauge;
   var spiritFlashLight:TextureGauge;
 
+  public static inline var FADE_TIME:Float = 2.5;
+
+  /**
+   * Determines if the fade is complete
+   * for the hud and then allows for
+   * fading again.
+   */
+  public var completeFade:Bool;
+
   public function new() {
     super(Game.ME);
 
@@ -37,6 +46,8 @@ class Hud extends dn.Process {
     root.filter = new h2d.filter.ColorMatrix(); // force pixel perfect rendering
 
     flow = new h2d.Flow(root);
+    completeFade = true;
+    pingActive();
     setup();
     Process.resizeAll();
   }
@@ -115,10 +126,27 @@ class Hud extends dn.Process {
   override function postUpdate() {
     super.postUpdate();
 
+    if (!cd.has('active') && completeFade) {
+      completeFade = false;
+      this.tw.createS(this.flow.alpha, 0, TEaseOut, FADE_TIME).end(() -> {
+        completeFade = true;
+      });
+    }
+
     if (invalidated) {
       invalidated = false;
       render();
     }
+  }
+
+  /**
+   * Determines if the active 
+   * hud active. If not,
+   * we should fade it out.
+   */
+  public function pingActive() {
+    cd.setS('active', 2);
+    flow.alpha = 1.;
   }
 
   public function isVisible() {
