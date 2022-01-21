@@ -147,3 +147,12 @@ inline function absPos(sprite:HSprite):Point {
   var matrix = sprite.getAbsPos();
   return new Point(matrix.x, matrix.y);
 }
+
+/**
+ * Returns a point using grid coordinates
+ * @param point 
+ * @param gridFactor determines if we should scale the point to the grid sprite coordinates
+ */
+inline function LDPtoPoint(point:ldtk.Point, gridFactor = 1) {
+  return new Point(point.cx * gridFactor, point.cy * gridFactor);
+}
