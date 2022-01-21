@@ -156,3 +156,7 @@ inline function absPos(sprite:HSprite):Point {
 inline function LDPtoPoint(point:ldtk.Point, gridFactor = 1) {
   return new Point(point.cx * gridFactor, point.cy * gridFactor);
 }
+
+inline function toVec(point:h2d.col.Point):Vector {
+  return new Vector(point.x, point.y);
+}
