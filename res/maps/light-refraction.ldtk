@@ -1272,6 +1272,17 @@
 							"defUid": 38,
 							"px": [64,192],
 							"fieldInstances": []
+						},
+						{
+							"__identifier": "Platform",
+							"__grid": [6,5],
+							"__pivot": [0,0],
+							"__tile": null,
+							"width": 32,
+							"height": 32,
+							"defUid": 51,
+							"px": [192,160],
+							"fieldInstances": []
 						}
 					]
 				},

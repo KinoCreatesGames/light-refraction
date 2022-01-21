@@ -1,3 +1,6 @@
+import h2d.filter.Mask;
+import en.hazard.MovingPlatform;
+import en.hazard.Platform;
 import h2d.Object;
 import h2d.col.Ray;
 import system.LightSys;
@@ -117,7 +120,6 @@ class Level extends dn.Process {
     setupEnemies();
     setupCollectibles();
     setupLights();
-    setupHazards();
     for (pl in data.l_Entities.all_Player) {
       player = new Player(pl.cx, pl.cy);
       player.setupFlashLights(lightSys.flashLight);
@@ -127,6 +129,7 @@ class Level extends dn.Process {
       });
       player.listener.emit('setupPlayer', player);
     }
+    setupHazards();
   }
 
   public function setupEnemies() {
@@ -168,6 +171,18 @@ class Level extends dn.Process {
     for (enExit in data.l_Entities.all_Exit) {
       var exit = new Exit(enExit);
       hazards.add(exit);
+    }
+
+    for (pl in data.l_Entities.all_Platform) {
+      var plat = new Platform(pl);
+      hazards.add(plat);
+      // var mask = new Mask(player.flashLight.lightG, true);
+      // plat.test.filter = mask;
+      // plat.test.color.a = 1;
+    }
+
+    for (mpl in data.l_Entities.all_MovingPlatform) {
+      hazards.add(new MovingPlatform(mpl));
     }
   }
 

@@ -186,7 +186,7 @@ class FlashLight extends PointLight {
     // lightPoly.points.push(origin);
     // lightG.lineTo(origin.x, origin.y);
     // lightG.addVertex(origin.x, origin.y, 1, 1, 1, 1);
-    // lightG.blendMode = BlendMode.SoftAdd;
+    lightG.blendMode = BlendMode.Alpha;
     // lightG.color.a = 0.7;
     lightG.endFill();
     // lightG.rotation += hxd.Timer.elapsedTime;
