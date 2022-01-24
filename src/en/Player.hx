@@ -17,6 +17,13 @@ import dn.legacy.Controller.ControllerAccess;
 class Player extends BaseEnt {
   public static inline var MOVE_SPD:Float = .1;
   public static inline var FALL_TIME:Float = 2.2;
+  public static inline var INVINCBIBLE_TIME:Float = 3;
+
+  public var isInvincible(get, null):Bool;
+
+  public inline function get_isInvincible() {
+    return cd.has('invincible');
+  }
 
   public var ct:ControllerAccess;
 
@@ -86,10 +93,21 @@ class Player extends BaseEnt {
 
   override function update() {
     super.update();
+    updateInvincibility();
     updateHUD();
     updateFlashLights();
     updateCollisions();
     updateControls();
+  }
+
+  /**
+   * Updates the invincibility of the sprite
+   * using the blinking capability.
+   */
+  public function updateInvincibility() {
+    if (isInvincible) {
+      blink(0xffffff);
+    }
   }
 
   public function updateHUD() {
@@ -270,7 +288,10 @@ class Player extends BaseEnt {
   // Standard overrides
   override function takeDamage(value:Int = 1) {
     // Shake camera when the player takes damage.
-    Game.ME.camera.shakeS(0.5, 0.5);
-    super.takeDamage(value);
+    if (!isInvincible) {
+      Game.ME.camera.shakeS(0.5, 0.5);
+      super.takeDamage(value);
+      cd.setS('invincible', INVINCBIBLE_TIME);
+    }
   }
 }
