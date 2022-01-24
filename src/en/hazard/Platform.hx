@@ -2,7 +2,7 @@ package en.hazard;
 
 import h2d.col.Point;
 
-class Platform extends Hazard {
+class Platform extends Hazard implements LitEntity {
   public var isLit:Bool;
   public var test:h2d.Graphics;
   public var complete:Bool;
@@ -28,8 +28,13 @@ class Platform extends Hazard {
 
   override function update() {
     super.update();
+    this.handleLightInteraction();
+  }
+
+  public function handleLightInteraction() {
     this.point.x = this.spr.x;
     this.point.y = this.spr.y;
+    // Refactor later into the level update function
     if (!cd.has('lightTransition')) {
       var inCone = level.player.lightCollider.contains(this.point);
       if (!isLit && inCone && level.player.flashLight.isOn()) {

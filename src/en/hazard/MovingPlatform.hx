@@ -2,11 +2,14 @@ package en.hazard;
 
 import h2d.col.Point;
 
-class MovingPlatform extends Hazard {
+class MovingPlatform extends Hazard implements LitEntity {
   public var path:Array<Point>;
   public var looping:Bool;
   public var pointIndex = 0;
   public var speed:Float;
+  public var point:Point;
+  public var complete:Bool;
+  public var isLit:Bool;
 
   public static inline var INITIAL_WAIT:Float = 3;
 
@@ -31,6 +34,7 @@ class MovingPlatform extends Hazard {
     if (!cd.has('initialWait')) {
       updatePath();
     }
+    handleLightInteraction();
   }
 
   public function updatePath() {
@@ -50,6 +54,30 @@ class MovingPlatform extends Hazard {
       if (!cd.has('platformStep')) {
         pointIndex++;
         cd.setS('platformStep', waitTime);
+      }
+    }
+  }
+
+  public function handleLightInteraction() {
+    this.point.x = this.spr.x;
+    this.point.y = this.spr.y;
+    // Refactor later into the level update function
+    if (!cd.has('lightTransition')) {
+      var inCone = level.player.lightCollider.contains(this.point);
+      if (!isLit && inCone && level.player.flashLight.isOn()) {
+        isLit = true;
+        complete = false;
+        level.tw.createS(this.spr.alpha, 1, TEase, 2).end(() -> {
+          complete = true;
+        });
+        cd.setS('lightTransition', 2);
+      } else if (isLit && !inCone) {
+        isLit = false;
+        complete = false;
+        level.tw.createS(this.spr.alpha, 0, TEase, 2).end(() -> {
+          complete = true;
+        });
+        cd.setS('lightTransition', 2);
       }
     }
   }
