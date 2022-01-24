@@ -30,7 +30,7 @@ class Hud extends dn.Process {
   var stdFlashLight:TextureGauge;
   var spiritFlashLight:TextureGauge;
 
-  public static inline var FADE_TIME:Float = 2.5;
+  public static inline var FADE_TIME:Float = 12.5;
 
   /**
    * Determines if the fade is complete

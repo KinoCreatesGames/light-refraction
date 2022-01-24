@@ -3,6 +3,14 @@ package en;
 import dn.heaps.assets.Aseprite;
 
 class Enemy extends BaseEnt {
+  public var isInvincible(get, null):Bool;
+
+  public static inline var INVINCBIBLE_TIME:Float = 3;
+
+  public function get_isInvincible() {
+    return cd.has('invincibleTime');
+  }
+
   /**
    * An enemy within them.
    * X, Y coordinates are the coordinates within the grid of the game.
@@ -26,5 +34,32 @@ class Enemy extends BaseEnt {
     spr.set(slib);
     spr.anim.registerStateAnim('idle', 0);
     spr.setCenterRatio();
+  }
+
+  override function update() {
+    super.update();
+    updateInvincible();
+  }
+
+  public function updateInvincible() {
+    if (isInvincible) {
+      // spr.alpha = 1;
+      if (!cd.has('invincible')) {
+        cd.setF('invincible', 5, () -> {
+          spr.alpha = 0;
+        });
+      } else {
+        spr.alpha = 1;
+      }
+    } else {
+      spr.alpha = 1;
+    }
+  }
+
+  override function takeDamage(value:Int = 1) {
+    if (!isInvincible) {
+      super.takeDamage(value);
+      cd.setS('invincibleTime', INVINCBIBLE_TIME);
+    }
   }
 }
