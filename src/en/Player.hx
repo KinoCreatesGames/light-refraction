@@ -16,6 +16,7 @@ import dn.legacy.Controller.ControllerAccess;
  */
 class Player extends BaseEnt {
   public static inline var MOVE_SPD:Float = .1;
+  public static inline var FALL_TIME:Float = 2.2;
 
   public var ct:ControllerAccess;
 
@@ -35,6 +36,14 @@ class Player extends BaseEnt {
   public var flashLightOff:Bool;
 
   public var listener:EventListener<Player>;
+
+  /**
+   * The last safe position of the player, before stepping into a zone
+   * where there is no floor. This area is the area
+   * that would trigger a fall and return the player to a previous safe
+   * position.
+   */
+  public var lastSafePos:Point;
 
   public function new(x:Int, y:Int) {
     super(x, y);
@@ -240,6 +249,23 @@ class Player extends BaseEnt {
     //   // setSquashY(0.6);
     // }
   }
+
+  /**
+   * Triggers a fall and sends the player 
+   * back to the previous safe position.
+   */
+  public function fall() {
+    cd.setS('falling', FALL_TIME, () -> {
+      // Return to safety
+      // Play falling animation for the player sprite.
+      returnToSafety();
+    });
+  }
+
+  /**
+   * Returns to the lat safe position
+   */
+  public function returnToSafety() {}
 
   // Standard overrides
   override function takeDamage(value:Int = 1) {
