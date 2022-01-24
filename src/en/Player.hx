@@ -22,7 +22,7 @@ class Player extends BaseEnt {
   public var isInvincible(get, null):Bool;
 
   public inline function get_isInvincible() {
-    return cd.has('invincible');
+    return cd.has('invincibleTime');
   }
 
   public var ct:ControllerAccess;
@@ -106,7 +106,16 @@ class Player extends BaseEnt {
    */
   public function updateInvincibility() {
     if (isInvincible) {
-      blink(0xffffff);
+      // spr.alpha = 1;
+      if (!cd.has('invincible')) {
+        cd.setF('invincible', 5, () -> {
+          spr.alpha = 0;
+        });
+      } else {
+        spr.alpha = 1;
+      }
+    } else {
+      spr.alpha = 1;
     }
   }
 
@@ -291,7 +300,7 @@ class Player extends BaseEnt {
     if (!isInvincible) {
       Game.ME.camera.shakeS(0.5, 0.5);
       super.takeDamage(value);
-      cd.setS('invincible', INVINCBIBLE_TIME);
+      cd.setS('invincibleTime', INVINCBIBLE_TIME);
     }
   }
 }
