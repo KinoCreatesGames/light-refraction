@@ -6,6 +6,10 @@ class BaseEnt extends Entity {
 
   public var healthPerc(get, null):Float;
 
+  public static inline var KNOCKBACK_FORCE:Float = 0.25;
+
+  public static inline var KB_CD:Float = 0.3;
+
   public inline function get_healthPerc() {
     return health / maxHealth;
   }
@@ -46,5 +50,15 @@ class BaseEnt extends Entity {
     // Standard post update, updates the sprite position
     // Once updated we'll consider the entity ready
     ready = true;
+  }
+
+  /**
+   * Knockbacks the character in the opposite
+   * direction then the one that they're going in at the time.
+   * In addition sets the cd to 'knockback'.
+   */
+  public function knockback() {
+    ext.HTools.knockback(this, KNOCKBACK_FORCE, KB_CD);
+    this.setSquashX(0.8);
   }
 }

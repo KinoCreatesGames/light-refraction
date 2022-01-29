@@ -97,7 +97,9 @@ class Player extends BaseEnt {
     updateHUD();
     updateFlashLights();
     updateCollisions();
-    updateControls();
+    if (!cd.has('knockback')) {
+      updateControls();
+    }
   }
 
   /**
@@ -301,6 +303,7 @@ class Player extends BaseEnt {
       Game.ME.camera.shakeS(0.5, 0.5);
       super.takeDamage(value);
       cd.setS('invincibleTime', INVINCBIBLE_TIME);
+      this.knockback();
     }
   }
 }

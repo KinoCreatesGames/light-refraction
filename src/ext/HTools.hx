@@ -160,3 +160,18 @@ inline function LDPtoPoint(point:ldtk.Point, gridFactor = 1) {
 inline function toVec(point:h2d.col.Point):Vector {
   return new Vector(point.x, point.y);
 }
+
+/**
+ * Knockbacks the character in the opposite
+ * direction then the one that they're going in at the time.
+ * In addition sets the cd to 'knockback'.
+ */
+inline function knockback(ent:Entity, force:Float, cd:Float) {
+  var dirX = M.sign(ent.dx);
+  var dirY = M.sign(ent.dy);
+  ent.dx = 0;
+  ent.dy = 0;
+  ent.dx += (dirX * force);
+  ent.dy += (dirY * force);
+  ent.cd.setS('knockback', cd);
+}
