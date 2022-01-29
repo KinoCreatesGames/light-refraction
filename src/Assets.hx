@@ -1,3 +1,5 @@
+import hxd.res.Sound;
+import hxd.snd.Channel;
 import h3d.mat.Texture;
 import dn.heaps.assets.Aseprite;
 import dn.heaps.slib.*;
@@ -11,6 +13,7 @@ class Assets {
   public static var tiles:SpriteLib;
   public static var uiEl:SpriteLib;
   public static var transTex:h3d.mat.Texture;
+  public static var collectSnd:Sound;
 
   static var initDone = false;
 
@@ -29,6 +32,9 @@ class Assets {
     tiles = dn.heaps.assets.Atlas.load("atlas/tiles.atlas");
     uiEl = Aseprite.convertToSLib(Const.FPS, hxd.Res.img.UIFX.toAseprite());
     transTex = hxd.Res.textures.TransitionOne.toTexture();
+
+    // Sounds
+    collectSnd = hxd.Res.sound.collect_collectible;
 
     // Build UI assets directly from UI elements
 

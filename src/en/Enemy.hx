@@ -60,6 +60,7 @@ class Enemy extends BaseEnt {
     if (!isInvincible) {
       super.takeDamage(value);
       cd.setS('invincibleTime', INVINCBIBLE_TIME);
+      this.knockback();
     }
   }
 }

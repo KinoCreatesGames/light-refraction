@@ -174,13 +174,16 @@ class Player extends BaseEnt {
         case en.collectibles.Health:
           addHealth(1);
           collectible.destroy();
+          Assets.collectSnd.play();
         case en.collectibles.Battery:
           // Give back battery percentage to the max
           collectible.destroy();
           flashLight.batteryLife = 1.;
+          Assets.collectSnd.play();
         case en.collectibles.Key:
           collectible.destroy();
           keys += 1;
+          Assets.collectSnd.play();
         case _:
           // Do nothing
       }
