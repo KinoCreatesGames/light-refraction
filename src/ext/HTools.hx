@@ -1,5 +1,7 @@
 package ext;
 
+import ext.FuncExt.Pipe;
+import h2d.Font;
 import h2d.col.Point;
 import h3d.shader.ScreenShader;
 import h3d.Engine;
@@ -174,4 +176,38 @@ inline function knockback(ent:Entity, force:Float, cd:Float) {
   ent.dx += (dirX * force);
   ent.dy += (dirY * force);
   ent.cd.setS('knockback', cd);
+}
+
+/**
+ * Creates a new h2d.Text object using the Asset pixel font.
+ * 
+ * @param str 
+ * @param color=0xffffff 
+ * @param root 
+ */
+inline function pixelText(str:String, color:Int = 0xffffff, root:h2d.Object) {
+  return text(Assets.fontPixel, str, color, root);
+}
+
+inline function lgText(str:String, color:Int = 0xffffff, root:h2d.Object) {
+  return text(Assets.fontLarge, str, color, root);
+}
+
+inline function mdText(str:String, color:Int = 0xffffff, root:h2d.Object) {
+  return text(Assets.fontMedium, str, color, root);
+}
+
+inline function smallText(str:String, color:Int = 0xffffff, root:h2d.Object) {
+  return text(Assets.fontPixel, str, color, root);
+}
+
+inline function tinyText(str:String, color:Int = 0xffffff, root:h2d.Object) {
+  return text(Assets.fontSmall, str, color, root);
+}
+
+inline function text(font:Font, str:String, color:Int, root:h2d.Object) {
+  var txt = new h2d.Text(font, root);
+  txt.text = str;
+  txt.textColor = color;
+  return txt;
 }

@@ -107,6 +107,7 @@ class Level extends dn.Process {
     setupGroups();
     setupEntities();
     setupLighting();
+    hud.notify('This is a test notification for trying out notifications.');
   }
 
   public function setupGroups() {
