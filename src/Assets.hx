@@ -13,7 +13,10 @@ class Assets {
   public static var tiles:SpriteLib;
   public static var uiEl:SpriteLib;
   public static var transTex:h3d.mat.Texture;
+  // Sound Collection
   public static var collectSnd:Sound;
+  public static var switchOnSnd:Sound;
+  public static var switchOffSnd:Sound;
 
   static var initDone = false;
 
@@ -35,6 +38,8 @@ class Assets {
 
     // Sounds
     collectSnd = hxd.Res.sound.collect_collectible;
+    switchOnSnd = hxd.Res.sound.switch_on;
+    switchOffSnd = hxd.Res.sound.switch_off;
 
     // Build UI assets directly from UI elements
 

@@ -206,11 +206,12 @@ class Player extends BaseEnt {
     if (cancel && !cd.has('lightCD')) {
       if (flashLight.isOn()) {
         flashLight.turnOff();
-
         flashLightOff = true;
+        Assets.switchOffSnd.play();
       } else if (!flashLight.isOn()) {
         flashLight.turnOn();
         flashLightOff = false;
+        Assets.switchOnSnd.play();
       }
       cd.setS('lightCD', 0.2);
     }
