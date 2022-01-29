@@ -70,7 +70,7 @@ class Pause extends dn.Process {
   public function resumeGame() {
     ct.releaseExclusivity();
     Game.ME.level.resume();
-    // se = hxd.Res.sound.pause_out.play();
+    se = Assets.pauseOut.play();
     this.destroy();
   }
 
@@ -85,7 +85,7 @@ class Pause extends dn.Process {
     ct.releaseExclusivity();
     Game.ME.level.resume();
     Game.ME.level.destroy();
-    // se = hxd.Res.sound.pause_out.play();
+    se = Assets.pauseOut.play();
     this.destroy();
     new Title();
   }

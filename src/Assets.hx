@@ -18,6 +18,10 @@ class Assets {
   public static var switchOnSnd:Sound;
   public static var switchOffSnd:Sound;
   public static var damageSnd:Sound;
+  public static var selectSnd:Sound;
+  public static var confirmSnd:Sound;
+  public static var pauseIn:Sound;
+  public static var pauseOut:Sound;
 
   static var initDone = false;
 

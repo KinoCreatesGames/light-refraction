@@ -185,7 +185,7 @@ class Hud extends dn.Process {
     fl.paddingBottom = 4;
     fl.paddingTop = 2;
     fl.paddingLeft = 9;
-    fl.y = 4;
+    fl.y = flow.outerHeight;
 
     // Setup Text
     var txt = pixelText(str, fl);

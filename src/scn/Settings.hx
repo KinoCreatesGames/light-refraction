@@ -7,7 +7,7 @@ import hxd.snd.Manager;
  * Settings screen for updating the in game settings
  */
 class Settings extends dn.Process {
-  var ct:dn.heaps.Controller.ControllerAccess;
+  var ct:dn.legacy.Controller.ControllerAccess;
   var mask:h2d.Bitmap;
   var padding:Int;
   var win:h2d.Flow;
