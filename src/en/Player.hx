@@ -308,6 +308,7 @@ class Player extends BaseEnt {
       super.takeDamage(value);
       cd.setS('invincibleTime', INVINCBIBLE_TIME);
       this.knockback();
+      Assets.damageSnd.play();
     }
   }
 }

@@ -17,6 +17,7 @@ class Assets {
   public static var collectSnd:Sound;
   public static var switchOnSnd:Sound;
   public static var switchOffSnd:Sound;
+  public static var damageSnd:Sound;
 
   static var initDone = false;
 
@@ -40,6 +41,7 @@ class Assets {
     collectSnd = hxd.Res.sound.collect_collectible;
     switchOnSnd = hxd.Res.sound.switch_on;
     switchOffSnd = hxd.Res.sound.switch_off;
+    damageSnd = hxd.Res.sound.hit_sfx;
 
     // Build UI assets directly from UI elements
 
