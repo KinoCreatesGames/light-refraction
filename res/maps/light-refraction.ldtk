@@ -387,7 +387,8 @@
 			"intGridValues": [
 				{ "value": 1, "identifier": "Roof", "color": "#8A8A8A" },
 				{ "value": 2, "identifier": "Wall", "color": "#A87956" },
-				{ "value": 3, "identifier": "Floor", "color": "#757575" }
+				{ "value": 3, "identifier": "Floor", "color": "#757575" },
+				{ "value": 4, "identifier": "Abyss", "color": "#252525" }
 			],
 			"autoTilesetDefUid": null,
 			"autoRuleGroups": [],

@@ -1,9 +1,16 @@
 package en;
 
 import dn.heaps.assets.Aseprite;
+import h2d.col.Point;
 
-class Enemy extends BaseEnt {
+class Enemy extends BaseEnt implements LitEntity {
   public var isInvincible(get, null):Bool;
+  public var isLit:Bool;
+  public var test:h2d.Graphics;
+  public var complete:Bool;
+  public var point:Point;
+  public var tween:Tweenie;
+  public var alpha:Float;
 
   public static inline var INVINCBIBLE_TIME:Float = 3;
 
@@ -19,6 +26,11 @@ class Enemy extends BaseEnt {
    */
   public function new(x:Int, y:Int) {
     super(x, y);
+    isLit = false;
+    this.spr.alpha = 0;
+    this.complete = true;
+    this.point = new Point(this.spr.x, this.spr.y);
+    this.alpha = 0;
     setup();
   }
 
@@ -39,6 +51,7 @@ class Enemy extends BaseEnt {
   override function update() {
     super.update();
     updateInvincible();
+    handleLightInteraction();
   }
 
   public function updateInvincible() {
@@ -61,6 +74,37 @@ class Enemy extends BaseEnt {
       super.takeDamage(value);
       cd.setS('invincibleTime', INVINCBIBLE_TIME);
       this.knockback();
+    }
+  }
+
+  public function handleLightInteraction() {
+    this.point.x = this.spr.x;
+    this.point.y = this.spr.y;
+    // Refactor later into the level update function
+    if (!cd.has('lightTransition') && level.player != null
+      && level.player.lightCollider != null) {
+      var inCone = level.player.lightCollider.contains(this.point);
+      if (!isLit && inCone && level.player.flashLight.isOn()) {
+        isLit = true;
+        complete = false;
+        #if debug
+        trace('create tween enemy');
+        #end
+        level.tw.createS(this.alpha, 1, TEase, 2).end(() -> {
+          complete = true;
+        });
+        cd.setS('lightTransition', 2);
+      } else if (isLit && !inCone) {
+        isLit = false;
+        complete = false;
+        level.tw.createS(this.alpha, 0.2, TEase, 2).end(() -> {
+          complete = true;
+        });
+        cd.setS('lightTransition', 2);
+      }
+    }
+    if (this.spr != null) {
+      this.spr.alpha = alpha;
     }
   }
 }

@@ -26,6 +26,8 @@ class MovingPlatform extends Hazard implements LitEntity {
     path = mp.f_Path.map((p) -> p.LDPtoPoint());
     waitTime = INITIAL_WAIT;
     reachedFinalDestination = false;
+    this.spr.alpha = 0;
+    LitEntity.setupEntity(this, this);
     cd.setS('initialWait', INITIAL_WAIT);
   }
 
@@ -59,26 +61,6 @@ class MovingPlatform extends Hazard implements LitEntity {
   }
 
   public function handleLightInteraction() {
-    this.point.x = this.spr.x;
-    this.point.y = this.spr.y;
-    // Refactor later into the level update function
-    if (!cd.has('lightTransition')) {
-      var inCone = level.player.lightCollider.contains(this.point);
-      if (!isLit && inCone && level.player.flashLight.isOn()) {
-        isLit = true;
-        complete = false;
-        level.tw.createS(this.spr.alpha, 1, TEase, 2).end(() -> {
-          complete = true;
-        });
-        cd.setS('lightTransition', 2);
-      } else if (isLit && !inCone) {
-        isLit = false;
-        complete = false;
-        level.tw.createS(this.spr.alpha, 0, TEase, 2).end(() -> {
-          complete = true;
-        });
-        cd.setS('lightTransition', 2);
-      }
-    }
+    LitEntity.handleLightInteraction(this, this);
   }
 }

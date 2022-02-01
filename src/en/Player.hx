@@ -142,7 +142,7 @@ class Player extends BaseEnt {
       // Test
       for (enemy in level.enemies) {
         if (level.collideWithLightEn(enemy)) {
-          enemy.destroy();
+          // enemy.destroy();
         }
       }
       collideWithEnemy();

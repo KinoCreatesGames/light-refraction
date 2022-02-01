@@ -10,11 +10,9 @@ class Platform extends Hazard implements LitEntity {
 
   public function new(pl:Entity_Platform) {
     super(pl.cx, pl.cy);
-    isLit = false;
-    this.spr.alpha = 0;
-    this.complete = true;
-    this.point = new Point(this.spr.x, this.spr.y);
     setupGraphic();
+    this.spr.alpha = 0;
+    LitEntity.setupEntity(this, this);
   }
 
   public function setupGraphic() {
@@ -32,26 +30,6 @@ class Platform extends Hazard implements LitEntity {
   }
 
   public function handleLightInteraction() {
-    this.point.x = this.spr.x;
-    this.point.y = this.spr.y;
-    // Refactor later into the level update function
-    if (!cd.has('lightTransition')) {
-      var inCone = level.player.lightCollider.contains(this.point);
-      if (!isLit && inCone && level.player.flashLight.isOn()) {
-        isLit = true;
-        complete = false;
-        level.tw.createS(this.spr.alpha, 1, TEase, 2).end(() -> {
-          complete = true;
-        });
-        cd.setS('lightTransition', 2);
-      } else if (isLit && !inCone) {
-        isLit = false;
-        complete = false;
-        level.tw.createS(this.spr.alpha, 0, TEase, 2).end(() -> {
-          complete = true;
-        });
-        cd.setS('lightTransition', 2);
-      }
-    }
+    LitEntity.handleLightInteraction(this, this);
   }
 }

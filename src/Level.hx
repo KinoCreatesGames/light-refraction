@@ -242,6 +242,19 @@ class Level extends dn.Process {
     return data.l_AutoIGrid.getInt(x, y) != 3;
   }
 
+  /**
+   * Collision with the the abyss within the game.
+   * This is an area of the floor where there is 
+   * no floor and the player will fall and take
+   * one point of damage.
+   * This is represented as 4 - Abyss
+   * @param x 
+   * @param y 
+   */
+  public function hasAnyAbyssCollision(x:Int, y:Int) {
+    return data.l_AutoIGrid.getInt(x, y) == 4;
+  }
+
   public function hasAnyDecoration(x:Int, y:Int) {}
 
   public function hasAnyHazardCollision(x:Int, y:Int) {
