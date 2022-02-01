@@ -20,6 +20,7 @@ class Player extends BaseEnt {
   public static inline var INVINCBIBLE_TIME:Float = 3;
 
   public var isInvincible(get, null):Bool;
+  public var safePoint:Point;
 
   public inline function get_isInvincible() {
     return cd.has('invincibleTime');
@@ -54,6 +55,7 @@ class Player extends BaseEnt {
 
   public function new(x:Int, y:Int) {
     super(x, y);
+    safePoint = new Point(cx, cy);
     setup();
   }
 
@@ -148,6 +150,7 @@ class Player extends BaseEnt {
       collideWithEnemy();
       collideWithCollectible();
       collideWithExit();
+      collideFall();
     }
   }
 
@@ -194,6 +197,12 @@ class Player extends BaseEnt {
     var collided = level.hasExitCollision(cx, cy);
     if (collided != null) {
       level.transferPlayer(cast collided);
+    }
+  }
+
+  public function collideFall() {
+    if (level.hasAnyAbyssCollision(cx, cy)) {
+      this.fall();
     }
   }
 
@@ -255,6 +264,15 @@ class Player extends BaseEnt {
     }
   }
 
+  override function preUpdate() {
+    if (!level.hasAnyCollision(cx, cy)) {
+      // Set safe point
+      safePoint.x = cx;
+      safePoint.y = cy;
+    }
+    super.preUpdate();
+  }
+
   override function onPreStepY() {
     super.onPreStepY();
     // if (level.hasAnyCollision(cx, cy + 1)
@@ -291,6 +309,7 @@ class Player extends BaseEnt {
     cd.setS('falling', FALL_TIME, () -> {
       // Return to safety
       // Play falling animation for the player sprite.
+      this.takeDamage();
       returnToSafety();
     });
   }
@@ -298,7 +317,11 @@ class Player extends BaseEnt {
   /**
    * Returns to the lat safe position
    */
-  public function returnToSafety() {}
+  public function returnToSafety() {
+    // Return to Safety
+    // Safe Point is last tile that was not a platform
+    this.setPosCase(Std.int(safePoint.x), Std.int(safePoint.y));
+  }
 
   // Standard overrides
   override function takeDamage(value:Int = 1) {
