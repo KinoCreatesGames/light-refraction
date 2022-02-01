@@ -130,8 +130,9 @@ class LightSys {
     for (y in 0...cellHeight) {
       for (x in 0...cellWidth) {
         var tileTest = data.l_AutoIGrid.getInt(x, y);
+        var nonPolytile = [3, 4].contains(tileTest);
         // Initial check for new lines
-        if (tileId != null && tileTest == 3) {
+        if (tileId != null && nonPolytile) {
           var pt = new Point(endX + gridS, startY);
           polygon.push(pt);
           var ptThree = new Point(endX + gridS, endY + gridS);
@@ -146,7 +147,7 @@ class LightSys {
         // Create a new polygon when the tile ID is null aka start
         // Tile can't be floor
 
-        if (tileId == null && tileTest != 3) {
+        if (tileId == null && !nonPolytile) {
           tileId = tileTest;
           polygon = new Polygon();
           startX = x * gridS;
@@ -156,7 +157,7 @@ class LightSys {
           polygon.push(pt);
         }
         // If Tile ID is not null and we find a floor tile close the polygon
-        if (tileId != null && tileTest == 3) {
+        if (tileId != null && nonPolytile) {
           // trace('Close polygon ${endX}, ${endY}');
           endX = x * gridS;
           endY = y * gridS;

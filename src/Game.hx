@@ -80,7 +80,7 @@ class Game extends dn.Process {
     // Play Game Loop Music
     // bgm = hxd.Res.music.juhani_stage.play(true, 0.5);
     // level = new Level(proj.all_levels.Level_0);
-    level = new Level(proj.all_levels.Level_0);
+    level = new Level(proj.all_levels.Level_1);
     hud.show();
     fx = new Fx();
   }
