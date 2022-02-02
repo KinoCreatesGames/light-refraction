@@ -202,7 +202,9 @@ class Player extends BaseEnt {
 
   public function collideFall() {
     if (level.hasAnyAbyssCollision(cx, cy)) {
-      this.fall();
+      if (!cd.has('falling')) {
+        this.fall();
+      }
     }
   }
 
@@ -265,7 +267,7 @@ class Player extends BaseEnt {
   }
 
   override function preUpdate() {
-    if (!level.hasAnyCollision(cx, cy)) {
+    if (level.hasFloorCollision(cx, cy)) {
       // Set safe point
       safePoint.x = cx;
       safePoint.y = cy;
@@ -275,30 +277,30 @@ class Player extends BaseEnt {
 
   override function onPreStepY() {
     super.onPreStepY();
-    // if (level.hasAnyCollision(cx, cy + 1)
-    //   && yr >= 0.5
-    //   || level.hasAnyCollision(cx + M.round(xr), cy + 1)
-    //   && yr >= 0.5) {
-    //   // Handle squash and stretch for entities in the game
-    //   if (level.hasAnyCollision(cx, cy + M.round(yr + 0.3))) {
-    //     setSquashY(0.6);
-    //     dy = 0;
-    //   }
-    //   yr = 0.3;
-    //   dy = 0;
-    // }
+    if (level.hasAnyCollision(cx, cy + 1)
+      && yr >= 0.5
+      || level.hasAnyCollision(cx + M.round(xr), cy + 1)
+      && yr >= 0.5) {
+      // Handle squash and stretch for entities in the game
+      if (level.hasAnyCollision(cx, cy + M.round(yr + 0.3))) {
+        setSquashY(0.6);
+        dy = 0;
+      }
+      yr = 0.3;
+      dy = 0;
+    }
 
-    // if (level.hasAnyCollision(cx, cy + 1)) {
-    //   // setSquashY(0.6);
-    //   yr = -0.1;
-    //   dy = -0.1;
-    // }
+    if (level.hasAnyCollision(cx, cy + 1)) {
+      // setSquashY(0.6);
+      yr = -0.1;
+      dy = -0.1;
+    }
 
-    // if (level.hasAnyCollision(cx, cy - 1)) {
-    //   yr = 1.01;
-    //   dy = .1;
-    //   // setSquashY(0.6);
-    // }
+    if (level.hasAnyCollision(cx, cy - 1)) {
+      yr = 1.01;
+      dy = .1;
+      // setSquashY(0.6);
+    }
   }
 
   /**
@@ -306,9 +308,13 @@ class Player extends BaseEnt {
    * back to the previous safe position.
    */
   public function fall() {
+    // Start Fall Animation
     cd.setS('falling', FALL_TIME, () -> {
       // Return to safety
       // Play falling animation for the player sprite.
+      #if debug
+      trace('Finish fall');
+      #end
       this.takeDamage();
       returnToSafety();
     });

@@ -239,7 +239,19 @@ class Level extends dn.Process {
    * @param y 
    */
   public function hasAnyCollision(x:Int, y:Int) {
-    return data.l_AutoIGrid.getInt(x, y) != 3;
+    return ![3, 4].contains(data.l_AutoIGrid.getInt(x, y));
+  }
+
+  /**
+   * Returns true if the grid coordinate
+   * matches a floor tile within the game.
+   * The use is able to sit on floor tiles within
+   * the game.
+   * @param x 
+   * @param y 
+   */
+  public function hasFloorCollision(x:Int, y:Int) {
+    return [3].contains(data.l_AutoIGrid.getInt(x, y));
   }
 
   /**
