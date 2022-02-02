@@ -21,6 +21,7 @@ class Platform extends Hazard implements LitEntity {
     test.drawRect(0, 0, 32, 32);
     test.endFill();
     test.y -= 32;
+    test.x -= 16;
     // test.blendMode = Alpha;
     test.alpha = 1;
   }

@@ -255,6 +255,23 @@ class Level extends dn.Process {
   }
 
   /**
+   * Returns true if the element
+   * is on the grid coordinate of the
+   * platform element within the game
+   * as they are static objects.
+   * @param x 
+   * @param y 
+   */
+  public function hasPlatformCollision(x:Int, y:Int) {
+    for (platform in data.l_Entities.all_Platform) {
+      if (platform.cx == x && platform.cy == y) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  /**
    * Collision with the the abyss within the game.
    * This is an area of the floor where there is 
    * no floor and the player will fall and take

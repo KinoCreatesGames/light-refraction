@@ -201,7 +201,10 @@ class Player extends BaseEnt {
   }
 
   public function collideFall() {
-    if (level.hasAnyAbyssCollision(cx, cy)) {
+    if (level.hasAnyAbyssCollision(cx, cy)
+      && !level.hasPlatformCollision(cx, cy)) {
+      trace(cx);
+      trace(cy);
       if (!cd.has('falling')) {
         this.fall();
       }
