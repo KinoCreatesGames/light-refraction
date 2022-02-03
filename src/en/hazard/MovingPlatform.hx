@@ -61,6 +61,6 @@ class MovingPlatform extends Hazard implements LitEntity {
   }
 
   public function handleLightInteraction() {
-    LitEntity.handleLightInteraction(this, this);
+    LitEntity.handleLightInteraction(this, this, 2, Const.PLAT_FADE_TIME);
   }
 }

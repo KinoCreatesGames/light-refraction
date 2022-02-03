@@ -54,4 +54,11 @@ class Const {
   // Game Specific Constants
   // Settings Save File
   public static inline var SETTINGS:String = 'settings';
+
+  /**
+   * The amount of time it takes a platform
+   * to fade out when it is no longer lit within
+   * the game.
+   */
+  public static inline var PLAT_FADE_TIME:Float = 15;
 }

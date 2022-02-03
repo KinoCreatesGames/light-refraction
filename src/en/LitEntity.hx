@@ -34,7 +34,8 @@ function setupEntity(entity:LitEntity, enForm:Entity) {
   entity.point = new Point(enForm.spr.x, enForm.spr.y);
 }
 
-function handleLightInteraction(entity:LitEntity, enForm:Entity) {
+function handleLightInteraction(entity:LitEntity, enForm:Entity,
+    fadeInTime:Float = 2, fadeOutTime:Float = 2) {
   var level = enForm.level;
   entity.point.x = enForm.spr.x;
   entity.point.y = enForm.spr.y;
@@ -44,14 +45,14 @@ function handleLightInteraction(entity:LitEntity, enForm:Entity) {
     if (!entity.isLit && inCone && level.player.flashLight.isOn()) {
       entity.isLit = true;
       entity.complete = false;
-      level.tw.createS(enForm.spr.alpha, 1, TEase, 2).end(() -> {
+      level.tw.createS(enForm.spr.alpha, 1, TEase, fadeInTime).end(() -> {
         entity.complete = true;
       });
       enForm.cd.setS('lightTransition', 2);
     } else if (entity.isLit && !inCone) {
       entity.isLit = false;
       entity.complete = false;
-      level.tw.createS(enForm.spr.alpha, 0, TEase, 2).end(() -> {
+      level.tw.createS(enForm.spr.alpha, 0, TEase, fadeOutTime).end(() -> {
         entity.complete = true;
       });
       enForm.cd.setS('lightTransition', 2);

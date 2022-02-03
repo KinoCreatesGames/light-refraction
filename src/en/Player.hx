@@ -81,6 +81,8 @@ class Player extends BaseEnt {
 
   public function setupStats() {
     this.health = 3;
+    this.infraredUnlocked = false;
+    this.ultraVioletUnlocked = false;
   }
 
   public function setupFlashLights(flashlight:system.FlashLight) {
@@ -230,7 +232,7 @@ class Player extends BaseEnt {
     var down = ct.downDown();
     var up = ct.upDown();
     var cancel = ct.bDown();
-    var updateLens = ct.xDown();
+    var updateLens = ct.xPressed();
 
     if (cancel && !cd.has('lightCD')) {
       if (flashLight.isOn()) {
