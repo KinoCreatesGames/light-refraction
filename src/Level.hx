@@ -209,13 +209,13 @@ class Level extends dn.Process {
   // Collision detection
 
   public function collidedEnemy(x:Int, y:Int) {
-    return enemies.members.filter((enemy) -> enemy.cx == x && enemy.cy == y
+    return enemies.filter((enemy) -> enemy.cx == x && enemy.cy == y
       && enemy.isAlive())
       .first();
   }
 
   public function collidedCollectible(x:Int, y:Int) {
-    return collectibles.members.filter((collectible) -> collectible.cx == x
+    return collectibles.filter((collectible) -> collectible.cx == x
       && collectible.cy == y && collectible.isAlive())
       .first();
   }
@@ -287,7 +287,7 @@ class Level extends dn.Process {
   public function hasAnyDecoration(x:Int, y:Int) {}
 
   public function hasAnyHazardCollision(x:Int, y:Int) {
-    hazards.members.iter((hazard) -> {
+    hazards.iter((hazard) -> {
       var hazardType = Type.getClass(hazard);
       switch (hazardType) {
         case _:
@@ -303,8 +303,7 @@ class Level extends dn.Process {
    */
   public function hasExitCollision(x:Int, y:Int) {
     var bBox = new Bounds();
-    return hazards.members.filter((hazard) -> Std.isOfType(hazard,
-      en.hazard.Exit))
+    return hazards.filter((hazard) -> Std.isOfType(hazard, en.hazard.Exit))
       .filter((el) -> {
         var exit:en.hazard.Exit = cast el;
         bBox.x = exit.colPoint.x;

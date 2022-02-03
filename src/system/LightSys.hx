@@ -97,8 +97,8 @@ class LightSys {
       var light = new StdLight(level.lightRoot, sl);
       regularLights.push(light);
     }
-    var testTwo = new system.FlashLight(lightPoint.clone(), 0xaaaaff, 50, 60.,
-      level.root, data);
+    var testTwo = new system.FlashLight(lightPoint.clone(), 0xaaaaff, 600,
+      60., level.root, data);
     flashLight = testTwo;
     testTwo.lightRadius = 160;
     // pointLights.push(test);

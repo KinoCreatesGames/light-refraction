@@ -89,8 +89,8 @@ class Player extends BaseEnt {
     g.drawTile(0, 0, tile);
     g.endFill();
     // Offset Player
-    g.x -= 32;
-    g.y -= 32;
+    g.x -= 16;
+    g.y -= 16;
   }
 
   override function update() {
@@ -203,8 +203,10 @@ class Player extends BaseEnt {
   public function collideFall() {
     if (level.hasAnyAbyssCollision(cx, cy)
       && !level.hasPlatformCollision(cx, cy)) {
+      #if debug
       trace(cx);
       trace(cy);
+      #end
       if (!cd.has('falling')) {
         this.fall();
       }
