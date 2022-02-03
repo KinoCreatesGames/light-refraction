@@ -40,7 +40,8 @@ function handleLightInteraction(entity:LitEntity, enForm:Entity,
   entity.point.x = enForm.spr.x;
   entity.point.y = enForm.spr.y;
   // Refactor later into the level update function
-  if (!enForm.cd.has('lightTransition') && level.player != null) {
+  if (!enForm.cd.has('lightTransition') && level.player != null
+    && level.player.lightCollider != null) {
     var inCone = level.player.lightCollider.contains(entity.point);
     if (!entity.isLit && inCone && level.player.flashLight.isOn()) {
       entity.isLit = true;

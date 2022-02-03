@@ -121,6 +121,8 @@ class Level extends dn.Process {
     setupEnemies();
     setupCollectibles();
     setupLights();
+
+    setupHazards();
     for (pl in data.l_Entities.all_Player) {
       player = new Player(pl.cx, pl.cy);
       player.setupFlashLights(lightSys.flashLight);
@@ -130,7 +132,6 @@ class Level extends dn.Process {
       });
       player.listener.emit('setupPlayer', player);
     }
-    setupHazards();
   }
 
   public function setupEnemies() {

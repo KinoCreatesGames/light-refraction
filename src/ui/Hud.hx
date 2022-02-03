@@ -33,6 +33,7 @@ class Hud extends dn.Process {
   var spiritFlashLight:TextureGauge;
   var notifications:Array<h2d.Flow> = [];
   var notifTw:dn.Tweenie;
+  var fadeTw:dn.Tween;
 
   public static inline var FADE_TIME:Float = 12.5;
 
@@ -50,6 +51,7 @@ class Hud extends dn.Process {
     root.filter = new h2d.filter.ColorMatrix(); // force pixel perfect rendering
 
     notifications = [];
+    fadeTw = null;
     notifTw = new Tweenie(Const.FPS);
     flow = new h2d.Flow(root);
     completeFade = true;
@@ -134,9 +136,10 @@ class Hud extends dn.Process {
 
     if (!cd.has('active') && completeFade) {
       completeFade = false;
-      this.tw.createS(this.flow.alpha, 0, TEaseOut, FADE_TIME).end(() -> {
-        completeFade = true;
-      });
+      fadeTw = this.tw.createS(this.flow.alpha, 0, TEaseOut, FADE_TIME)
+        .end(() -> {
+          completeFade = true;
+        });
     }
 
     if (invalidated) {
@@ -153,6 +156,10 @@ class Hud extends dn.Process {
   public function pingActive() {
     cd.setS('active', 2);
     flow.alpha = 1.;
+    if (fadeTw != null) {
+      fadeTw.endWithoutCallbacks();
+      completeFade = true;
+    }
   }
 
   public function isVisible() {
