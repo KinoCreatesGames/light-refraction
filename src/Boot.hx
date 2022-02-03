@@ -134,7 +134,7 @@ class Boot extends hxd.App {
       // Populate the render texture for use in the shader
       // First Texture is just world without lights
       // Remove the lights from everything else in the level as well
-      level.lights.members.iter((el) -> {
+      level.lights.iter((el) -> {
         el.turnOff();
       });
       if (!level.player.flashLightOff) {
@@ -156,7 +156,7 @@ class Boot extends hxd.App {
       }
       level.lightRoot.drawTo(composite.lightTexture);
       // trace(level.lightRoot.numChildren);
-      level.lights.members.iter((el) -> {
+      level.lights.iter((el) -> {
         el.turnOn();
         // el.hideGraphic();
         el.spr.drawTo(composite.lightTexture);
@@ -181,7 +181,7 @@ class Boot extends hxd.App {
       if (level.msg.isVisible()) {
         level.msg.root.drawTo(composite.hudTexture);
       }
-      level.lights.members.iter((el) -> {
+      level.lights.iter((el) -> {
         el.showGraphic();
       });
 

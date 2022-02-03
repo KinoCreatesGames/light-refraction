@@ -58,3 +58,26 @@ enum abstract CollectibleTypes(String) from String to String {
 enum Controllers {
   PauseScreen;
 }
+
+/**
+ * The type of lens that is being used by the
+ * flashlight in the game, which determines
+ * the type of light that is being shown within the game.
+ */
+enum Lens {
+  /**
+   * Regular Light within the game.
+   */
+  Regular;
+
+  /**
+   * Infrared light within the game.
+   * Used with ultraviolet shader.
+   */
+  Infrared;
+
+  /**
+   * Ultraviolet light within the game.
+   */
+  Ultraviolet;
+}

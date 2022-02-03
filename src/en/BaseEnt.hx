@@ -1,5 +1,7 @@
 package en;
 
+import h2d.Scene;
+
 class BaseEnt extends Entity {
   public var health:Int;
   public var maxHealth:Int = 3;
@@ -9,6 +11,12 @@ class BaseEnt extends Entity {
   public static inline var KNOCKBACK_FORCE:Float = 0.25;
 
   public static inline var KB_CD:Float = 0.3;
+
+  public var scn(get, null):Scene;
+
+  public inline function get_scn() {
+    return Boot.ME.s2d;
+  }
 
   public inline function get_healthPerc() {
     return health / maxHealth;

@@ -3,7 +3,7 @@
  * Useful convenience purposes.
  */
 @:forward()
-abstract Group<T>(Array<T>) from Array<T> to Array<T> {
+abstract Group<T>(Array<T>) from Array<T> {
   public inline function new(?elements:Array<T>) {
     this = [];
     if (elements != null) {

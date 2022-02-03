@@ -1,5 +1,7 @@
 package system;
 
+import h2d.Object;
+import GameTypes.Lens;
 import shaders.FlashLightShader2D;
 import hxd.Timer;
 import h3d.Vector;
@@ -14,6 +16,13 @@ class FlashLight extends PointLight {
   public var on:Bool = false;
   public var cd:dn.Cooldown = new dn.Cooldown(Const.FPS);
   public var drainPerc:Float = 0.02;
+  public var lens:Lens;
+
+  public function new(origin:Point, color = 0xffffff, rayAmount:Int = 30,
+      angle:Float = 360., parent:Object, data:LDTkProj_Level) {
+    super(origin, color, rayAmount, angle, parent, data);
+    this.lens = Regular;
+  }
 
   public inline function isOn() {
     return this.on;

@@ -45,6 +45,9 @@ class Player extends BaseEnt {
 
   public var listener:EventListener<Player>;
 
+  public var infraredUnlocked:Bool;
+  public var ultraVioletUnlocked:Bool;
+
   /**
    * The last safe position of the player, before stepping into a zone
    * where there is no floor. This area is the area
@@ -62,6 +65,14 @@ class Player extends BaseEnt {
   public function setup() {
     ct = Main.ME.controller.createAccess('player');
     listener = EventListener.create();
+    // Create Mouse Button Listener
+    // scn.addEventListener((event) -> {
+    //   switch (event.kind) {
+    //     case EPush:
+    //       trace(event.button);
+    //       changeLens();
+    //   }
+    // });
     setupStats();
     // setupFlashLights(); //Moved to be set up during the level process
     setupGraphics();
@@ -219,6 +230,8 @@ class Player extends BaseEnt {
     var down = ct.downDown();
     var up = ct.upDown();
     var cancel = ct.bDown();
+    var updateLens = ct.xDown();
+
     if (cancel && !cd.has('lightCD')) {
       if (flashLight.isOn()) {
         flashLight.turnOff();
@@ -230,6 +243,10 @@ class Player extends BaseEnt {
         Assets.switchOnSnd.play();
       }
       cd.setS('lightCD', 0.2);
+    }
+
+    if (updateLens) {
+      changeLens();
     }
 
     if (left || right || down || up) {
@@ -249,6 +266,19 @@ class Player extends BaseEnt {
         dy = -MOVE_SPD;
       }
     }
+  }
+
+  public function changeLens() {
+    this.flashLight.lens = switch (this.flashLight.lens) {
+      case Regular:
+        infraredUnlocked ? Infrared : ultraVioletUnlocked ? Ultraviolet : Regular;
+
+      case Infrared:
+        ultraVioletUnlocked ? Ultraviolet : Regular;
+      case Ultraviolet:
+        Regular;
+    }
+    trace('New lens color ${this.flashLight.lens}');
   }
 
   override function onPreStepX() {
