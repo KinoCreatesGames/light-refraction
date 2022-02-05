@@ -1,3 +1,4 @@
+import scn.Credits;
 import dn.Process;
 import hxd.Key;
 import dn.legacy.Controller.ControllerAccess;
@@ -66,8 +67,8 @@ class Game extends dn.Process {
     msg.hide();
     // Text Elements
 
-    startInitialGame();
-
+    // startInitialGame();
+    new Credits();
     Process.resizeAll();
     trace(Lang.t._("Game is ready."));
   }

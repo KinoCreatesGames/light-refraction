@@ -81,3 +81,15 @@ enum Lens {
    */
   Ultraviolet;
 }
+
+/**
+ * MDParsing elements within the game
+ * to be used for generating the text elements.
+ * Generating texts.
+ */
+enum MDParse {
+  Header(text:String);
+  MdHeader(text:String);
+  Regular(text:String);
+  Blank;
+}

@@ -22,6 +22,16 @@ inline function center(text:h2d.Text) {
 }
 
 /**
+ * Align text in the center.
+ * Returns the original text for chaining.
+ * @param text 
+ */
+inline function centered(text:h2d.Text) {
+  center(text);
+  return text;
+}
+
+/**
  * Align to the left.
  * @param text 
  */
@@ -210,4 +220,24 @@ inline function text(font:Font, str:String, color:Int, root:h2d.Object) {
   txt.text = str;
   txt.textColor = color;
   return txt;
+}
+
+/**
+ * Parse the markdown file within the game
+ * and convert to text elements.
+ */
+inline function parseMD(text:String) {
+  var lines = text.split('\n');
+  var mdEls = lines.map((el) -> {
+    if (el.startsWith('##')) {
+      return GameTypes.MDParse.MdHeader(el.replace('##', ''));
+    } else if (el.startsWith('#')) {
+      return GameTypes.MDParse.Header(el.replace('#', ''));
+    } else if (el.length > 0) {
+      return GameTypes.MDParse.Regular(el);
+    }
+
+    return Blank;
+  });
+  return mdEls;
 }

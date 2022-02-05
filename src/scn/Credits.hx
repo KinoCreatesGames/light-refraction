@@ -1,5 +1,6 @@
 package scn;
 
+import GameTypes.MDParse;
 import ui.transition.FadeToBlack;
 import hxd.snd.Channel;
 import h2d.Flow.FlowAlign;
@@ -51,18 +52,39 @@ class Credits extends dn.Process {
   }
 
   public function setupText() {
-    var credits = new h2d.Text(Assets.fontLarge, win);
-    credits.text = Lang.t._('Credits');
-    credits.center();
-    var kino = new h2d.Text(Assets.fontMedium, win);
-    kino.text = Lang.t._('Kino - Game Design');
-    kino.center();
-    // var jd = new h2d.Text(Assets.fontMedium, win);
+    convertToCredits(hxd.Res.Credits.entry.getText().parseMD(), win);
+    // var credits = new h2d.Text(Assets.fontLarge, win);
+    // credits.text = Lang.t._('Credits');
+    // credits.center();
+    // var kino = new h2d.Text(Assets.fontMedium, win);
+    // kino.text = Lang.t._('Kino - Game Design');
+    // kino.center();
+    // var artKR = Lang.t._('Kino - Art').mdText(win).centered();
+
+    // var progKR = Lang.t._('Kino - Programming').mdText(win).centered();
+
+    // var spThanks = Lang.t._('Special Thanks').lgText(win);
+    // var lT = Lang.t._(''); // var jd = new h2d.Text(Assets.fontMedium, win);
     // jd.text = Lang.t._('JDSherbert - Music');
     // jd.center();
     // var pixelS = new h2d.Text(Assets.fontMedium, win);
     // pixelS.text = Lang.t._('pixelsphere.org/The Cynic Project');
     // pixelS.center();
+  }
+
+  public function convertToCredits(list:Array<MDParse>, parent:h2d.Object) {
+    for (md in list) {
+      switch (md) {
+        case Header(text):
+          text.lgText(win).centered();
+        case MdHeader(text):
+          text.mdText(win).centered();
+        case Regular(text):
+          text.mdText(win).centered();
+        case Blank:
+          // Do nothing
+      }
+    }
   }
 
   override public function onResize() {
