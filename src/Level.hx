@@ -1,3 +1,5 @@
+import en.collectibles.Infrared;
+import en.collectibles.UltraViolet;
 import h2d.filter.Mask;
 import en.hazard.MovingPlatform;
 import en.hazard.Platform;
@@ -152,6 +154,18 @@ class Level extends dn.Process {
     for (health in data.l_Entities.all_Health) {
       var healthDrink = new Health(health);
       collectibles.add(healthDrink);
+    }
+
+    // Ultraviolet upgrade
+    for (uv in data.l_Entities.all_UltraViolet) {
+      var ultraV = new UltraViolet(uv);
+      collectibles.add(ultraV);
+    }
+
+    //
+    for (infra in data.l_Entities.all_Infrared) {
+      var infrared = new Infrared(infra);
+      collectibles.add(infrared);
     }
   }
 
