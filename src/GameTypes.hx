@@ -93,3 +93,23 @@ enum MDParse {
   Regular(text:String);
   Blank;
 }
+
+/**
+ * Player State information
+ * used to keep track of information
+ * during the game
+ * so that we can maintain the information
+ * between each level.
+ */
+typedef PlayerStateT = {
+  keys:Int,
+  infrared:Bool,
+  ultraV:Bool,
+  health:Int,
+  levelId:Int
+}
+
+typedef SettingsStateT = {
+  volume:Float,
+  lang:String
+}

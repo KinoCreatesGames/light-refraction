@@ -1,3 +1,5 @@
+import GameTypes.SettingsStateT;
+import GameTypes.PlayerStateT;
 import scn.Credits;
 import dn.Process;
 import hxd.Key;
@@ -35,6 +37,18 @@ class Game extends dn.Process {
   public var msg:ui.MsgWindow;
 
   public var proj:LDTkProj;
+
+  /**
+   * Player state information
+   * for carrying between each level.
+   */
+  public var playerState:PlayerStateT;
+
+  /**
+   * Settings information
+   * for carrying while the game is running.
+   */
+  public var SettingsState:SettingsStateT;
 
   /**
    * Whether the shader for the CRT filter is on.
@@ -107,6 +121,7 @@ class Game extends dn.Process {
     // reloadCurrentLevel();
   }
 
+  // Save Processes
   // Use the below lines when using LDTk for game creation.
   // public function nextLevel(levelId:Int, startX = -1, startY = -1) {
   //   level.destroy();

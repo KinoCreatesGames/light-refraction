@@ -1,5 +1,6 @@
 package en;
 
+import Save.setPlayerState;
 import system.FlashLight;
 import h2d.col.Polygon;
 import h2d.col.Point;
@@ -184,28 +185,30 @@ class Player extends BaseEnt {
 
   public function collideWithCollectible() {
     var collectible = level.collidedCollectible(cx, cy);
+    var collect = () -> {
+      collectible.destroy();
+      Assets.collectSnd.play();
+      setPlayerState(game, this);
+    }
     if (collectible != null) {
       var collectibleT = Type.getClass(collectible);
       switch (collectibleT) {
         case en.collectibles.Health:
           addHealth(1);
-          collectible.destroy();
-          Assets.collectSnd.play();
+          collect();
         case en.collectibles.Battery:
           // Give back battery percentage to the max
-          collectible.destroy();
           flashLight.batteryLife = 1.;
-          Assets.collectSnd.play();
+          collect();
         case en.collectibles.Key:
-          collectible.destroy();
           keys += 1;
-          Assets.collectSnd.play();
+          collect();
         case en.collectibles.UltraViolet:
-          collectible.destroy();
           ultraVioletUnlocked = true;
+          collect();
         case en.collectibles.Infrared:
-          collectible.destroy();
           infraredUnlocked = true;
+          collect();
         case _:
           // Do nothing
       }
