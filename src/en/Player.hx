@@ -280,6 +280,11 @@ class Player extends BaseEnt {
   }
 
   public function changeLens() {
+    #if debug
+    // all lights unlocked
+    ultraVioletUnlocked = true;
+    infraredUnlocked = true;
+    #end
     this.flashLight.lens = switch (this.flashLight.lens) {
       case Regular:
         infraredUnlocked ? Infrared : ultraVioletUnlocked ? Ultraviolet : Regular;
@@ -384,6 +389,7 @@ class Player extends BaseEnt {
       cd.setS('invincibleTime', INVINCBIBLE_TIME);
       this.knockback();
       Assets.damageSnd.play();
+      setPlayerState(game, this);
     }
   }
 }

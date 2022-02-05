@@ -81,8 +81,8 @@ class Game extends dn.Process {
     msg.hide();
     // Text Elements
 
-    // startInitialGame();
-    new Credits();
+    startInitialGame();
+    // new Credits();
     Process.resizeAll();
     trace(Lang.t._("Game is ready."));
   }

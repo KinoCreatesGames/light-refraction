@@ -172,26 +172,39 @@ class FlashLight extends PointLight {
     // lightG.rotation += hxd.Timer.elapsedTime;
   }
 
+  public function lightColor() {
+    return switch (lens) {
+      case Regular:
+        lColor;
+      case Infrared:
+        0xff0000;
+      case Ultraviolet:
+        0xff008f;
+    }
+  }
+
   override public function renderLight() {
     lightG.clear();
     lightPoly.points.resize(0);
     var start = 0;
 
-    lightG.beginFill(lColor);
+    lightG.beginFill(lightColor());
+    var c = Vector.fromColor(lightColor());
+    c.a = 1;
     // graphic.lineStyle(1, 0xaa00ff, 1);
     // lightG.lineTo(origin.x, origin.y);
-    lightG.addVertex(origin.x, origin.y, 1, 1, 1, 1);
+    lightG.addVertex(origin.x, origin.y, c.r, c.g, c.b, 1);
     lightPoly.points.push(origin);
     var colors = [0x0a00ff, 0xff0000, 0x00ffaa];
     // lightG.lineTo(origin.x, origin.y);
+
     for (point in polyPoints) {
-      var c = lightG.color;
       var uvTwo = (origin.distance(point)) / lightRadius;
-      lightG.addVertex(point.x, point.y, 1, 1, c.b, uvTwo, uvTwo);
+      lightG.addVertex(point.x, point.y, c.r, c.g, c.b, uvTwo, uvTwo);
       lightPoly.points.push(point);
       // lightG.lineTo(point.x, point.y);
     }
-    lightG.addVertex(origin.x, origin.y, 1, 1, 1, 1);
+    lightG.addVertex(origin.x, origin.y, c.r, c.g, c.b, 1);
     // lightPoly.points.push(origin);
     // lightG.lineTo(origin.x, origin.y);
     // lightG.addVertex(origin.x, origin.y, 1, 1, 1, 1);
