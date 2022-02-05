@@ -241,3 +241,8 @@ inline function parseMD(text:String) {
   });
   return mdEls;
 }
+
+// Graphics Updates
+inline function createGraphics(parent:h2d.Object) {
+  return new h2d.Graphics(parent);
+}

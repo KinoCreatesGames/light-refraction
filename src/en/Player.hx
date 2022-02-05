@@ -200,6 +200,12 @@ class Player extends BaseEnt {
           collectible.destroy();
           keys += 1;
           Assets.collectSnd.play();
+        case en.collectibles.UltraViolet:
+          collectible.destroy();
+          ultraVioletUnlocked = true;
+        case en.collectibles.Infrared:
+          collectible.destroy();
+          infraredUnlocked = true;
         case _:
           // Do nothing
       }
