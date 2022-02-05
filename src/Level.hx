@@ -1,3 +1,4 @@
+import Save.getPlayerState;
 import en.collectibles.Infrared;
 import en.collectibles.UltraViolet;
 import h2d.filter.Mask;
@@ -133,6 +134,7 @@ class Level extends dn.Process {
         hud.setupFlashLights();
       });
       player.listener.emit('setupPlayer', player);
+      getPlayerState(game, player);
     }
   }
 
