@@ -1,5 +1,7 @@
 package ui.transition;
 
+import GameTypes.ShadeTransition;
+import haxe.display.Position.Range;
 import h3d.mat.Texture;
 import h3d.Vector;
 import shaders.TransitionShader;
@@ -42,8 +44,15 @@ class ShaderTransition extends dn.Process {
     });
   }
 
-  public static function createTransition() {
-    return new ShaderTransition();
+  public static function createTransition(sType:ShadeTransition) {
+    var trans = new ShaderTransition();
+    switch (sType) {
+      case Radial:
+        trans.shader.transitionTexture = Assets.transTex;
+      case Custom:
+        trans.shader.transitionTexture = Assets.transTex;
+    }
+    return trans;
   }
 
   public function cleanupShader() {

@@ -51,7 +51,7 @@ class Boot extends hxd.App {
   }
 
   public function addTransition() {
-    transition = ShaderTransition.createTransition();
+    transition = ShaderTransition.createTransition(Custom);
   }
 
   public function removeTransition() {

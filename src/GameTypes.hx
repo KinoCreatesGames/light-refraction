@@ -168,3 +168,12 @@ enum Prop {
   Str(str:String);
   Key(index:Int);
 }
+
+enum ShadeTransition {
+  /**
+   * Radial Transitions
+   */
+  Radial;
+
+  Custom;
+}
