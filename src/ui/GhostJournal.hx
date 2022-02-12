@@ -1,5 +1,6 @@
 package ui;
 
+import h3d.scene.Graphics;
 import ui.cmp.TxtBtn;
 import GameTypes.GhostJournalT;
 import GameTypes.GhostEntryT;
@@ -28,8 +29,13 @@ class GhostJournal extends h2d.Flow {
     var details = new h2d.Flow(this);
     details.layout = Vertical;
     // Create Pics and other elements
+    cName = 'Name'.mdText(details);
     var picArea = new h2d.Flow(details);
     picArea.minHeight = 300;
+    image = new h2d.Graphics(picArea);
+    image.beginFill(0xffffff);
+    image.drawRect(0, 0, 300, 300);
+    image.endFill();
     // Add other elemnents
     description = 'Test'.mdText(details);
     longDesc = 'Test long desc'.mdText(details);

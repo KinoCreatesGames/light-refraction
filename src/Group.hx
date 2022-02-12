@@ -26,6 +26,10 @@ abstract Group<T>(Array<T>) from Array<T> {
     return result;
   }
 
+  public inline function get(index:Int) {
+    return this[index];
+  }
+
   /**
    * Removes all elements from the group
    */

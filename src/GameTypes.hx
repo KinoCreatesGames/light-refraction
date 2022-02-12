@@ -163,3 +163,8 @@ typedef GhostJournalT = {
 
   var current:GhostEntryT;
 }
+
+enum Prop {
+  Str(str:String);
+  Key(index:Int);
+}
