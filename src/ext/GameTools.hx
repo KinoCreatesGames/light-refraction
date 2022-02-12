@@ -1,9 +1,22 @@
 package ext;
 
+import GameTypes.GhostEntryT;
 import GameTypes.Prop;
 import GameTypes.GhostJournalT;
 
 // Ghost Journal Tools
+inline function createEntry(name:String = 'Test', img:String = '',
+    desc:String = 'Description',
+    lDesc:String = 'Long Description'):GhostEntryT {
+  return {
+    name: name,
+    desc: desc,
+    longDesc: lDesc,
+    researchLvl: 0,
+    imgKey: img
+  }
+}
+
 inline function updateResearchLvl(journal:GhostJournalT, amount:Int,
     prop:Prop) {
   var entry = getEntry(journal, prop);

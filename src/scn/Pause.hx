@@ -1,5 +1,6 @@
 package scn;
 
+import ext.GameTools.createEntry;
 import ui.GhostJournal;
 import hxd.snd.Channel;
 import ui.cmp.TxtBtn;
@@ -46,7 +47,7 @@ class Pause extends dn.Process {
   public function createGhostJournal() {
     uiJournal = new GhostJournal(win, {
       current: null,
-      entries: []
+      entries: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((x) -> createEntry())
     });
   }
 
