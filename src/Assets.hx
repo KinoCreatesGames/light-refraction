@@ -46,6 +46,8 @@ class Assets {
     switchOnSnd = hxd.Res.sound.switch_on;
     switchOffSnd = hxd.Res.sound.switch_off;
     damageSnd = hxd.Res.sound.hit_sfx;
+    pauseIn = hxd.Res.sound.pause_in;
+    pauseOut = hxd.Res.sound.pause_out;
 
     // Build UI assets directly from UI elements
 

@@ -45,15 +45,26 @@ class GhostJournal extends h2d.Flow {
         trace('Add entry');
         #end
         journal.current = entry;
-        renderChanges();
+        if (journal.current != null) {
+          renderChanges();
+        }
       };
     }
   }
 
   public function renderChanges() {
     // TODO: Add Image processing
-    cName.text = journal.current.name;
-    description.text = journal.current.desc;
-    longDesc.text = journal.current.longDesc;
+    var rLvl = journal.current.researchLvl;
+    var replaceAll = (str:String,
+      replacer:String) -> str.split('')
+        .map(x -> x.isSpace(0) ? x : replacer)
+        .join('');
+    // Renders all the information based on research level otherwise question marks
+    cName.text = rLvl > 1 ? journal.current.name : replaceAll(journal.current.name,
+      '?');
+    description.text = rLvl > 3 ? journal.current.desc : replaceAll(journal.current.desc,
+      '?');
+    longDesc.text = rLvl > 5 ? journal.current.longDesc : replaceAll(journal.current.longDesc,
+      '?');
   }
 }
