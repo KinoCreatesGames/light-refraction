@@ -1,5 +1,6 @@
 package en;
 
+import GameTypes.Lens;
 import dn.heaps.assets.Aseprite;
 import h2d.col.Point;
 
@@ -11,6 +12,7 @@ class Enemy extends BaseEnt implements LitEntity {
   public var point:Point;
   public var tween:Tweenie;
   public var alpha:Float;
+  public var lens:Lens;
 
   public static inline var INVINCBIBLE_TIME:Float = 3;
 

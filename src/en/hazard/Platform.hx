@@ -1,5 +1,7 @@
 package en.hazard;
 
+import GameTypes.Lens;
+import Utils.addToLayerBasedOnLens;
 import h2d.col.Point;
 
 class Platform extends Hazard implements LitEntity {
@@ -7,12 +9,15 @@ class Platform extends Hazard implements LitEntity {
   public var test:h2d.Graphics;
   public var complete:Bool;
   public var point:Point;
+  public var lens:Lens;
 
   public function new(pl:Entity_Platform) {
     super(pl.cx, pl.cy);
+    lens = pl.f_RevealLens;
     setupGraphic();
     this.spr.alpha = 0;
     LitEntity.setupEntity(this, this);
+    addToLayerBasedOnLens(this.spr, lens);
   }
 
   public function setupGraphic() {

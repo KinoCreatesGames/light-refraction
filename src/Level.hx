@@ -90,6 +90,23 @@ class Level extends dn.Process {
   public var data:LDTkProj_Level;
   public var lightRoot:Object;
 
+  // Light Object Roots
+
+  /**
+   * Used for regular objects and entities within the environment
+   */
+  public var regRoot:h2d.Layers;
+
+  /**
+   * Used for ultraviolet objects and entities within the environment
+   */
+  public var uvRoot:h2d.Layers;
+
+  /**
+   * Used for infrared elements and entities within the environment.
+   */
+  public var infrRoot:h2d.Layers;
+
   // Light System Information
   public var lightSys:LightSys;
 
@@ -107,6 +124,9 @@ class Level extends dn.Process {
   }
 
   public function setup() {
+    // Setup elements within the game engine on the right
+    // layer
+
     setupGroups();
     setupEntities();
     setupLighting();

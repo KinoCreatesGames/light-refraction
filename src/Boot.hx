@@ -3,6 +3,7 @@
   It doesn't do much, except creating Main and taking care of app speed ()
 **/
 
+import shaders.LensCompositeShader;
 import ui.transition.ShaderTransition;
 import shaders.ChromaticAberrationShader2D;
 import h2d.filter.Nothing;
@@ -32,7 +33,7 @@ class Boot extends hxd.App {
    * Shader that 
    * Combines  all the final textures together and render the scene.
    */
-  public var composite:CompositeShader;
+  public var composite:LensCompositeShader;
 
   #if debug
   var tmodSpeedMul = 1.0;
@@ -72,10 +73,13 @@ class Boot extends hxd.App {
     spotlight.texs = new TextureArray(engine.width, engine.height, 2, [Target]);
     spotlight.widthHeight = new Vector(engine.width, engine.height);
     spotlight.playerPos = new Vector(0, 0);
-    composite = new CompositeShader(new TextureArray(engine.width,
+    composite = new LensCompositeShader(new TextureArray(engine.width,
       engine.height, 2, [Target]));
     composite.lightTexture = new Texture(engine.width, engine.height, [Target]);
     composite.hudTexture = new Texture(engine.width, engine.height, [Target]);
+    composite.regTexture = new Texture(engine.width, engine.height, [Target]);
+    composite.uvTexture = new Texture(engine.width, engine.height, [Target]);
+    composite.infraTexture = new Texture(engine.width, engine.height, [Target]);
     crt = new CRTShader();
     crt.widthHeight = new Vector();
     crt.tex = new Texture(engine.width, engine.height, [Target]);
@@ -121,13 +125,32 @@ class Boot extends hxd.App {
     // The level on moving from one area to another one.
     if (Game.ME != null && Game.ME.level != null && !Game.ME.level.destroyed) {
       var level = Game.ME.level;
+      updateLensStatus(composite);
       // Unlit World
+      for (infra in Game.ME.scroller.getLayer(Const.DP_INFRARED)) {
+        infra.visible = false;
+      }
+
+      for (uv in Game.ME.scroller.getLayer(Const.DP_UV)) {
+        uv.visible = false;
+      }
+
+      for (reg in Game.ME.scroller.getLayer(Const.DP_REG)) {
+        reg.visible = false;
+      }
       composite.textures.clear(0, 1);
       composite.lightTexture.clear(0, 1);
       composite.lightTexture.resize(engine.width, engine.height);
       composite.hudTexture.clear(0, 1);
       composite.hudTexture.resize(engine.width, engine.height);
+      composite.infraTexture.clear(0, 1);
+      composite.infraTexture.resize(engine.width, engine.height);
+      composite.regTexture.clear(0, 1);
+      composite.regTexture.resize(engine.width, engine.height);
+      composite.uvTexture.clear(0, 1);
+      composite.uvTexture.resize(engine.width, engine.height);
       spotlight.texs.clear(0, 1);
+
       engine.pushTarget(spotlight.texs, 0);
       engine.pushTarget(composite.textures, 1);
 
@@ -162,6 +185,23 @@ class Boot extends hxd.App {
         el.spr.drawTo(composite.lightTexture);
         // el.light.drawTo(composite.lightTexture);
       });
+
+      // Light Objects Unique to the game
+      for (infra in Game.ME.scroller.getLayer(Const.DP_INFRARED)) {
+        infra.visible = true;
+        infra.drawTo(composite.infraTexture);
+      }
+
+      for (uv in Game.ME.scroller.getLayer(Const.DP_UV)) {
+        uv.visible = true;
+        uv.drawTo(composite.uvTexture);
+      }
+
+      for (reg in Game.ME.scroller.getLayer(Const.DP_REG)) {
+        reg.visible = true;
+        reg.drawTo(composite.regTexture);
+      }
+      //
 
       // Update spotlight playerPos Information
       var absPos = level.player.spr.getAbsPos();
@@ -211,5 +251,26 @@ class Boot extends hxd.App {
     }
 
     // s2d.render(e);
+  }
+
+  /**
+   * Updates lens vector from the shader
+   */
+  private function updateLensStatus(shader:LensCompositeShader) {
+    var level = Game.ME.level;
+    if (level != null && level.player != null) {
+      var player = level.player;
+      shader.lensV.r = 0;
+      shader.lensV.g = 0;
+      shader.lensV.b = 0;
+      switch (level.player.flashLight.lens) {
+        case Regular:
+          shader.lensV.r = 1.;
+        case Infrared:
+          shader.lensV.g = 1.;
+        case Ultraviolet:
+          shader.lensV.b = 1.;
+      }
+    }
   }
 }

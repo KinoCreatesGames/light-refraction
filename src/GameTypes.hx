@@ -113,3 +113,53 @@ typedef SettingsStateT = {
   volume:Float,
   lang:String
 }
+
+/**
+ * An entry in the ghost journal within
+ * the game.
+ */
+typedef GhostEntryT = {
+  /**
+   * The image used
+   * to display the personality
+   * of the ghost within the game.
+   */
+  var imgKey:String;
+
+  /**
+   * Name of the ghost
+   */
+  var name:String;
+
+  /**
+   * Description on the ghost
+   */
+  var desc:String;
+
+  /**
+   * Long description of the ghost
+   * available once
+   * you unlock everything in the game.
+   */
+  var longDesc:String;
+
+  /**
+   * The amount of research
+   * done on the current ghost.
+   * Determines what part of the
+   * UI you can see in the game.
+   */
+  var researchLvl:Int;
+}
+
+/**
+ * Structure of the ghost journal.
+ */
+typedef GhostJournalT = {
+  /**
+   * List of entries within the  journal.
+   */
+  var entries:Group<GhostEntryT>;
+
+  var current:GhostEntryT;
+}

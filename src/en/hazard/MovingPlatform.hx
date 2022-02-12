@@ -1,5 +1,6 @@
 package en.hazard;
 
+import GameTypes.Lens;
 import h2d.col.Point;
 
 class MovingPlatform extends Hazard implements LitEntity {
@@ -10,6 +11,7 @@ class MovingPlatform extends Hazard implements LitEntity {
   public var point:Point;
   public var complete:Bool;
   public var isLit:Bool;
+  public var lens:Lens;
 
   public static inline var INITIAL_WAIT:Float = 3;
 
@@ -29,6 +31,7 @@ class MovingPlatform extends Hazard implements LitEntity {
     this.spr.alpha = 0;
     LitEntity.setupEntity(this, this);
     cd.setS('initialWait', INITIAL_WAIT);
+    addToLayerBasedOnLens(this.spr, lens);
   }
 
   override function update() {
@@ -63,4 +66,6 @@ class MovingPlatform extends Hazard implements LitEntity {
   public function handleLightInteraction() {
     LitEntity.handleLightInteraction(this, this, 2, Const.PLAT_FADE_TIME);
   }
+
+  function addToLayerBasedOnLens(arg0:HSprite, lens:Lens) {}
 }

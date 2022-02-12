@@ -1,5 +1,6 @@
 package scn;
 
+import ui.GhostJournal;
 import hxd.snd.Channel;
 import ui.cmp.TxtBtn;
 import dn.legacy.Controller.ControllerAccess;
@@ -12,6 +13,7 @@ class Pause extends dn.Process {
 
   var padding:Int;
   var win:h2d.Flow;
+  var uiJournal:GhostJournal;
 
   public var titleText:h2d.Text;
   public var elapsed:Float;
@@ -38,6 +40,14 @@ class Pause extends dn.Process {
     win.verticalSpacing = 16;
     win.layout = Vertical;
     addOptions();
+    createGhostJournal();
+  }
+
+  public function createGhostJournal() {
+    uiJournal = new GhostJournal(win, {
+      current: null,
+      entries: []
+    });
   }
 
   public function addOptions() {

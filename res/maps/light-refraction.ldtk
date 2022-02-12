@@ -9,7 +9,7 @@
 		"url": "https://ldtk.io"
 	},
 	"jsonVersion": "0.9.3",
-	"nextUid": 59,
+	"nextUid": 62,
 	"worldLayout": "Free",
 	"worldGridWidth": 256,
 	"worldGridHeight": 256,
@@ -902,7 +902,28 @@
 			"limitBehavior": "MoveLastOne",
 			"pivotX": 0,
 			"pivotY": 0,
-			"fieldDefs": []
+			"fieldDefs": [
+				{
+					"identifier": "RevealLens",
+					"__type": "ExternEnum.Lens",
+					"uid": 61,
+					"type": { "id": "F_Enum", "params": [60] },
+					"isArray": false,
+					"canBeNull": false,
+					"arrayMinLength": null,
+					"arrayMaxLength": null,
+					"editorDisplayMode": "ValueOnly",
+					"editorDisplayPos": "Above",
+					"editorAlwaysShow": true,
+					"editorCutLongValues": true,
+					"min": null,
+					"max": null,
+					"regex": null,
+					"acceptFileTypes": null,
+					"defaultOverride": null,
+					"textLanguageMode": null
+				}
+			]
 		},
 		{
 			"identifier": "MovingPlatform",
@@ -1064,7 +1085,14 @@
 				"averageColors": "fc8794470000fd86fd86fabbb46974799a4449aa4b8700000000fdcafdca0000000000007935fa760000000000000d860000000000000000756748550000000000000000000000000000000047787784000000000000000000000000000000008c6a00000000000000000000000000000000e26ae26adaab"
 			}
 		}
-	], "enums": [], "externalEnums": [], "levelFields": [
+	], "enums": [], "externalEnums": [
+		{ "identifier": "Controllers", "uid": 59, "values": [{ "id": "PauseScreen", "tileId": null, "color": 0, "__tileSrcRect": null }], "iconTilesetUid": null, "externalRelPath": "../../src/GameTypes.hx", "externalFileChecksum": "2ed96292c3c0eb07aa3d3f1183d2123b" },
+		{ "identifier": "Lens", "uid": 60, "values": [
+			{ "id": "Infrared", "tileId": null, "color": 13568779, "__tileSrcRect": null },
+			{ "id": "Regular", "tileId": null, "color": 15202807, "__tileSrcRect": null },
+			{ "id": "Ultraviolet", "tileId": null, "color": 14454271, "__tileSrcRect": null }
+		], "iconTilesetUid": null, "externalRelPath": "../../src/GameTypes.hx", "externalFileChecksum": "2ed96292c3c0eb07aa3d3f1183d2123b" }
+	], "levelFields": [
 		{
 			"identifier": "Name",
 			"__type": "String",
@@ -1333,7 +1361,16 @@
 							"height": 32,
 							"defUid": 51,
 							"px": [192,160],
-							"fieldInstances": []
+							"fieldInstances": [{
+								"__identifier": "RevealLens",
+								"__value": "Regular",
+								"__type": "ExternEnum.Lens",
+								"defUid": 61,
+								"realEditorValues": [{
+									"id": "V_String",
+									"params": ["Regular"]
+								}]
+							}]
 						}
 					]
 				},
@@ -1749,7 +1786,16 @@
 							"height": 32,
 							"defUid": 51,
 							"px": [0,288],
-							"fieldInstances": []
+							"fieldInstances": [{
+								"__identifier": "RevealLens",
+								"__value": "Regular",
+								"__type": "ExternEnum.Lens",
+								"defUid": 61,
+								"realEditorValues": [{
+									"id": "V_String",
+									"params": ["Regular"]
+								}]
+							}]
 						},
 						{
 							"__identifier": "Platform",
@@ -1760,7 +1806,16 @@
 							"height": 32,
 							"defUid": 51,
 							"px": [0,256],
-							"fieldInstances": []
+							"fieldInstances": [{
+								"__identifier": "RevealLens",
+								"__value": "Regular",
+								"__type": "ExternEnum.Lens",
+								"defUid": 61,
+								"realEditorValues": [{
+									"id": "V_String",
+									"params": ["Regular"]
+								}]
+							}]
 						},
 						{
 							"__identifier": "Platform",
@@ -1771,7 +1826,16 @@
 							"height": 32,
 							"defUid": 51,
 							"px": [0,224],
-							"fieldInstances": []
+							"fieldInstances": [{
+								"__identifier": "RevealLens",
+								"__value": "Regular",
+								"__type": "ExternEnum.Lens",
+								"defUid": 61,
+								"realEditorValues": [{
+									"id": "V_String",
+									"params": ["Regular"]
+								}]
+							}]
 						},
 						{
 							"__identifier": "Platform",
@@ -1782,7 +1846,16 @@
 							"height": 32,
 							"defUid": 51,
 							"px": [0,192],
-							"fieldInstances": []
+							"fieldInstances": [{
+								"__identifier": "RevealLens",
+								"__value": "Regular",
+								"__type": "ExternEnum.Lens",
+								"defUid": 61,
+								"realEditorValues": [{
+									"id": "V_String",
+									"params": ["Regular"]
+								}]
+							}]
 						},
 						{
 							"__identifier": "Platform",
@@ -1793,7 +1866,16 @@
 							"height": 32,
 							"defUid": 51,
 							"px": [64,320],
-							"fieldInstances": []
+							"fieldInstances": [{
+								"__identifier": "RevealLens",
+								"__value": "Regular",
+								"__type": "ExternEnum.Lens",
+								"defUid": 61,
+								"realEditorValues": [{
+									"id": "V_String",
+									"params": ["Regular"]
+								}]
+							}]
 						},
 						{
 							"__identifier": "Platform",
@@ -1804,7 +1886,16 @@
 							"height": 32,
 							"defUid": 51,
 							"px": [96,320],
-							"fieldInstances": []
+							"fieldInstances": [{
+								"__identifier": "RevealLens",
+								"__value": "Regular",
+								"__type": "ExternEnum.Lens",
+								"defUid": 61,
+								"realEditorValues": [{
+									"id": "V_String",
+									"params": ["Regular"]
+								}]
+							}]
 						},
 						{
 							"__identifier": "Platform",
@@ -1815,7 +1906,16 @@
 							"height": 32,
 							"defUid": 51,
 							"px": [128,320],
-							"fieldInstances": []
+							"fieldInstances": [{
+								"__identifier": "RevealLens",
+								"__value": "Regular",
+								"__type": "ExternEnum.Lens",
+								"defUid": 61,
+								"realEditorValues": [{
+									"id": "V_String",
+									"params": ["Regular"]
+								}]
+							}]
 						},
 						{
 							"__identifier": "Platform",
@@ -1826,7 +1926,16 @@
 							"height": 32,
 							"defUid": 51,
 							"px": [160,320],
-							"fieldInstances": []
+							"fieldInstances": [{
+								"__identifier": "RevealLens",
+								"__value": "Regular",
+								"__type": "ExternEnum.Lens",
+								"defUid": 61,
+								"realEditorValues": [{
+									"id": "V_String",
+									"params": ["Regular"]
+								}]
+							}]
 						},
 						{
 							"__identifier": "Platform",
@@ -1837,7 +1946,16 @@
 							"height": 32,
 							"defUid": 51,
 							"px": [224,320],
-							"fieldInstances": []
+							"fieldInstances": [{
+								"__identifier": "RevealLens",
+								"__value": "Regular",
+								"__type": "ExternEnum.Lens",
+								"defUid": 61,
+								"realEditorValues": [{
+									"id": "V_String",
+									"params": ["Regular"]
+								}]
+							}]
 						},
 						{
 							"__identifier": "Platform",
@@ -1848,7 +1966,16 @@
 							"height": 32,
 							"defUid": 51,
 							"px": [224,288],
-							"fieldInstances": []
+							"fieldInstances": [{
+								"__identifier": "RevealLens",
+								"__value": "Regular",
+								"__type": "ExternEnum.Lens",
+								"defUid": 61,
+								"realEditorValues": [{
+									"id": "V_String",
+									"params": ["Regular"]
+								}]
+							}]
 						},
 						{
 							"__identifier": "Platform",
@@ -1859,7 +1986,16 @@
 							"height": 32,
 							"defUid": 51,
 							"px": [224,256],
-							"fieldInstances": []
+							"fieldInstances": [{
+								"__identifier": "RevealLens",
+								"__value": "Regular",
+								"__type": "ExternEnum.Lens",
+								"defUid": 61,
+								"realEditorValues": [{
+									"id": "V_String",
+									"params": ["Regular"]
+								}]
+							}]
 						},
 						{
 							"__identifier": "Platform",
@@ -1870,7 +2006,16 @@
 							"height": 32,
 							"defUid": 51,
 							"px": [224,224],
-							"fieldInstances": []
+							"fieldInstances": [{
+								"__identifier": "RevealLens",
+								"__value": "Regular",
+								"__type": "ExternEnum.Lens",
+								"defUid": 61,
+								"realEditorValues": [{
+									"id": "V_String",
+									"params": ["Regular"]
+								}]
+							}]
 						},
 						{
 							"__identifier": "Platform",
@@ -1881,7 +2026,16 @@
 							"height": 32,
 							"defUid": 51,
 							"px": [0,160],
-							"fieldInstances": []
+							"fieldInstances": [{
+								"__identifier": "RevealLens",
+								"__value": "Regular",
+								"__type": "ExternEnum.Lens",
+								"defUid": 61,
+								"realEditorValues": [{
+									"id": "V_String",
+									"params": ["Regular"]
+								}]
+							}]
 						},
 						{
 							"__identifier": "Platform",
@@ -1892,7 +2046,16 @@
 							"height": 32,
 							"defUid": 51,
 							"px": [32,160],
-							"fieldInstances": []
+							"fieldInstances": [{
+								"__identifier": "RevealLens",
+								"__value": "Regular",
+								"__type": "ExternEnum.Lens",
+								"defUid": 61,
+								"realEditorValues": [{
+									"id": "V_String",
+									"params": ["Regular"]
+								}]
+							}]
 						},
 						{
 							"__identifier": "Platform",
@@ -1903,7 +2066,16 @@
 							"height": 32,
 							"defUid": 51,
 							"px": [64,160],
-							"fieldInstances": []
+							"fieldInstances": [{
+								"__identifier": "RevealLens",
+								"__value": "Regular",
+								"__type": "ExternEnum.Lens",
+								"defUid": 61,
+								"realEditorValues": [{
+									"id": "V_String",
+									"params": ["Regular"]
+								}]
+							}]
 						},
 						{
 							"__identifier": "Platform",
@@ -1914,7 +2086,16 @@
 							"height": 32,
 							"defUid": 51,
 							"px": [96,160],
-							"fieldInstances": []
+							"fieldInstances": [{
+								"__identifier": "RevealLens",
+								"__value": "Regular",
+								"__type": "ExternEnum.Lens",
+								"defUid": 61,
+								"realEditorValues": [{
+									"id": "V_String",
+									"params": ["Regular"]
+								}]
+							}]
 						},
 						{
 							"__identifier": "Platform",
@@ -1925,7 +2106,16 @@
 							"height": 32,
 							"defUid": 51,
 							"px": [128,160],
-							"fieldInstances": []
+							"fieldInstances": [{
+								"__identifier": "RevealLens",
+								"__value": "Regular",
+								"__type": "ExternEnum.Lens",
+								"defUid": 61,
+								"realEditorValues": [{
+									"id": "V_String",
+									"params": ["Regular"]
+								}]
+							}]
 						},
 						{
 							"__identifier": "Platform",
@@ -1936,7 +2126,16 @@
 							"height": 32,
 							"defUid": 51,
 							"px": [224,192],
-							"fieldInstances": []
+							"fieldInstances": [{
+								"__identifier": "RevealLens",
+								"__value": "Regular",
+								"__type": "ExternEnum.Lens",
+								"defUid": 61,
+								"realEditorValues": [{
+									"id": "V_String",
+									"params": ["Regular"]
+								}]
+							}]
 						},
 						{
 							"__identifier": "Platform",
@@ -1947,7 +2146,16 @@
 							"height": 32,
 							"defUid": 51,
 							"px": [224,160],
-							"fieldInstances": []
+							"fieldInstances": [{
+								"__identifier": "RevealLens",
+								"__value": "Regular",
+								"__type": "ExternEnum.Lens",
+								"defUid": 61,
+								"realEditorValues": [{
+									"id": "V_String",
+									"params": ["Regular"]
+								}]
+							}]
 						},
 						{
 							"__identifier": "Platform",
@@ -1958,7 +2166,16 @@
 							"height": 32,
 							"defUid": 51,
 							"px": [192,160],
-							"fieldInstances": []
+							"fieldInstances": [{
+								"__identifier": "RevealLens",
+								"__value": "Regular",
+								"__type": "ExternEnum.Lens",
+								"defUid": 61,
+								"realEditorValues": [{
+									"id": "V_String",
+									"params": ["Regular"]
+								}]
+							}]
 						},
 						{
 							"__identifier": "Platform",
@@ -1969,7 +2186,16 @@
 							"height": 32,
 							"defUid": 51,
 							"px": [160,160],
-							"fieldInstances": []
+							"fieldInstances": [{
+								"__identifier": "RevealLens",
+								"__value": "Regular",
+								"__type": "ExternEnum.Lens",
+								"defUid": 61,
+								"realEditorValues": [{
+									"id": "V_String",
+									"params": ["Regular"]
+								}]
+							}]
 						},
 						{
 							"__identifier": "Platform",
@@ -1980,7 +2206,16 @@
 							"height": 32,
 							"defUid": 51,
 							"px": [288,320],
-							"fieldInstances": []
+							"fieldInstances": [{
+								"__identifier": "RevealLens",
+								"__value": "Regular",
+								"__type": "ExternEnum.Lens",
+								"defUid": 61,
+								"realEditorValues": [{
+									"id": "V_String",
+									"params": ["Regular"]
+								}]
+							}]
 						},
 						{
 							"__identifier": "Platform",
@@ -1991,7 +2226,16 @@
 							"height": 32,
 							"defUid": 51,
 							"px": [320,320],
-							"fieldInstances": []
+							"fieldInstances": [{
+								"__identifier": "RevealLens",
+								"__value": "Regular",
+								"__type": "ExternEnum.Lens",
+								"defUid": 61,
+								"realEditorValues": [{
+									"id": "V_String",
+									"params": ["Regular"]
+								}]
+							}]
 						},
 						{
 							"__identifier": "Platform",
@@ -2002,7 +2246,16 @@
 							"height": 32,
 							"defUid": 51,
 							"px": [320,288],
-							"fieldInstances": []
+							"fieldInstances": [{
+								"__identifier": "RevealLens",
+								"__value": "Regular",
+								"__type": "ExternEnum.Lens",
+								"defUid": 61,
+								"realEditorValues": [{
+									"id": "V_String",
+									"params": ["Regular"]
+								}]
+							}]
 						},
 						{
 							"__identifier": "Platform",
@@ -2013,7 +2266,16 @@
 							"height": 32,
 							"defUid": 51,
 							"px": [256,320],
-							"fieldInstances": []
+							"fieldInstances": [{
+								"__identifier": "RevealLens",
+								"__value": "Regular",
+								"__type": "ExternEnum.Lens",
+								"defUid": 61,
+								"realEditorValues": [{
+									"id": "V_String",
+									"params": ["Regular"]
+								}]
+							}]
 						},
 						{
 							"__identifier": "Platform",
@@ -2024,7 +2286,16 @@
 							"height": 32,
 							"defUid": 51,
 							"px": [320,256],
-							"fieldInstances": []
+							"fieldInstances": [{
+								"__identifier": "RevealLens",
+								"__value": "Regular",
+								"__type": "ExternEnum.Lens",
+								"defUid": 61,
+								"realEditorValues": [{
+									"id": "V_String",
+									"params": ["Regular"]
+								}]
+							}]
 						},
 						{
 							"__identifier": "Platform",
@@ -2035,7 +2306,16 @@
 							"height": 32,
 							"defUid": 51,
 							"px": [352,256],
-							"fieldInstances": []
+							"fieldInstances": [{
+								"__identifier": "RevealLens",
+								"__value": "Regular",
+								"__type": "ExternEnum.Lens",
+								"defUid": 61,
+								"realEditorValues": [{
+									"id": "V_String",
+									"params": ["Regular"]
+								}]
+							}]
 						},
 						{
 							"__identifier": "Platform",
@@ -2046,7 +2326,16 @@
 							"height": 32,
 							"defUid": 51,
 							"px": [384,256],
-							"fieldInstances": []
+							"fieldInstances": [{
+								"__identifier": "RevealLens",
+								"__value": "Regular",
+								"__type": "ExternEnum.Lens",
+								"defUid": 61,
+								"realEditorValues": [{
+									"id": "V_String",
+									"params": ["Regular"]
+								}]
+							}]
 						},
 						{
 							"__identifier": "Platform",
@@ -2057,7 +2346,16 @@
 							"height": 32,
 							"defUid": 51,
 							"px": [416,256],
-							"fieldInstances": []
+							"fieldInstances": [{
+								"__identifier": "RevealLens",
+								"__value": "Regular",
+								"__type": "ExternEnum.Lens",
+								"defUid": 61,
+								"realEditorValues": [{
+									"id": "V_String",
+									"params": ["Regular"]
+								}]
+							}]
 						},
 						{
 							"__identifier": "Platform",
@@ -2068,7 +2366,16 @@
 							"height": 32,
 							"defUid": 51,
 							"px": [448,256],
-							"fieldInstances": []
+							"fieldInstances": [{
+								"__identifier": "RevealLens",
+								"__value": "Regular",
+								"__type": "ExternEnum.Lens",
+								"defUid": 61,
+								"realEditorValues": [{
+									"id": "V_String",
+									"params": ["Regular"]
+								}]
+							}]
 						},
 						{
 							"__identifier": "Platform",
@@ -2079,7 +2386,16 @@
 							"height": 32,
 							"defUid": 51,
 							"px": [480,256],
-							"fieldInstances": []
+							"fieldInstances": [{
+								"__identifier": "RevealLens",
+								"__value": "Regular",
+								"__type": "ExternEnum.Lens",
+								"defUid": 61,
+								"realEditorValues": [{
+									"id": "V_String",
+									"params": ["Regular"]
+								}]
+							}]
 						},
 						{
 							"__identifier": "Platform",
@@ -2090,7 +2406,16 @@
 							"height": 32,
 							"defUid": 51,
 							"px": [512,256],
-							"fieldInstances": []
+							"fieldInstances": [{
+								"__identifier": "RevealLens",
+								"__value": "Regular",
+								"__type": "ExternEnum.Lens",
+								"defUid": 61,
+								"realEditorValues": [{
+									"id": "V_String",
+									"params": ["Regular"]
+								}]
+							}]
 						},
 						{
 							"__identifier": "Exit",
@@ -2137,7 +2462,16 @@
 							"height": 32,
 							"defUid": 51,
 							"px": [512,288],
-							"fieldInstances": []
+							"fieldInstances": [{
+								"__identifier": "RevealLens",
+								"__value": "Regular",
+								"__type": "ExternEnum.Lens",
+								"defUid": 61,
+								"realEditorValues": [{
+									"id": "V_String",
+									"params": ["Regular"]
+								}]
+							}]
 						},
 						{
 							"__identifier": "Platform",
@@ -2148,7 +2482,16 @@
 							"height": 32,
 							"defUid": 51,
 							"px": [128,288],
-							"fieldInstances": []
+							"fieldInstances": [{
+								"__identifier": "RevealLens",
+								"__value": "Regular",
+								"__type": "ExternEnum.Lens",
+								"defUid": 61,
+								"realEditorValues": [{
+									"id": "V_String",
+									"params": ["Regular"]
+								}]
+							}]
 						},
 						{
 							"__identifier": "Platform",
@@ -2159,7 +2502,16 @@
 							"height": 32,
 							"defUid": 51,
 							"px": [384,224],
-							"fieldInstances": []
+							"fieldInstances": [{
+								"__identifier": "RevealLens",
+								"__value": "Regular",
+								"__type": "ExternEnum.Lens",
+								"defUid": 61,
+								"realEditorValues": [{
+									"id": "V_String",
+									"params": ["Regular"]
+								}]
+							}]
 						},
 						{
 							"__identifier": "Platform",
@@ -2170,7 +2522,16 @@
 							"height": 32,
 							"defUid": 51,
 							"px": [384,192],
-							"fieldInstances": []
+							"fieldInstances": [{
+								"__identifier": "RevealLens",
+								"__value": "Regular",
+								"__type": "ExternEnum.Lens",
+								"defUid": 61,
+								"realEditorValues": [{
+									"id": "V_String",
+									"params": ["Regular"]
+								}]
+							}]
 						},
 						{
 							"__identifier": "Platform",
@@ -2181,7 +2542,16 @@
 							"height": 32,
 							"defUid": 51,
 							"px": [384,160],
-							"fieldInstances": []
+							"fieldInstances": [{
+								"__identifier": "RevealLens",
+								"__value": "Regular",
+								"__type": "ExternEnum.Lens",
+								"defUid": 61,
+								"realEditorValues": [{
+									"id": "V_String",
+									"params": ["Regular"]
+								}]
+							}]
 						},
 						{
 							"__identifier": "Platform",
@@ -2192,7 +2562,16 @@
 							"height": 32,
 							"defUid": 51,
 							"px": [384,128],
-							"fieldInstances": []
+							"fieldInstances": [{
+								"__identifier": "RevealLens",
+								"__value": "Regular",
+								"__type": "ExternEnum.Lens",
+								"defUid": 61,
+								"realEditorValues": [{
+									"id": "V_String",
+									"params": ["Regular"]
+								}]
+							}]
 						},
 						{
 							"__identifier": "Platform",
@@ -2203,7 +2582,16 @@
 							"height": 32,
 							"defUid": 51,
 							"px": [480,128],
-							"fieldInstances": []
+							"fieldInstances": [{
+								"__identifier": "RevealLens",
+								"__value": "Ultraviolet",
+								"__type": "ExternEnum.Lens",
+								"defUid": 61,
+								"realEditorValues": [{
+									"id": "V_String",
+									"params": ["Ultraviolet"]
+								}]
+							}]
 						},
 						{
 							"__identifier": "Platform",
@@ -2214,7 +2602,16 @@
 							"height": 32,
 							"defUid": 51,
 							"px": [480,160],
-							"fieldInstances": []
+							"fieldInstances": [{
+								"__identifier": "RevealLens",
+								"__value": "Ultraviolet",
+								"__type": "ExternEnum.Lens",
+								"defUid": 61,
+								"realEditorValues": [{
+									"id": "V_String",
+									"params": ["Ultraviolet"]
+								}]
+							}]
 						},
 						{
 							"__identifier": "Platform",
@@ -2225,7 +2622,16 @@
 							"height": 32,
 							"defUid": 51,
 							"px": [512,128],
-							"fieldInstances": []
+							"fieldInstances": [{
+								"__identifier": "RevealLens",
+								"__value": "Ultraviolet",
+								"__type": "ExternEnum.Lens",
+								"defUid": 61,
+								"realEditorValues": [{
+									"id": "V_String",
+									"params": ["Ultraviolet"]
+								}]
+							}]
 						},
 						{
 							"__identifier": "Player",

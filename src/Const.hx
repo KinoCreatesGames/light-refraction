@@ -43,8 +43,19 @@ class Const {
   /** Game layers indexes **/
   static var _inc = 0;
 
+  /**
+   * Note this doesn't increase the 
+   * layer on call; it simply
+   * references the layer number
+   */
   public static var DP_BG = _inc++;
+
   public static var DP_FX_BG = _inc++;
+  // Light layers
+  public static var DP_REG = _inc++;
+  public static var DP_INFRARED = _inc++;
+  public static var DP_UV = _inc++;
+  // End Layers
   public static var DP_MAIN = _inc++;
   public static var DP_FRONT = _inc++;
   public static var DP_FX_FRONT = _inc++;

@@ -1,5 +1,6 @@
 package en;
 
+import GameTypes.Lens;
 import h2d.col.Point;
 
 /**
@@ -11,6 +12,7 @@ import h2d.col.Point;
 interface LitEntity {
   public var point:Point;
   public var complete:Bool;
+  public var lens:Lens;
 
   /**
    * Returns whether the entity is lit within the game
