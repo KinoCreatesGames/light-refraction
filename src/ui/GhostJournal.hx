@@ -23,7 +23,7 @@ class GhostJournal extends h2d.Flow {
 
   public function createUI() {
     this.layout = Horizontal;
-    this.horizontalAlign = Middle;
+    // this.horizontalAlign = Middle;
 
     // Create Detail Area
     var details = new h2d.Flow(this);

@@ -12,6 +12,7 @@ class Assets {
   public static var fontLarge:h2d.Font;
   public static var tiles:SpriteLib;
   public static var uiEl:SpriteLib;
+  public static var lgTiles:SpriteLib;
   public static var transTex:h3d.mat.Texture;
   public static var radialTransTex:h3d.mat.Texture;
   // Sound Collection
@@ -27,7 +28,9 @@ class Assets {
   static var initDone = false;
 
   public static var projData:ldtk.Project;
+  // Note keep the filenames without spaces in them
   public static var uiDict = Aseprite.getDict(hxd.Res.img.UIFX);
+  public static var lgTileDict = Aseprite.getDict(hxd.Res.img.LargeTiles);
 
   public static function init() {
     if (initDone) return;
@@ -40,6 +43,8 @@ class Assets {
     fontLarge = hxd.Res.fonts.barlow_condensed_medium_regular_32.toFont();
     tiles = dn.heaps.assets.Atlas.load("atlas/tiles.atlas");
     uiEl = Aseprite.convertToSLib(Const.FPS, hxd.Res.img.UIFX.toAseprite());
+    lgTiles = Aseprite.convertToSLib(Const.FPS,
+      hxd.Res.img.LargeTiles.toAseprite());
     transTex = hxd.Res.textures.TransitionOne.toTexture();
     radialTransTex = hxd.Res.textures.Radial.toTexture();
 

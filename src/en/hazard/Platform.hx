@@ -21,9 +21,10 @@ class Platform extends Hazard implements LitEntity {
   }
 
   public function setupGraphic() {
-    test = new h2d.Graphics(this.spr);
-    test.beginFill(0x00ff00);
-    test.drawRect(0, 0, 32, 32);
+    test = this.spr.createGraphics();
+    var tile = Assets.lgTiles.getTile(Assets.lgTileDict.RegularPlatform);
+    test.beginTileFill(tile);
+    test.drawTile(0, 0, tile);
     test.endFill();
     test.y -= 32;
     test.x -= 16;

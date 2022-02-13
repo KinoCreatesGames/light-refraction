@@ -32,6 +32,18 @@ class MovingPlatform extends Hazard implements LitEntity {
     LitEntity.setupEntity(this, this);
     cd.setS('initialWait', INITIAL_WAIT);
     addToLayerBasedOnLens(this.spr, lens);
+    setupGraphic();
+  }
+
+  public function setupGraphic() {
+    var g = this.spr.createGraphics();
+    var tile = Assets.lgTiles.getTile(Assets.lgTileDict.MovingPlatform);
+    g.beginTileFill(tile);
+    g.drawTile(0, 0, tile);
+    g.endFill();
+    g.y -= 32;
+    g.x -= 16;
+    g.alpha = 1;
   }
 
   override function update() {
