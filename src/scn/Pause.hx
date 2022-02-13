@@ -134,6 +134,7 @@ class Pause extends dn.Process {
     ct.releaseExclusivity();
     Game.ME.level.resume();
     se = Assets.pauseOut.play();
+    Game.ME.level.scnPause = null;
     this.destroy();
   }
 
@@ -147,6 +148,7 @@ class Pause extends dn.Process {
   public function toTitle() {
     ct.releaseExclusivity();
     Game.ME.level.resume();
+    Game.ME.level.scnPause = null;
     Game.ME.level.destroy();
     se = Assets.pauseOut.play();
     this.destroy();

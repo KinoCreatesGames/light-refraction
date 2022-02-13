@@ -212,6 +212,14 @@ class Boot extends hxd.App {
       ScreenFx.run(spotlight, composite.textures, 0);
       // Draw the HUD into the second texture
       // Note we can use the drawTo texture method to reduce render calls
+      if (level.scnPause != null) {
+        level.scnPause.win.drawTo(composite.hudTexture);
+      }
+
+      if (level.scnGameOver != null) {
+        level.scnGameOver.win.drawTo(composite.hudTexture);
+      }
+
       level.hud.show();
       level.hud.root.drawTo(composite.hudTexture);
       if (level.notif.isVisible()) {

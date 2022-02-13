@@ -90,6 +90,18 @@ class Level extends dn.Process {
   public var data:LDTkProj_Level;
   public var lightRoot:Object;
 
+  /**
+   * Pause element within
+   * the game.
+   */
+  public var scnPause:Pause;
+
+  /**
+   * Game over scene
+   * and elements.
+   */
+  public var scnGameOver:GameOver;
+
   // Light Object Roots
 
   /**
@@ -376,7 +388,7 @@ class Level extends dn.Process {
     if (game.ca.isKeyboardPressed(K.ESCAPE)) {
       Assets.pauseIn.play();
       this.pause();
-      new Pause();
+      scnPause = new Pause();
     }
   }
 

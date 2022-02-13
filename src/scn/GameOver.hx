@@ -76,6 +76,7 @@ class GameOver extends dn.Process {
         case 0:
           // To title
           optInt.onClick = (event) -> {
+            Game.ME.level.scnGameOver = null;
             Game.ME.level.destroy();
             ct.releaseExclusivity();
             Game.ME.resume();
