@@ -1,5 +1,7 @@
 package scn;
 
+import Save.loadSettings;
+import Save.saveSettings;
 import dn.data.SavedData;
 import hxd.snd.Manager;
 
@@ -30,7 +32,7 @@ class Settings extends dn.Process {
     super(Game.ME);
     ct = Main.ME.controller.createAccess('settings');
     createRootInLayers(game.root, Const.DP_UI);
-    loadSettings();
+    loadSettings(this);
     setupSettingsWindow();
     dn.Process.resizeAll();
   }
@@ -68,12 +70,12 @@ class Settings extends dn.Process {
       manager.masterVolume = M.fclamp(manager.masterVolume + .1, 0, 1);
       volumeDisplay.text = Lang.t._('${manager.masterVolume * 100}');
       // Save Settings
-      saveSettings();
+      saveSettings(this);
     }
     downInt.onClick = (event) -> {
       manager.masterVolume = M.fclamp(manager.masterVolume - .1, 0, 1);
       volumeDisplay.text = Lang.t._('${manager.masterVolume * 100}');
-      saveSettings();
+      saveSettings(this);
     }
   }
 
@@ -89,23 +91,6 @@ class Settings extends dn.Process {
     }
     interactive.x = text.alignCalcX();
     return interactive;
-  }
-
-  /**
-   * Saves the Settings for the game which will be adjusted on game load
-   * on the title screen if available.
-   */
-  public function saveSettings() {
-    SavedData.save(Const.SETTINGS, {
-      volume: manager.masterVolume
-    });
-  }
-
-  public function loadSettings() {
-    if (SavedData.exists(Const.SETTINGS)) {
-      var data = SavedData.load(Const.SETTINGS, {volume: Float});
-      manager.masterVolume = cast data.volume;
-    }
   }
 
   override function update() {
