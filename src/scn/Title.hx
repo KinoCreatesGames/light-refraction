@@ -5,6 +5,7 @@ import dn.legacy.Controller;
 import dn.legacy.Controller.ControllerAccess;
 import hxd.snd.Channel;
 import h2d.Flow.FlowAlign;
+import Save.clearNewGameData;
 
 class Title extends dn.Process {
   var game(get, never):Game;
@@ -89,6 +90,8 @@ class Title extends dn.Process {
       hxd.Res.sound.confirm.play();
       // this.destroy();
       complete = true;
+      // Clears game data on save
+      clearNewGameData(game);
     }
     ngInt.onOver = (event) -> {
       newGame.alpha = 0.5;
