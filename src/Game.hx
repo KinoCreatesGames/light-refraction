@@ -45,6 +45,13 @@ class Game extends dn.Process {
   public var playerState:PlayerStateT;
 
   /**
+   * A list of strings within the game
+   * that contain the list of events that have been 
+   * modified within the game.
+   */
+  public var eventList:Group<String>;
+
+  /**
    * Settings information
    * for carrying while the game is running.
    */

@@ -1,3 +1,4 @@
+import scn.Settings;
 import hxd.Event;
 import dn.data.SavedData;
 import en.Player;
@@ -8,6 +9,7 @@ import en.Player;
 enum abstract SaveT(String) from String to String {
   var PLAYER_STATE = 'PlayerState';
   var EVENT_LIST = 'EventList';
+  var SETTINGS = 'Settings';
 }
 
 /**
@@ -65,7 +67,7 @@ function savePlayerState(game:Game, player:Player) {
  * @param game 
  * @param player 
  */
-function loadPlayerState(game:Game, player:Player) {
+function loadPlayerState(game:Game) {
   if (SavedData.exists(PLAYER_STATE)) {
     var data = SavedData.load(PLAYER_STATE, {
       keys: 0,
@@ -123,6 +125,20 @@ function eventExists(game:Game, eventName:String) {
   }
 }
 
+/**
+ * Load all the events within the game
+ * when necessary for us to start the game.
+ * @param game 
+ */
+function loadEvents(game:Game) {
+  if (SavedData.exists(EVENT_LIST)) {
+    var eventList = SavedData.load(EVENT_LIST, {
+      events: []
+    });
+    game.eventList = new Group(eventList.events);
+  }
+}
+
 // Data Clears
 
 /**
@@ -135,4 +151,38 @@ function clearNewGameData(game:Game) {
   #if debug
   trace('Clear the game data.');
   #end
+}
+
+/**
+ * Loads the game data including:
+ * playerState
+ * Events
+ * @param game 
+ */
+function loadGameData(game:Game) {
+  loadPlayerState(game);
+  loadEvents(game);
+}
+
+/**
+ * Save the settings of the game to the data.
+ * @param settings 
+ */
+function saveSettings(settings:Settings) {
+  SavedData.save(SETTINGS, {
+    volume: settings.manager.masterVolume
+  });
+}
+
+/**
+ * Load the settings of the game whenever
+ * the option is available in order for the user
+ * to load pre-configured settings.
+ * @param settings 
+ */
+function loadSettings(settings:Settings) {
+  if (SavedData.exists(SETTINGS)) {
+    var data = SavedData.load(SETTINGS, {volume: Float});
+    settings.manager.masterVolume = cast data.volume;
+  }
 }
