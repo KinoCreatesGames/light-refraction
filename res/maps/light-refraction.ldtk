@@ -9,7 +9,7 @@
 		"url": "https://ldtk.io"
 	},
 	"jsonVersion": "0.9.3",
-	"nextUid": 62,
+	"nextUid": 64,
 	"worldLayout": "Free",
 	"worldGridWidth": 256,
 	"worldGridHeight": 256,
@@ -1043,6 +1043,31 @@
 			"pivotX": 0,
 			"pivotY": 0,
 			"fieldDefs": []
+		},
+		{
+			"identifier": "Block",
+			"uid": 63,
+			"tags": [],
+			"width": 32,
+			"height": 32,
+			"resizableX": false,
+			"resizableY": false,
+			"keepAspectRatio": false,
+			"fillOpacity": 1,
+			"lineOpacity": 1,
+			"hollow": false,
+			"color": "#4154EA",
+			"renderMode": "Rectangle",
+			"showName": true,
+			"tilesetId": null,
+			"tileId": null,
+			"tileRenderMode": "FitInside",
+			"maxCount": 0,
+			"limitScope": "PerLevel",
+			"limitBehavior": "MoveLastOne",
+			"pivotX": 0,
+			"pivotY": 0,
+			"fieldDefs": []
 		}
 	], "tilesets": [
 		{
@@ -1086,12 +1111,13 @@
 			}
 		}
 	], "enums": [], "externalEnums": [
-		{ "identifier": "Controllers", "uid": 59, "values": [{ "id": "PauseScreen", "tileId": null, "color": 0, "__tileSrcRect": null }], "iconTilesetUid": null, "externalRelPath": "../../src/GameTypes.hx", "externalFileChecksum": "2ed96292c3c0eb07aa3d3f1183d2123b" },
+		{ "identifier": "Controllers", "uid": 59, "values": [{ "id": "PauseScreen", "tileId": null, "color": 0, "__tileSrcRect": null }], "iconTilesetUid": null, "externalRelPath": "../../src/GameTypes.hx", "externalFileChecksum": "cf1761ec620f37397e0f85a15580932c" },
 		{ "identifier": "Lens", "uid": 60, "values": [
 			{ "id": "Infrared", "tileId": null, "color": 13568779, "__tileSrcRect": null },
 			{ "id": "Regular", "tileId": null, "color": 15202807, "__tileSrcRect": null },
 			{ "id": "Ultraviolet", "tileId": null, "color": 14454271, "__tileSrcRect": null }
-		], "iconTilesetUid": null, "externalRelPath": "../../src/GameTypes.hx", "externalFileChecksum": "2ed96292c3c0eb07aa3d3f1183d2123b" }
+		], "iconTilesetUid": null, "externalRelPath": "../../src/GameTypes.hx", "externalFileChecksum": "cf1761ec620f37397e0f85a15580932c" },
+		{ "identifier": "ShadeTransition", "uid": 62, "values": [ { "id": "Custom", "tileId": null, "color": 0, "__tileSrcRect": null }, { "id": "Radial", "tileId": null, "color": 0, "__tileSrcRect": null } ], "iconTilesetUid": null, "externalRelPath": "../../src/GameTypes.hx", "externalFileChecksum": "cf1761ec620f37397e0f85a15580932c" }
 	], "levelFields": [
 		{
 			"identifier": "Name",
